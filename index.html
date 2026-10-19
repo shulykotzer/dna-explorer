@@ -1,0 +1,2277 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>גנטיקה: מהמולקולה לרפואה</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        navy: { DEFAULT: '#0b3a6e', dark: '#072a52', light: '#e8f0fa' },
+        sci:  { DEFAULT: '#0e9f6e', dark: '#0a7a54', light: '#e7f7f0' }
+      },
+      fontFamily: { sans: ['Heebo', 'Arial', 'sans-serif'] }
+    }
+  }
+};
+</script>
+<style>
+  :root{--navy:#0b3a6e;--navy-d:#072a52;--green:#0e9f6e;--bg:#f3f7fb;--ink:#1e293b;}
+  html{scroll-behavior:smooth}
+  body{font-family:'Heebo',Arial,sans-serif;background:var(--bg);color:var(--ink)}
+  .no-scrollbar::-webkit-scrollbar{display:none}.no-scrollbar{scrollbar-width:none}
+  .card{background:#fff;border:1px solid #e2e8f0;border-radius:1rem;padding:1.25rem;box-shadow:0 1px 3px rgba(15,23,42,.05)}
+  @media(min-width:768px){.card{padding:1.75rem}}
+  .sec-title{display:flex;align-items:center;gap:.65rem;font-size:1.3rem;font-weight:800;color:var(--navy);margin-bottom:1rem}
+  .sec-title .num{flex:none;width:2rem;height:2rem;border-radius:999px;background:var(--green);color:#fff;display:inline-grid;place-items:center;font-size:1rem}
+  .prose-he{font-size:1.02rem;line-height:1.9}
+  .prose-he p{margin-bottom:.9rem}
+  .prose-he h3{font-size:1.12rem;font-weight:800;color:var(--navy);margin:1.5rem 0 .55rem;padding-right:.6rem;border-right:4px solid var(--green)}
+  .prose-he h3:first-child{margin-top:0}
+  .prose-he ul{list-style:disc;padding-right:1.4rem;margin-bottom:.9rem}
+  .prose-he ol{list-style:decimal;padding-right:1.4rem;margin-bottom:.9rem}
+  .prose-he li{margin-bottom:.35rem}
+  .prose-he b{color:#0f2f57}
+  .ltr{direction:ltr;unicode-bidi:isolate;display:inline-block}
+  .callout{border-right:4px solid var(--green);background:#ecfdf5;padding:.9rem 1.1rem;border-radius:.6rem;margin:1.1rem 0;line-height:1.85}
+  .callout.med{border-color:var(--navy);background:#eff6ff}
+  .callout.warn{border-color:#d97706;background:#fffbeb}
+  .tbl{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0 1rem}
+  .tbl th{background:var(--navy);color:#fff;font-weight:700;padding:.55rem .6rem;text-align:right}
+  .tbl td{border-bottom:1px solid #e2e8f0;padding:.5rem .6rem;vertical-align:top}
+  .tbl tr:nth-child(even) td{background:#f8fafc}
+  .tbl-wrap{overflow-x:auto}
+  .tab-btn{flex:none;display:flex;align-items:center;gap:.45rem;padding:.55rem .9rem;border-radius:.7rem;font-weight:600;font-size:.92rem;color:#334155;background:#f1f5f9;border:1px solid transparent;transition:all .15s;white-space:nowrap}
+  .tab-btn:hover{background:#e2e8f0}
+  .tab-btn .tnum{width:1.45rem;height:1.45rem;border-radius:999px;display:inline-grid;place-items:center;background:#cbd5e1;color:#fff;font-size:.78rem}
+  .tab-btn[aria-selected="true"]{background:var(--navy);color:#fff;box-shadow:0 4px 12px rgba(11,58,110,.25)}
+  .tab-btn[aria-selected="true"] .tnum{background:var(--green)}
+  .tab-panel{display:none}
+  .tab-panel.active{display:block;animation:fadeIn .35s ease}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .concept{border:1px solid #e2e8f0;border-radius:.8rem;padding:.8rem .95rem;background:linear-gradient(180deg,#fff,#f8fbff)}
+  .concept dt{font-weight:800;color:var(--navy);margin-bottom:.2rem}
+  .concept dd{font-size:.93rem;line-height:1.7;color:#334155}
+  .svg-wrap{overflow-x:auto;border-radius:.8rem;background:#fbfdff;border:1px solid #e2e8f0}
+  .svg-wrap svg{display:block;width:100%;min-width:640px;height:auto}
+  .svg-wrap svg text{font-family:'Heebo',Arial,sans-serif}
+  .fig-cap{font-size:.9rem;color:#475569;margin-top:.6rem;line-height:1.7}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:.35rem;padding:.5rem .95rem;border-radius:.6rem;font-weight:600;font-size:.92rem;transition:all .15s;border:1px solid transparent;cursor:pointer}
+  .btn:disabled{opacity:.45;cursor:not-allowed}
+  .btn-primary{background:var(--navy);color:#fff}.btn-primary:hover:not(:disabled){background:var(--navy-d)}
+  .btn-green{background:var(--green);color:#fff}.btn-green:hover:not(:disabled){background:#0a7a54}
+  .btn-ghost{background:#fff;color:var(--navy);border-color:#cbd5e1}.btn-ghost:hover:not(:disabled){background:#f1f5f9}
+  .seq-row{display:flex;gap:.25rem;flex-wrap:wrap;direction:ltr;align-items:center}
+  .nt{display:inline-grid;place-items:center;width:2rem;height:2.25rem;border-radius:.45rem;font-weight:800;font-family:ui-monospace,Consolas,monospace;color:#fff;font-size:1rem;user-select:none;transition:transform .12s}
+  .nt.sm{width:1.55rem;height:1.85rem;font-size:.85rem}
+  .nt.empty{background:#f1f5f9;border:2px dashed #cbd5e1;color:#94a3b8}
+  .nt.ok{outline:3px solid #22c55e;outline-offset:1px}
+  .nt.bad{outline:3px solid #ef4444;outline-offset:1px}
+  .nt.sel{outline:3px solid #f59e0b;outline-offset:2px;transform:translateY(-3px)}
+  .nt.hl{box-shadow:0 0 0 3px #fde047}
+  .nt.dim{opacity:.35}
+  button.nt{cursor:pointer;border:none}
+  button.nt:hover{transform:translateY(-2px)}
+  .end-lbl{font-family:ui-monospace,Consolas,monospace;font-weight:700;color:#64748b;font-size:.85rem;padding:0 .2rem}
+  .base-A{background:#e45757}.base-T{background:#e09a1f}.base-G{background:#1f9d68}.base-C{background:#3b6fd8}.base-U{background:#9b59d0}.base-N{background:#64748b}
+  .pal-btn{width:2.75rem;height:2.75rem;font-size:1.15rem}
+  .aa-bead{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;min-width:3.1rem;height:3.1rem;border-radius:999px;color:#fff;font-weight:700;font-size:.8rem;line-height:1.1;padding:0 .3rem;box-shadow:inset 0 -3px 0 rgba(0,0,0,.15)}
+  .aa-bead small{font-weight:400;font-size:.62rem;opacity:.9}
+  .aa-hydrophobic{background:#d97706}.aa-polar{background:#0e9f6e}.aa-pos{background:#2563eb}.aa-neg{background:#dc2626}.aa-special{background:#7c3aed}.aa-stop{background:#334155}
+  .aa-bead.diff{outline:3px solid #fde047;outline-offset:2px}
+  .chain{display:flex;flex-wrap:wrap;gap:.3rem;direction:ltr;align-items:center}
+  .sim-box{background:#f8fafc;border:1px solid #e2e8f0;border-radius:.8rem;padding:1rem}
+  .msg{border-radius:.6rem;padding:.7rem .9rem;font-size:.95rem;line-height:1.7}
+  .msg.good{background:#dcfce7;color:#14532d;border:1px solid #86efac}
+  .msg.bad{background:#fee2e2;color:#7f1d1d;border:1px solid #fca5a5}
+  .msg.info{background:#e0f2fe;color:#0c4a6e;border:1px solid #7dd3fc}
+  .msg.warn{background:#fef3c7;color:#78350f;border:1px solid #fcd34d}
+  .quiz-q{border:1px solid #e2e8f0;border-radius:.9rem;padding:1rem 1.1rem;background:#fff}
+  .quiz-q.answered-ok{border-color:#86efac;background:#f7fef9}
+  .quiz-q.answered-bad{border-color:#fca5a5;background:#fffafa}
+  .opt{display:flex;align-items:flex-start;gap:.6rem;width:100%;text-align:right;padding:.6rem .8rem;border:1px solid #cbd5e1;border-radius:.6rem;background:#fff;transition:all .12s;line-height:1.6;font-size:.97rem}
+  .opt:hover:not(:disabled){border-color:var(--navy);background:#f0f6ff}
+  .opt .ol{flex:none;width:1.6rem;height:1.6rem;border-radius:999px;background:#e2e8f0;display:inline-grid;place-items:center;font-weight:700;font-size:.8rem;color:#334155}
+  .opt.correct{border-color:#16a34a;background:#dcfce7}.opt.correct .ol{background:#16a34a;color:#fff}
+  .opt.wrong{border-color:#dc2626;background:#fee2e2}.opt.wrong .ol{background:#dc2626;color:#fff}
+  .opt:disabled{cursor:default}
+  .feedback{margin-top:.7rem;border-radius:.6rem;padding:.75rem .9rem;line-height:1.8;font-size:.95rem}
+  .feedback.ok{background:#ecfdf5;border-right:4px solid #16a34a}
+  .feedback.no{background:#fef2f2;border-right:4px solid #dc2626}
+  .progress-bar{height:.55rem;background:#e2e8f0;border-radius:999px;overflow:hidden}
+  .progress-bar > div{height:100%;background:linear-gradient(90deg,var(--green),#34d399);transition:width .3s}
+  .hero{background:linear-gradient(120deg,#072a52 0%,#0b3a6e 55%,#0e7f5c 100%);color:#fff;border-radius:1.1rem;padding:1.4rem 1.4rem;position:relative;overflow:hidden}
+  .hero .chip{display:inline-block;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);padding:.2rem .7rem;border-radius:999px;font-size:.82rem;margin:.2rem 0 0 .3rem}
+  .step-item{display:flex;align-items:center;gap:.6rem;background:#fff;border:1px solid #cbd5e1;border-radius:.7rem;padding:.55rem .7rem;transition:all .2s}
+  .step-item.ok{border-color:#16a34a;background:#f0fdf4}
+  .step-item.bad{border-color:#dc2626;background:#fef2f2}
+  .step-item .sn{flex:none;width:1.8rem;height:1.8rem;border-radius:999px;background:var(--navy);color:#fff;display:inline-grid;place-items:center;font-weight:700;font-size:.85rem}
+  .icon-btn{width:2rem;height:2rem;border-radius:.5rem;border:1px solid #cbd5e1;background:#fff;display:inline-grid;place-items:center;color:var(--navy);font-weight:700}
+  .icon-btn:hover{background:#f1f5f9}
+  .seg{display:inline-flex;align-items:center;justify-content:center;height:2.6rem;border-radius:.4rem;font-weight:700;font-size:.85rem;color:#fff;transition:all .35s;cursor:pointer;padding:0 .4rem;white-space:nowrap}
+  .seg.exon{background:#0b3a6e}.seg.intron{background:repeating-linear-gradient(45deg,#f59e0b,#f59e0b 6px,#fbbf24 6px,#fbbf24 12px);color:#422006}
+  .seg.cap{background:#7c3aed;border-radius:999px;width:2.6rem;cursor:default}
+  .seg.tail{background:#0e9f6e;cursor:default}
+  .seg.removing{opacity:0;transform:scaleX(.2)}
+  .codon-table{border-collapse:separate;border-spacing:2px;font-family:ui-monospace,Consolas,monospace;font-size:.78rem;direction:ltr}
+  .codon-table th{background:var(--navy);color:#fff;padding:.3rem .45rem;border-radius:.3rem}
+  .codon-table td{background:#fff;border:1px solid #e2e8f0;border-radius:.3rem;padding:.25rem .35rem;vertical-align:top;white-space:nowrap}
+  .codon-table .cd{display:block;padding:.05rem .2rem;border-radius:.25rem}
+  .codon-table .cd.on{background:#fde047;font-weight:800}
+  .codon-table .cd.stop{color:#dc2626;font-weight:700}
+  .codon-table .cd.start{color:#0e9f6e;font-weight:700}
+  .dilemma{border:1px solid #e2e8f0;border-radius:.8rem;padding:1rem;background:#fff}
+  @keyframes snip{0%,100%{transform:rotate(0)}50%{transform:rotate(-25deg)}}
+  .snip{animation:snip .5s ease 3;transform-origin:center}
+  @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body class="min-h-screen">
+
+<!-- ===================== HEADER + TABS ===================== -->
+<header class="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 pt-3 pb-2 flex items-center justify-between gap-3">
+    <div class="flex items-center gap-3 min-w-0">
+      <svg viewBox="0 0 40 40" class="w-10 h-10 flex-none" aria-hidden="true">
+        <rect width="40" height="40" rx="10" fill="#0b3a6e"/>
+        <path d="M12 6 C28 14 12 26 28 34" stroke="#34d399" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M28 6 C12 14 28 26 12 34" stroke="#93c5fd" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <g stroke="#fff" stroke-width="1.6" opacity=".85"><line x1="15" y1="10" x2="25" y2="10"/><line x1="17" y1="16" x2="23" y2="16"/><line x1="17" y1="24" x2="23" y2="24"/><line x1="15" y1="30" x2="25" y2="30"/></g>
+      </svg>
+      <div class="min-w-0">
+        <h1 class="text-base sm:text-xl font-extrabold text-navy leading-tight">גנטיקה: מהמולקולה לרפואה</h1>
+        <p class="text-xs text-slate-500 truncate">יחידות לימוד אינטראקטיביות · מגמת מדעי הרפואה</p>
+      </div>
+    </div>
+    <div class="flex-none text-left">
+      <div class="text-xs text-slate-500">ציון כולל בתרגול</div>
+      <div id="globalScore" dir="ltr" class="font-extrabold text-sci text-lg leading-tight">0 / 60</div>
+    </div>
+  </div>
+  <nav class="max-w-6xl mx-auto px-3 pb-2.5">
+    <div role="tablist" aria-label="יחידות לימוד" class="flex gap-2 overflow-x-auto no-scrollbar" id="tabList">
+      <button class="tab-btn" role="tab" data-tab="dna" aria-selected="true"><span class="tnum">1</span>מבנה ושכפול DNA</button>
+      <button class="tab-btn" role="tab" data-tab="rna" aria-selected="false"><span class="tnum">2</span>שעתוק ו-RNA</button>
+      <button class="tab-btn" role="tab" data-tab="protein" aria-selected="false"><span class="tnum">3</span>תרגום לחלבונים</button>
+      <button class="tab-btn" role="tab" data-tab="mutation" aria-selected="false"><span class="tnum">4</span>מוטציות ומחלות</button>
+      <button class="tab-btn" role="tab" data-tab="cloning" aria-selected="false"><span class="tnum">5</span>שיבוט והכבשה דולי</button>
+      <button class="tab-btn" role="tab" data-tab="crispr" aria-selected="false"><span class="tnum">6</span>הנדסה גנטית ואתיקה</button>
+    </div>
+  </nav>
+</header>
+
+<main class="max-w-6xl mx-auto px-4 py-6">
+
+<!-- ===================================================== -->
+<!-- ========== TAB 1: DNA STRUCTURE & REPLICATION ========= -->
+<!-- ===================================================== -->
+<section class="tab-panel active" id="panel-dna" data-panel="dna" role="tabpanel">
+  <div class="hero mb-6">
+    <p class="text-emerald-200 text-sm font-semibold mb-1">יחידה 1</p>
+    <h2 class="text-2xl md:text-3xl font-extrabold mb-2">מבנה ושכפול ה-DNA</h2>
+    <p class="text-blue-100 max-w-3xl leading-relaxed">איך מולקולה אחת, הבנויה מארבע "אותיות" בלבד, מאחסנת את כל המידע הדרוש לבניית גוף האדם – ואיך היא משכפלת את עצמה כמעט ללא טעויות בכל חלוקת תא.</p>
+    <div class="mt-3"><span class="chip">נוקלאוטידים וזיווג בסיסים</span><span class="chip">הסליל הכפול</span><span class="chip">אנזימי השכפול</span><span class="chip">טלומרים</span></div>
+  </div>
+
+  <div class="space-y-6">
+    <article class="card">
+      <h2 class="sec-title"><span class="num">1</span>רקע עיוני</h2>
+      <div class="prose-he">
+        <h3>החומר התורשתי – איך גילינו אותו?</h3>
+        <p>בשנת 1869 בודד הרופא השווייצרי <b>פרידריך מישר</b> חומר עשיר בזרחן מגרעיני תאי דם לבנים וכינה אותו "נוקלאין". במשך עשרות שנים סברו המדענים שדווקא החלבונים – המגוונים כל כך – הם נושאי המידע התורשתי. ניסוי הטרנספורמציה של <b>פרדריק גריפית'</b> (1928) הראה ש"גורם" כלשהו עובר מחיידקי פנאומוקוק אלימים שהומתו בחום אל חיידקים לא-אלימים, והופך אותם לאלימים. <b>אייברי, מקלאוד ומקארטי</b> (1944) זיהו שגורם זה הוא DNA, ו<b>הרשי וצ'ייס</b> (1952) אישרו זאת באמצעות נגיפי בקטריופאג' מסומנים ברדיואקטיביות: רק ה-DNA של הנגיף חדר לחיידק וכיוון את ייצור הנגיפים החדשים.</p>
+        <p>בשנת 1953 פרסמו <b>ג'יימס ווטסון ופרנסיס קריק</b> את מודל הסליל הכפול. הם הסתמכו על צילום דיפרקציית קרני רנטגן ("צילום 51") של <b>רוזלינד פרנקלין</b>, על עבודתו של מוריס וילקינס ועל <b>כללי צ'רגף</b>. התגלית נחשבת לאחת החשובות במאה ה-20, והיא היסוד לכל הרפואה המולקולרית של ימינו.</p>
+
+        <h3>אבן הבניין: הנוקלאוטיד</h3>
+        <p>DNA (חומצה דאוקסיריבונוקלאית) הוא פולימר ארוך של יחידות הנקראות <b>נוקלאוטידים</b>. כל נוקלאוטיד בנוי משלושה רכיבים:</p>
+        <ul>
+          <li><b>סוכר דאוקסיריבוז</b> – סוכר בעל חמישה פחמנים (ממוספרים <span class="ltr">1'</span> עד <span class="ltr">5'</span>). בניגוד לסוכר הריבוז שב-RNA, חסרה בו קבוצת הידרוקסיל (OH) בפחמן <span class="ltr">2'</span> – ומכאן שמו ("דה-אוקסי" = חסר חמצן).</li>
+          <li><b>קבוצת פוספט</b> – קשורה לפחמן <span class="ltr">5'</span> של הסוכר ונושאת מטען חשמלי שלילי. לכן DNA הוא מולקולה חומצית וטעונה שלילית – תכונה המנוצלת בהפרדת DNA באלקטרופורזה בג'ל.</li>
+          <li><b>בסיס חנקני</b> – קשור לפחמן <span class="ltr">1'</span>. ישנם ארבעה בסיסים: <b>אדנין (A)</b> ו<b>גואנין (G)</b> הם <b>פורינים</b> בעלי שתי טבעות; <b>ציטוזין (C)</b> ו<b>תימין (T)</b> הם <b>פירימידינים</b> בעלי טבעת אחת.</li>
+        </ul>
+        <p>הנוקלאוטידים מחוברים זה לזה ב<b>קשרים פוספודיאסטריים</b> – קשר קוולנטי חזק בין קבוצת הפוספט של נוקלאוטיד אחד לבין פחמן <span class="ltr">3'</span> של הסוכר בנוקלאוטיד הקודם. כך נוצר <b>שלד סוכר-פוספט</b> יציב, שהבסיסים בולטים ממנו פנימה. לכל גדיל יש <b>כיווניות</b>: קצה <span class="ltr">5'</span> (עם פוספט חופשי) וקצה <span class="ltr">3'</span> (עם קבוצת OH חופשית).</p>
+
+        <h3>מבנה הסליל הכפול</h3>
+        <ul>
+          <li><b>שני גדילים אנטי-מקבילים:</b> גדיל אחד מסודר בכיוון <span class="ltr">5'→3'</span> והגדיל המשלים לו בכיוון ההפוך <span class="ltr">3'→5'</span>.</li>
+          <li><b>זיווג בסיסים משלים:</b> A מתזווג תמיד עם T באמצעות <b>שני</b> קשרי מימן, ו-G מתזווג עם C באמצעות <b>שלושה</b> קשרי מימן. זיווג של פורין (גדול) עם פירימידין (קטן) שומר על קוטר אחיד של כ-2 ננומטר לאורך כל המולקולה. אזורים עשירים ב-G-C יציבים יותר ודורשים טמפרטורה גבוהה יותר כדי להפריד את הגדילים (דנטורציה).</li>
+          <li><b>כללי צ'רגף:</b> בכל DNA דו-גדילי כמות ה-A שווה לכמות ה-T, וכמות ה-G שווה לכמות ה-C; לכן A+G = T+C. לעומת זאת, היחס (A+T)/(G+C) משתנה בין מינים שונים.</li>
+          <li><b>מידות:</b> הסליל מסתובב ימינה (סליל ימני). סיבוב שלם כולל כ-10.5 זוגות בסיסים ואורכו כ-3.4 ננומטר. לאורך הסליל נוצרים <b>חריץ גדול</b> ו<b>חריץ קטן</b>, שבהם חלבונים (למשל גורמי שעתוק) "קוראים" את רצף הבסיסים בלי לפתוח את הסליל.</li>
+          <li><b>יציבות:</b> מלבד קשרי המימן, הסליל מיוצב גם בכוחות "ערימה" (stacking) הידרופוביים בין בסיסים שכנים המונחים זה מעל זה.</li>
+        </ul>
+        <p>הרעיון המבריק במבנה הוא שכל גדיל מכיל את המידע הדרוש לבניית בן-זוגו. ווטסון וקריק כתבו בסיום מאמרם שזיווג הבסיסים "מרמז מיד על מנגנון העתקה אפשרי לחומר התורשתי".</p>
+
+        <h3>אריזת ה-DNA בתא</h3>
+        <p>הגנום האנושי מכיל כ-3.2 מיליארד זוגות בסיסים בכל עותק (כ-6.4 מיליארד בתא סומטי דיפלואידי), ואורכו הכולל של ה-DNA בתא בודד מגיע לכשני מטרים! כדי להיכנס לגרעין שקוטרו כ-6 מיקרומטר, ה-DNA נכרך סביב חלבונים בסיסיים (טעונים חיובית) הנקראים <b>היסטונים</b>, ויוצר <b>נוקלאוזומים</b> – מבנה הנראה כמו "חרוזים על חוט". הנוקלאוזומים מתקפלים לסיב <b>כרומטין</b>, ולקראת חלוקת התא הכרומטין נדחס עוד יותר ל-46 <b>כרומוזומים</b> הנראים במיקרוסקופ. כרומטין פתוח (אאוכרומטין) זמין לשעתוק, ואילו כרומטין דחוס (הטרוכרומטין) כמעט אינו משועתק. רק כ-1.5% מהגנום מקודד לחלבונים (כ-20,000 גנים); השאר כולל אזורי בקרה, גנים ל-RNA שאינו מתורגם ורצפים חוזרים.</p>
+
+        <h3>שכפול ה-DNA: חצי-שמרני ומדויק</h3>
+        <p>לפני כל חלוקת תא (בשלב S של מחזור התא) יש לשכפל את הגנום כולו. <b>מסלסון וסטאל</b> (1958) גידלו חיידקים במצע עם חנקן כבד (<span class="ltr"><sup>15</sup>N</span>) ואחר כך העבירו אותם למצע עם חנקן קל (<span class="ltr"><sup>14</sup>N</span>). לאחר דור אחד התקבל רק DNA בצפיפות ביניים, ולאחר שני דורות – DNA ביניים ו-DNA קל. התוצאה הוכיחה שהשכפול <b>חצי-שמרני</b>: כל מולקולת DNA חדשה מורכבת מגדיל "ישן" אחד ששימש תבנית ומגדיל חדש אחד.</p>
+        <p>השכפול מתחיל ב<b>מקורות שכפול</b> (origins of replication). בכרומוזום חיידקי מעגלי יש מקור אחד, ואילו בכל כרומוזום אנושי יש אלפי מקורות הפועלים במקביל ויוצרים "בועות שכפול", ובכל בועה שני <b>מזלגות שכפול</b> הנעים בכיוונים מנוגדים. האנזימים המרכזיים:</p>
+        <ol>
+          <li><b>הליקאז</b> – פותח את הסליל באמצעות שבירת קשרי המימן בין הבסיסים (כמו פתיחת רוכסן), תוך ניצול אנרגיה מ-ATP.</li>
+          <li><b>חלבוני SSB</b> – נקשרים לגדילים הבודדים שנחשפו ומונעים מהם להתחבר מחדש.</li>
+          <li><b>טופואיזומרז</b> – משחרר את המתח (סלילת-היתר) שנוצר לפני המזלג באמצעות חיתוך זמני של הגדילים וחיבורם מחדש.</li>
+          <li><b>פריימז</b> – מסנתז <b>פריימר</b> קצר של RNA (כ-10 נוקלאוטידים), משום ש-DNA פולימראז אינו מסוגל להתחיל שרשרת חדשה "מאפס".</li>
+          <li><b>DNA פולימראז</b> – מוסיף נוקלאוטידים המשלימים לגדיל התבנית, <u>אך ורק לקצה <span class="ltr">3'-OH</span></u> של השרשרת, ולכן הגדיל החדש נבנה תמיד בכיוון <span class="ltr">5'→3'</span>. לאנזים יש פעילות <b>הגהה</b> (proofreading): הוא מזהה נוקלאוטיד שגוי, מסיר אותו ומחליף אותו בנכון.</li>
+          <li><b>הסרת פריימרים</b> – אנזימים ייעודיים (DNA פולימראז I בחיידקים; RNase H ואחרים באאוקריוטים) מסירים את פריימרי ה-RNA וממלאים את החסר ב-DNA.</li>
+          <li><b>ליגאז</b> – "מדביק" את המקטעים זה לזה ביצירת קשר פוספודיאסטרי.</li>
+        </ol>
+        <p>מכיוון ששני הגדילים אנטי-מקבילים, השכפול אינו סימטרי: ה<b>גדיל המוביל</b> (leading) נבנה ברציפות בכיוון התקדמות המזלג, ואילו ה<b>גדיל המפגר</b> (lagging) נבנה בכיוון ההפוך, במקטעים קצרים הנקראים <b>מקטעי אוקזאקי</b> (100–200 נוקלאוטידים באאוקריוטים, 1000–2000 בחיידקים). כל מקטע מתחיל בפריימר משלו, ובסוף התהליך הליגאז מחבר את כולם לגדיל רציף.</p>
+        <p>הודות להגהה ולמנגנוני תיקון נוספים, שיעור הטעויות הסופי הוא כטעות אחת לכל 10<sup>9</sup>–10<sup>10</sup> נוקלאוטידים – כלומר, בממוצע פחות מטעות אחת בכל שכפול של הגנום האנושי.</p>
+
+        <h3>בעיית הקצוות והטלומרים</h3>
+        <p>בקצה הגדיל המפגר לא ניתן להחליף את הפריימר האחרון ב-DNA, ולכן הכרומוזומים מתקצרים מעט בכל חלוקה. בקצות הכרומוזומים נמצאים <b>טלומרים</b> – אלפי חזרות של הרצף <span class="ltr">TTAGGG</span> שאינן מקודדות לחלבון ומשמשות "אזור חיץ" המגן על הגנים. האנזים <b>טלומראז</b> (רוורס טרנסקריפטאז הנושא תבנית RNA משלו) מאריך את הטלומרים. הוא פעיל בתאי מין, בתאי גזע ובכ-85%–90% מתאי הסרטן, אך כמעט אינו פעיל ברוב התאים הסומטיים. לכן תאים אלה יכולים להתחלק מספר מוגבל של פעמים (<b>גבול הייפליק</b>), תופעה הקשורה להזדקנות.</p>
+
+        <div class="callout med"><b>🩺 חיבור לרפואה:</b> תרופות כימותרפיות רבות פוגעות בשכפול ה-DNA של תאים המתחלקים במהירות: <b>מעכבי טופואיזומרז</b> (כמו אטופוסיד ואירינוטקן), <b>אנלוגים של נוקלאוטידים</b> (כמו 5-פלואורואורציל) וחומרים היוצרים קשרים צולבים בין גדילי ה-DNA (כמו ציספלטין). התרופה AZT נגד HIV היא אנלוג של נוקלאוטיד העוצר את פעולת האנזים רוורס טרנסקריפטאז של הנגיף. גם שיטת <b>PCR</b> – כלי אבחון מרכזי ברפואה (למשל בבדיקות קורונה) – היא בעצם שכפול DNA מלאכותי במבחנה בעזרת DNA פולימראז עמיד-חום (Taq) מחיידק שחי במעיינות חמים.</div>
+      </div>
+    </article>
+
+    <article class="card">
+      <h2 class="sec-title"><span class="num">2</span>סיכום מושגים</h2>
+      <dl class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div class="concept"><dt>נוקלאוטיד</dt><dd>יחידת הבנייה של חומצות הגרעין: סוכר + פוספט + בסיס חנקני.</dd></div>
+        <div class="concept"><dt>דאוקסיריבוז</dt><dd>סוכר בן 5 פחמנים ב-DNA, חסר קבוצת OH בפחמן <span class="ltr">2'</span>.</dd></div>
+        <div class="concept"><dt>פורינים ופירימידינים</dt><dd>פורינים (A, G) – שתי טבעות; פירימידינים (C, T, U) – טבעת אחת.</dd></div>
+        <div class="concept"><dt>קשר פוספודיאסטרי</dt><dd>קשר קוולנטי בין פוספט לפחמן <span class="ltr">3'</span> של הסוכר הקודם; יוצר את שלד הגדיל.</dd></div>
+        <div class="concept"><dt>קשרי מימן</dt><dd>קשרים חלשים בין בסיסים משלימים: A=T (שניים), G≡C (שלושה).</dd></div>
+        <div class="concept"><dt>אנטי-מקבילות</dt><dd>שני הגדילים מסודרים בכיוונים הפוכים: <span class="ltr">5'→3'</span> מול <span class="ltr">3'→5'</span>.</dd></div>
+        <div class="concept"><dt>כללי צ'רגף</dt><dd>ב-DNA דו-גדילי: A=T ו-G=C, ולכן סך הפורינים שווה לסך הפירימידינים.</dd></div>
+        <div class="concept"><dt>שכפול חצי-שמרני</dt><dd>כל מולקולה חדשה מכילה גדיל ישן אחד וגדיל חדש אחד (מסלסון וסטאל).</dd></div>
+        <div class="concept"><dt>הליקאז</dt><dd>אנזים הפותח את הסליל הכפול ע"י שבירת קשרי המימן.</dd></div>
+        <div class="concept"><dt>DNA פולימראז</dt><dd>בונה גדיל חדש בכיוון <span class="ltr">5'→3'</span> לפי התבנית, ומבצע הגהה.</dd></div>
+        <div class="concept"><dt>פריימר ופריימז</dt><dd>פריימז בונה פריימר RNA קצר – נקודת התחלה ל-DNA פולימראז.</dd></div>
+        <div class="concept"><dt>מקטעי אוקזאקי</dt><dd>קטעי DNA קצרים הנבנים בגדיל המפגר ומחוברים ע"י ליגאז.</dd></div>
+        <div class="concept"><dt>ליגאז</dt><dd>אנזים המחבר מקטעי DNA ביצירת קשר פוספודיאסטרי.</dd></div>
+        <div class="concept"><dt>טלומרים וטלומראז</dt><dd>קצות כרומוזומים (TTAGGG חוזר); טלומראז מאריך אותם בתאי גזע וסרטן.</dd></div>
+        <div class="concept"><dt>היסטונים ונוקלאוזום</dt><dd>חלבונים שה-DNA נכרך סביבם; יחידת האריזה הבסיסית של הכרומטין.</dd></div>
+      </dl>
+    </article>
+
+    <article class="card">
+      <h2 class="sec-title"><span class="num">3</span>איור: הסליל הכפול של ה-DNA</h2>
+      <div class="flex flex-wrap gap-2 mb-3">
+        <button class="btn btn-primary" id="helixToggle">⏸ עצור סיבוב</button>
+        <span class="text-sm text-slate-500 self-center">הסליל מסתובב כדי להמחיש את המבנה התלת-ממדי.</span>
+      </div>
+      <div class="svg-wrap">
+        <svg id="helixSvg" viewBox="0 0 800 310" role="img" aria-label="סליל DNA כפול עם זוגות בסיסים מסומנים">
+          <g font-size="13" fill="#0b3a6e">
+            <path d="M60 44 V34 H270 V44" fill="none" stroke="#0b3a6e" stroke-width="1.5"/>
+            <text x="165" y="26" text-anchor="middle" font-weight="700">סיבוב שלם ≈ 10.5 זוגות בסיסים · 3.4 ננומטר</text>
+            <path d="M772 75 H782 V225 H772" fill="none" stroke="#0b3a6e" stroke-width="1.5"/>
+            <text x="790" y="150" text-anchor="middle" font-weight="700" transform="rotate(-90 790 150)">קוטר ≈ 2 ננומטר</text>
+          </g>
+          <g id="helixDyn"></g>
+          <g font-size="13" transform="translate(0,282)">
+            <rect x="80" y="-11" width="640" height="26" rx="13" fill="#f1f5f9"/>
+            <circle cx="690" cy="2" r="7" fill="#e45757"/><text x="678" y="7" text-anchor="start">אדנין (A)</text>
+            <circle cx="580" cy="2" r="7" fill="#e09a1f"/><text x="568" y="7" text-anchor="start">תימין (T)</text>
+            <circle cx="470" cy="2" r="7" fill="#1f9d68"/><text x="458" y="7" text-anchor="start">גואנין (G)</text>
+            <circle cx="355" cy="2" r="7" fill="#3b6fd8"/><text x="343" y="7" text-anchor="start">ציטוזין (C)</text>
+            <rect x="225" y="-4" width="26" height="10" rx="5" fill="#0b3a6e"/><text x="219" y="7" text-anchor="start">גדיל 1</text>
+            <rect x="135" y="-4" width="26" height="10" rx="5" fill="#0e9f6e"/><text x="129" y="7" text-anchor="start">גדיל 2</text>
+          </g>
+        </svg>
+      </div>
+      <p class="fig-cap">שני שלדי סוכר-פוספט (כחול וירוק) נכרכים זה סביב זה. ה"שלבים" בסולם הם זוגות בסיסים משלימים המחוברים בקשרי מימן. שימו לב לכיווניות ההפוכה של הגדילים (<span class="ltr">5'</span> ו-<span class="ltr">3'</span> בקצוות).</p>
+
+      <h3 class="font-bold text-navy mt-6 mb-2">מבט מקרוב: "הסולם" הפרוש</h3>
+      <div class="svg-wrap">
+        <svg id="ladderSvg" viewBox="0 0 800 440" role="img" aria-label="מבנה מפורט של נוקלאוטידים, קשרי מימן ושלד סוכר-פוספט"></svg>
+      </div>
+      <p class="fig-cap">כל נוקלאוטיד = פוספט (P) + סוכר דאוקסיריבוז (מחומש) + בסיס. פורינים (A, G) רחבים יותר מפירימידינים (T, C), ולכן כל זוג תמיד באותו רוחב. הקווים המקווקווים הם קשרי מימן: 2 בזוג A-T ו-3 בזוג G-C.</p>
+    </article>
+
+    <article class="card">
+      <h2 class="sec-title"><span class="num">4</span>סימולציה: שכפול DNA – בנו את הגדיל המשלים</h2>
+      <p class="mb-3 leading-relaxed">אתם ה-DNA פולימראז! לפניכם גדיל תבנית (<span class="ltr">3'→5'</span>). בנו את הגדיל החדש בכיוון <span class="ltr">5'→3'</span> על ידי לחיצה על הנוקלאוטידים המתאימים לפי כללי זיווג הבסיסים.</p>
+      <div class="sim-box" id="sim-dna"></div>
+    </article>
+
+    <article class="card">
+      <h2 class="sec-title"><span class="num">5</span>תרגול: 10 שאלות</h2>
+      <div id="quiz-dna"></div>
+    </article>
+  </div>
+</section>
+
+<!-- ===================================================== -->
+<!-- ================ TAB 2: TRANSCRIPTION ================= -->
+<!-- ===================================================== -->
+<section class="tab-panel" id="panel-rna" data-panel="rna" role="tabpanel">
+  <div class="hero mb-6">
+    <p class="text-emerald-200 text-sm font-semibold mb-1">יחידה 2</p>
+    <h2 class="text-2xl md:text-3xl font-extrabold mb-2">שעתוק RNA וההבדלים בין חומצות הגרעין</h2>
+    <p class="text-blue-100 max-w-3xl leading-relaxed">כיצד התא "מעתיק" גן מתוך הארכיון שבגרעין למולקולת שליח זמנית – ומה הופך את ה-RNA למולקולה שונה כל כך מה-DNA.</p>
+    <div class="mt-3"><span class="chip">הדוגמה המרכזית</span><span class="chip">DNA מול RNA</span><span class="chip">RNA פולימראז</span><span class="chip">עיבוד ושחבור</span></div>
+  </div>
+
+  <div class="space-y-6">
+    <article class="card">
+      <h2 class="sec-title"><span class="num">1</span>רקע עיוני</h2>
+      <div class="prose-he">
+        <h3>הדוגמה המרכזית של הביולוגיה</h3>
+        <p>בשנת 1958 ניסח פרנסיס קריק את "הדוגמה המרכזית" (Central Dogma): המידע הגנטי זורם מ-DNA ל-RNA בתהליך <b>השעתוק</b> (Transcription), ומ-RNA לחלבון בתהליך <b>התרגום</b> (Translation). אפשר לדמות את ה-DNA ל"ספר מקור" יקר הערך השמור בספרייה (הגרעין) ואינו יוצא ממנה. כשהתא זקוק לחלבון מסוים, הוא מכין "צילום" של פרק אחד – גן אחד – בצורת mRNA, וה"צילום" יוצא אל ה"מפעל" – הריבוזום שבציטופלזמה. כך נשמר ה-DNA מנזק, וניתן לייצר עותקים רבים של אותו גן בבת אחת.</p>
+        <p>לדוגמה המרכזית יש חריגים: <b>נגיפי רטרו</b> (כמו HIV) מבצעים <b>שעתוק הפוך</b> מ-RNA ל-DNA בעזרת האנזים <b>רוורס טרנסקריפטאז</b>, ושוזרים את ה-DNA הנגיפי בגנום של התא המאכסן.</p>
+
+        <h3>DNA לעומת RNA</h3>
+        <div class="tbl-wrap">
+        <table class="tbl">
+          <thead><tr><th>מאפיין</th><th>DNA</th><th>RNA</th></tr></thead>
+          <tbody>
+            <tr><td><b>סוכר</b></td><td>דאוקסיריבוז (H בפחמן <span class="ltr">2'</span>)</td><td>ריבוז (OH בפחמן <span class="ltr">2'</span>)</td></tr>
+            <tr><td><b>בסיסים</b></td><td>A, T, G, C</td><td>A, <b>U (אורציל)</b>, G, C</td></tr>
+            <tr><td><b>מבנה</b></td><td>דו-גדילי, סליל כפול</td><td>בדרך כלל חד-גדילי; יכול להתקפל למבנים מורכבים (סיכות שיער, תלתן)</td></tr>
+            <tr><td><b>אורך</b></td><td>ארוך מאוד (מיליוני בסיסים בכרומוזום)</td><td>קצר יחסית (עשרות עד אלפי בסיסים)</td></tr>
+            <tr><td><b>מיקום</b></td><td>בעיקר בגרעין (וגם במיטוכונדריה)</td><td>נוצר בגרעין, פועל גם בציטופלזמה</td></tr>
+            <tr><td><b>יציבות</b></td><td>יציב מאוד – מתאים לאחסון ארוך טווח</td><td>פחות יציב – קבוצת ה-OH ב-<span class="ltr">2'</span> מגבירה פירוק; "זמני"</td></tr>
+            <tr><td><b>תפקיד</b></td><td>אחסון והעברה של המידע התורשתי</td><td>העברת מידע, תרגום, בקרה וזרוז תגובות</td></tr>
+            <tr><td><b>אנזים בונה</b></td><td>DNA פולימראז (זקוק לפריימר)</td><td>RNA פולימראז (אינו זקוק לפריימר)</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <p>מדוע אורציל ולא תימין? תימין הוא אורציל עם קבוצת מתיל נוספת. בסיס C עלול לאבד קבוצת אמין ולהפוך ל-U באופן ספונטני; מאחר שב-DNA אמור להיות T ולא U, מערכות התיקון מזהות כל U ב-DNA כנזק ומתקנות אותו. זו אחת הסיבות לכך ש-DNA מתאים יותר לשמירה ארוכת טווח של מידע.</p>
+
+        <h3>סוגי ה-RNA העיקריים</h3>
+        <ul>
+          <li><b>mRNA (RNA שליח)</b> – נושא את המידע מגן מסוים אל הריבוזום, כרצף של קודונים.</li>
+          <li><b>tRNA (RNA מוביל)</b> – מולקולה קטנה בצורת תלתן, הנושאת חומצה אמינית ומזהה את הקודון באמצעות האנטיקודון שלה.</li>
+          <li><b>rRNA (RNA ריבוזומלי)</b> – מרכיב עיקרי של הריבוזום; הוא שמזרז את יצירת הקשר הפפטידי.</li>
+          <li><b>snRNA</b> – RNA גרעיני קטן, חלק מהספלייסוזום המבצע שחבור.</li>
+          <li><b>miRNA ו-siRNA</b> – RNA קצרים המווסתים ביטוי גנים באמצעות היקשרות ל-mRNA ועיכוב תרגומו או פירוקו.</li>
+        </ul>
+
+        <h3>שלבי השעתוק</h3>
+        <p><b>1. התחלה (Initiation):</b> לפני כל גן נמצא <b>פרומוטור</b> – רצף DNA שאינו משועתק, המסמן היכן מתחיל הגן ובאיזה כיוון לקרוא. בפרומוטורים רבים באאוקריוטים יש <b>TATA box</b> (רצף עשיר ב-T ו-A, כ-25–30 בסיסים לפני נקודת ההתחלה). <b>גורמי שעתוק</b> כלליים נקשרים לפרומוטור ומגייסים את <b>RNA פולימראז II</b> (האנזים המשעתק גנים המקודדים לחלבונים). האנזים פותח קטע קצר של כ-14 זוגות בסיסים ויוצר "בועת שעתוק".</p>
+        <p><b>2. הארכה (Elongation):</b> RNA פולימראז נע לאורך <b>גדיל התבנית</b> וקורא אותו בכיוון <span class="ltr">3'→5'</span>, תוך הוספת ריבונוקלאוטידים משלימים (ATP, UTP, GTP, CTP) לקצה ה-<span class="ltr">3'</span> של ה-RNA הנבנה – כלומר ה-RNA נבנה בכיוון <span class="ltr">5'→3'</span>. מול A בתבנית מוצב U, מול T – A, מול G – C ומול C – G. בניגוד ל-DNA פולימראז, RNA פולימראז <b>אינו זקוק לפריימר</b>. מאחורי האנזים הסליל הכפול נסגר שוב, וה-RNA משתחרר. כמה מולקולות RNA פולימראז יכולות לשעתק את אותו גן בו-זמנית.</p>
+        <p><b>3. סיום (Termination):</b> בחיידקים, רצף סיום ב-RNA יוצר מבנה "סיכת שיער" שגורם לפולימראז להינתק. באאוקריוטים, לאחר שעתוק אות הפוליאדנילציה <span class="ltr">AAUAAA</span>, ה-RNA נחתך ומשתחרר.</p>
+        <div class="callout"><b>גדיל תבנית מול גדיל מקודד:</b> רק אחד משני הגדילים משמש תבנית לשעתוק של גן נתון. ה-mRNA משלים לגדיל התבנית, ולכן הוא <b>זהה ברצפו לגדיל המקודד</b> (הלא-מתועתק) – פרט לכך שבמקום T מופיע U. זו הסיבה שרצפי גנים מתפרסמים במאגרי מידע לפי הגדיל המקודד.</div>
+
+        <h3>עיבוד ה-mRNA באאוקריוטים</h3>
+        <p>בתאים אאוקריוטיים התוצר הראשוני הוא <b>pre-mRNA</b>, העובר שלושה שינויים עוד בתוך הגרעין:</p>
+        <ul>
+          <li><b>כיפה בקצה <span class="ltr">5'</span></b> (5' cap) – נוקלאוטיד גואנין מותמל (<span class="ltr">7-methylguanosine</span>) המוצמד בקשר יוצא דופן. הכיפה מגנה על ה-mRNA מאנזימים מפרקים ומשמשת "אות זיהוי" לריבוזום בתחילת התרגום.</li>
+          <li><b>זנב פולי-A בקצה <span class="ltr">3'</span></b> – שרשרת של 100–250 נוקלאוטידי אדנין, המייצבת את ה-mRNA, מסייעת ביציאתו מהגרעין וקובעת את משך "חייו" בציטופלזמה.</li>
+          <li><b>שחבור (Splicing)</b> – הגן האאוקריוטי מורכב מ<b>אקסונים</b> (קטעים מקודדים שנשארים ב-mRNA הבוגר) ומ<b>אינטרונים</b> (קטעים מתערבים שמוסרים). את השחבור מבצע ה<b>ספלייסוזום</b> – קומפלקס של snRNA וחלבונים – המזהה את גבולות האינטרון, חותך אותו ומחבר את האקסונים זה לזה.</li>
+        </ul>
+        <p><b>שחבור חלופי</b> (Alternative splicing) מאפשר לחבר את האקסונים של אותו גן בצירופים שונים, וכך לייצר מגן אחד כמה חלבונים שונים. כ-95% מהגנים האנושיים עוברים שחבור חלופי, ולכן כ-20,000 גנים מספיקים לייצור של יותר מ-100,000 חלבונים שונים. דוגמה: מאותו גן נוצר בבלוטת התריס ההורמון <b>קלציטונין</b>, ובתאי עצב – הפפטיד <b>CGRP</b> המעורב בכאב ובמיגרנה.</p>
+
+        <h3>בקרת השעתוק</h3>
+        <p>כל תאי הגוף מכילים את אותו גנום, אך תא כבד שונה מאוד מתא עצב – משום שכל סוג תא משעתק קבוצה אחרת של גנים. ביטוי הגנים נשלט על ידי <b>גורמי שעתוק</b> ספציפיים, <b>משפרים</b> (enhancers) – רצפי בקרה שיכולים להימצא במרחק רב מהגן – ו<b>שינויים אפיגנטיים</b> כמו מתילציה של DNA (בדרך כלל משתיקה) ואצטילציה של היסטונים (בדרך כלל פותחת את הכרומטין). בחיידקים מוכר מודל ה<b>אופרון</b> (למשל אופרון lac שגילו ז'אקוב ומונו), שבו כמה גנים בעלי תפקיד משותף משועתקים יחד מפרומוטור אחד.</p>
+
+        <h3>פרוקריוטים לעומת אאוקריוטים</h3>
+        <p>בחיידקים אין גרעין, ולכן השעתוק והתרגום מתרחשים באותו מקום ובאותו זמן: ריבוזומים מתחילים לתרגם את ה-mRNA עוד לפני שהשעתוק הסתיים. ל-mRNA החיידקי אין כיפה, זנב או אינטרונים, ויש לחיידק סוג אחד בלבד של RNA פולימראז – לעומת שלושה עיקריים באאוקריוטים (I – ל-rRNA, II – ל-mRNA, III – ל-tRNA).</p>
+
+        <div class="callout med"><b>🩺 חיבור לרפואה:</b>
+          <ul class="mt-1">
+            <li><b>הרעלת פטריות:</b> הרעלן אמניטין-α מפטריית "כובע המוות" (<i>Amanita phalloides</i>) מעכב את RNA פולימראז II. תאי הכבד, שאליהם הרעלן מגיע בריכוז גבוה, מפסיקים לייצר mRNA וחלבונים חיוניים – והתוצאה עלולה להיות אי-ספיקת כבד קטלנית.</li>
+            <li><b>אנטיביוטיקה:</b> ריפאמפיצין, תרופה מרכזית לטיפול בשחפת, מעכבת באופן סלקטיבי את ה-RNA פולימראז של החיידק ואינה פוגעת באנזים האנושי.</li>
+            <li><b>חיסוני mRNA:</b> חיסוני הקורונה של פייזר ומודרנה מכילים mRNA המקודד לחלבון ה"ספייק" של הנגיף, עטוף בחלקיקי שומן. ה-mRNA מתורגם בציטופלזמה, אינו נכנס לגרעין ואינו משתלב ב-DNA, ומתפרק תוך ימים. קטלין קריקו ודרו וייסמן זכו בפרס נובל (2023) על גילוי שהחלפת U בבסיס מותאם (פסאודו-אורידין) מונעת תגובה דלקתית חריפה ל-mRNA.</li>
+            <li><b>מחלות שחבור:</b> בניוון שרירים שדרתי (SMA) חסר הגן SMN1. התרופה נוסינרסן היא רצף נוקלאוטידים קצר המשנה את שחבור הגן הדומה SMN2, כך שהוא מייצר יותר חלבון תקין.</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
+    <article class="card">
+      <h2 class="sec-title"><span class="num">2</span>סיכום מושגים</h2>
+      <dl class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div class="concept"><dt>הדוגמה המרכזית</dt><dd>זרימת המידע: DNA ← שעתוק ← RNA ← תרגום ← חלבון (DNA→RNA→חלבון).</dd></div>
+        <div class="concept"><dt>שעתוק</dt><dd>יצירת RNA לפי תבנית של גדיל DNA.</dd></div>
+        <div class="concept"><dt>RNA פולימראז</dt><dd>האנזים הבונה RNA בכיוון <span class="ltr">5'→3'</span>, ללא צורך בפריימר.</dd></div>
+        <div class="concept"><dt>פרומוטור</dt><dd>רצף DNA לפני הגן שאליו נקשרים גורמי השעתוק והפולימראז.</dd></div>
+        <div class="concept"><dt>TATA box</dt><dd>רצף בפרומוטור, כ-25–30 בסיסים לפני נקודת ההתחלה.</dd></div>
+        <div class="concept"><dt>גורמי שעתוק</dt><dd>חלבונים הנקשרים ל-DNA ומפעילים או מדכאים שעתוק של גנים.</dd></div>
+        <div class="concept"><dt>גדיל תבנית</dt><dd>הגדיל שנקרא ע"י הפולימראז; ה-RNA משלים לו.</dd></div>
+        <div class="concept"><dt>גדיל מקודד</dt><dd>הגדיל שאינו משמש תבנית; רצפו זהה ל-mRNA (T במקום U).</dd></div>
+        <div class="concept"><dt>אורציל (U)</dt><dd>פירימידין המחליף את התימין ב-RNA; מתזווג עם A.</dd></div>
+        <div class="concept"><dt>pre-mRNA</dt><dd>התוצר הראשוני של השעתוק באאוקריוטים, לפני עיבוד.</dd></div>
+        <div class="concept"><dt>אקסונים ואינטרונים</dt><dd>אקסונים – קטעים שנשארים ב-mRNA הבוגר; אינטרונים – קטעים המוסרים.</dd></div>
+        <div class="concept"><dt>שחבור וספלייסוזום</dt><dd>הסרת אינטרונים וחיבור אקסונים ע"י קומפלקס snRNA-חלבונים.</dd></div>
+        <div class="concept"><dt>כיפה <span class="ltr">5'</span></dt><dd>גואנין מותמל בתחילת ה-mRNA: הגנה וזיהוי ע"י הריבוזום.</dd></div>
+        <div class="concept"><dt>זנב פולי-A</dt><dd>100–250 אדנינים בקצה <span class="ltr">3'</span>: יציבות ויציאה מהגרעין.</dd></div>
+        <div class="concept"><dt>שחבור חלופי</dt><dd>צירופים שונים של אקסונים – כמה חלבונים מגן אחד.</dd></div>
+      </dl>
+    </article>
+
+    <article class="card">
+      <h2 class="sec-title"><span class="num">3</span>איור: תהליך השעתוק</h2>
+      <div class="svg-wrap">
+        <svg viewBox="0 0 800 360" role="img" aria-label="RNA פולימראז משעתק mRNA מגדיל התבנית של ה-DNA">
+          <defs>
+            <marker id="arrN" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#0b3a6e"/></marker>
+            <marker id="arrP" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#9b59d0"/></marker>
+            <radialGradient id="polGrad" cx="50%" cy="45%" r="60%"><stop offset="0" stop-color="#34d399" stop-opacity=".28"/><stop offset="1" stop-color="#0e9f6e" stop-opacity=".12"/></radialGradient>
+          </defs>
+          <!-- promoter & terminator -->
+          <rect x="62" y="112" width="150" height="116" rx="10" fill="#fef3c7" stroke="#d97706" stroke-dasharray="6 4"/>
+          <text x="137" y="104" text-anchor="middle" font-size="13" font-weight="700" fill="#92400e">פרומוטור (TATA box)</text>
+          <rect x="680" y="112" width="92" height="116" rx="10" fill="#fee2e2" stroke="#dc2626" stroke-dasharray="6 4"/>
+          <text x="726" y="104" text-anchor="middle" font-size="13" font-weight="700" fill="#991b1b">אזור סיום</text>
+          <!-- rungs outside bubble -->
+          <g stroke-width="6" stroke-linecap="round">
+            <g id="txRungs"></g>
+          </g>
+          <!-- strands -->
+          <path d="M30 130 H330 C372 130 382 72 432 72 H572 C622 72 632 130 672 130 H775" fill="none" stroke="#0b3a6e" stroke-width="8" stroke-linecap="round"/>
+          <path d="M30 210 H330 C362 210 372 240 404 240 H600 C632 240 642 210 672 210 H775" fill="none" stroke="#0e9f6e" stroke-width="8" stroke-linecap="round"/>
+          <!-- coding strand letters in bubble -->
+          <g id="txCoding" font-size="12" font-weight="700" text-anchor="middle" fill="#0b3a6e" font-family="Consolas,monospace"></g>
+          <!-- RNA polymerase -->
+          <ellipse cx="500" cy="182" rx="140" ry="98" fill="url(#polGrad)" stroke="#0e9f6e" stroke-width="2.5" stroke-dasharray="8 5"/>
+          <!-- template bases -->
+          <g id="txTemplate"></g>
+          <!-- mRNA -->
+          <path d="M542 205 H418 C380 205 360 175 338 150 C305 115 262 72 178 56" fill="none" stroke="#9b59d0" stroke-width="6" stroke-linecap="round"/>
+          <g id="txRna"></g>
+          <!-- incoming NTPs -->
+          <g font-size="10" font-weight="700" text-anchor="middle" fill="#fff">
+            <g><circle r="14" fill="#1f9d68"/><text y="4">GTP</text>
+              <animateMotion dur="2.6s" repeatCount="indefinite" path="M660 300 Q620 260 566 216" keyPoints="0;1;1" keyTimes="0;0.8;1" calcMode="linear"/>
+            </g>
+            <circle cx="720" cy="318" r="14" fill="#9b59d0"/><text x="720" y="322">UTP</text>
+            <circle cx="620" cy="335" r="14" fill="#e45757"/><text x="620" y="339">ATP</text>
+            <circle cx="760" cy="280" r="14" fill="#3b6fd8"/><text x="760" y="284">CTP</text>
+          </g>
+          <!-- labels -->
+          <g font-size="13" fill="#1e293b">
+            <text x="470" y="300" text-anchor="middle" font-weight="800" fill="#0a7a54">RNA פולימראז II</text>
+            <text x="260" y="122" text-anchor="middle" font-weight="700" fill="#0b3a6e">גדיל מקודד</text>
+            <text x="260" y="234" text-anchor="middle" font-weight="700" fill="#0a7a54">גדיל תבנית</text>
+            <text x="295" y="45" text-anchor="middle" font-weight="800" fill="#7e3fb6">mRNA בבנייה</text>
+            <text x="500" y="60" text-anchor="middle" font-size="12" fill="#475569">בועת שעתוק (~14 זוגות בסיסים פתוחים)</text>
+            <text x="680" y="342" text-anchor="middle" font-size="12" fill="#475569">ריבונוקלאוטידים חופשיים</text>
+          </g>
+          <g font-size="13" font-weight="800" font-family="Consolas,monospace" fill="#475569">
+            <text x="12" y="135">5'</text><text x="780" y="135">3'</text>
+            <text x="12" y="215">3'</text><text x="780" y="215">5'</text>
+            <text x="160" y="50" fill="#7e3fb6">5'</text><text x="548" y="196" fill="#7e3fb6">3'</text>
+          </g>
+          <line x1="610" y1="26" x2="740" y2="26" stroke="#0b3a6e" stroke-width="3" marker-end="url(#arrN)"/>
+          <text x="675" y="18" text-anchor="middle" font-size="13" font-weight="700" fill="#0b3a6e">כיוון השעתוק</text>
+        </svg>
+      </div>
+      <p class="fig-cap">RNA פולימראז פותח את הסליל, קורא את <b>גדיל התבנית</b> (<span class="ltr">3'→5'</span>) ומוסיף ריבונוקלאוטידים לקצה ה-<span class="ltr">3'</span> של ה-mRNA. שימו לב: רצף ה-mRNA (AUGCCU…) זהה לגדיל המקודד (ATGCCT…), עם U במקום T.</p>
+    </article>
+
+    <article class="card">
+      <h2 class="sec-title"><span class="num">4</span>סימולציה: שעתוק ועיבוד mRNA</h2>
+      <h3 class="font-bold text-navy mb-2">שלב א' – משעתקים: בנו את ה-mRNA</h3>
+      <p class="mb-3 leading-relaxed">לפניכם גדיל התבנית של גן. בנו את ה-mRNA המשלים בכיוון <span class="ltr">5'→3'</span>. זכרו: ב-RNA אין T!</p>
+      <div class="sim-box mb-6" id="sim-rna"></div>
+      <h3 class="font-bold text-navy mb-2">שלב ב' – מעבדים: מ-pre-mRNA ל-mRNA בוגר</h3>
+      <p class="mb-3 leading-relaxed">לחצו על האינטרונים (הקטעים המפוספסים) כדי להסיר אותם, והוסיפו כיפה וזנב. נסו גם שחבור חלופי!</p>
+      <div class="sim-box" id="sim-splice"></div>
+    </article>
+
+    <article class="card">
+      <h2 class="sec-title"><span class="num">5</span>תרגול: 10 שאלות</h2>
+      <div id="quiz-rna"></div>
+    </article>
+  </div>
+</section>
+
+<!-- ===================================================== -->
+<!-- ================= TAB 3: TRANSLATION ================== -->
+<!-- ===================================================== -->
+<section class="tab-panel" id="panel-protein" data-panel="protein" role="tabpanel">
+  <div class="hero mb-6">
+    <p class="text-emerald-200 text-sm font-semibold mb-1">יחידה 3</p>
+    <h2 class="text-2xl md:text-3xl font-extrabold mb-2">תרגום: מ-mRNA לחלבון</h2>
+    <p class="text-blue-100 max-w-3xl leading-relaxed">איך "שפה" של 4 אותיות מתורגמת ל"שפה" של 20 חומצות אמינו – ואיך הריבוזום, ה-tRNA והצופן הגנטי עובדים יחד כפס ייצור מדויק.</p>
+    <div class="mt-3"><span class="chip">הצופן הגנטי</span><span class="chip">tRNA ואנטיקודון</span><span class="chip">אתרי A, P, E</span><span class="chip">קיפול חלבונים</span></div>
+  </div>
+
+  <div class="space-y-6">
+    <article class="card">
+      <h2 class="sec-title"><span class="num">1</span>רקע עיוני</h2>
+      <div class="prose-he">
+        <h3>הבעיה: לתרגם 4 אותיות ל-20 "מילים"</h3>
+        <p>חלבונים בנויים מ-20 סוגים של חומצות אמינו, אך ב-mRNA יש רק 4 בסיסים. אילו כל בסיס היה מקודד לחומצה אמינית אחת, ניתן היה לקודד רק 4 חומצות; צירופים של שני בסיסים נותנים <span class="ltr">4² = 16</span> אפשרויות – עדיין לא מספיק. צירופים של שלושה בסיסים נותנים <span class="ltr">4³ = 64</span> אפשרויות – די והותר. לכן היחידה הבסיסית של הצופן היא <b>קודון</b> – רצף של שלושה נוקלאוטידים ב-mRNA. ב-1961 פיענחו <b>מרשל נירנברג והיינריך מתאי</b> את הקודון הראשון: הם הוסיפו RNA מלאכותי שכולו U (<span class="ltr">UUUUUU…</span>) לתמצית תאים, וקיבלו שרשרת שכולה פנילאלנין – כלומר UUU מקודד לפנילאלנין.</p>
+
+        <h3>תכונות הצופן הגנטי</h3>
+        <ul>
+          <li><b>מבוסס שלישיות:</b> כל קודון בן 3 בסיסים. מתוך 64 הקודונים, 61 מקודדים לחומצות אמינו ו-3 הם <b>קודוני סיום</b> (<span class="ltr">UAA, UAG, UGA</span>).</li>
+          <li><b>קודון התחלה:</b> <span class="ltr">AUG</span> מקודד למתיונין ומסמן את תחילת התרגום. לכן כל חלבון מתחיל (לפחות בשלב ייצורו) במתיונין.</li>
+          <li><b>מנוון (redundant):</b> לרוב חומצות האמינו יש יותר מקודון אחד. ללאוצין, סרין וארגינין יש 6 קודונים, ואילו למתיונין ולטריפטופן – קודון אחד בלבד. הניוון מרוכז בדרך כלל בבסיס השלישי, ולכן חלק מהמוטציות בעמדה זו "שקטות".</li>
+          <li><b>חד-משמעי:</b> כל קודון מקודד לחומצה אמינית אחת בלבד.</li>
+          <li><b>לא חופף וללא "פסיקים":</b> הקודונים נקראים ברצף, זה אחר זה, ללא דילוג. לכן חשובה <b>מסגרת הקריאה</b> – הנקבעת על ידי קודון ההתחלה.</li>
+          <li><b>כמעט אוניברסלי:</b> אותו צופן משמש חיידקים, צמחים ובני אדם – עדות למוצא משותף, ותכונה המאפשרת הנדסה גנטית (למשל ייצור אינסולין אנושי בחיידקים). קיימים חריגים מעטים, למשל במיטוכונדריה UGA מקודד לטריפטופן.</li>
+        </ul>
+
+        <h3>השחקנים בתהליך</h3>
+        <p><b>tRNA</b> – מולקולת RNA קצרה (כ-76–90 נוקלאוטידים) המתקפלת למבנה דמוי <b>תלתן</b> (ובתלת-ממד – לצורת האות L). בצד אחד שלה נמצא ה<b>אנטיקודון</b> – שלושה בסיסים המשלימים לקודון ב-mRNA, ובצד השני – קצה <span class="ltr">3'</span> עם הרצף <span class="ltr">CCA</span>, שאליו מחוברת חומצת האמינו. ה-tRNA הוא ה"מתורגמן" שמקשר בין שפת חומצות הגרעין לשפת החלבונים.</p>
+        <p><b>אמינואציל-tRNA סינתטאז</b> – משפחה של 20 אנזימים, אחד לכל חומצה אמינית. כל אנזים מזהה חומצה אמינית מסוימת ואת כל ה-tRNA המתאימים לה, ומחבר ביניהם תוך ניצול ATP ("טעינת" ה-tRNA). במובן מסוים, אנזימים אלה הם ה"מתרגמים" האמיתיים של הצופן, ויש להם גם מנגנון הגהה. תופעת ה<b>"התנודה" (wobble)</b> – זיווג גמיש בבסיס השלישי של הקודון – מאפשרת ל-tRNA אחד לזהות כמה קודונים, ולכן כ-45 סוגי tRNA מספיקים ל-61 קודונים.</p>
+        <p><b>הריבוזום</b> – "מכונה" מולקולרית הבנויה מ-rRNA ומחלבונים, ומורכבת משתי יחידות: <b>יחידה קטנה</b> שקוראת את ה-mRNA ו<b>יחידה גדולה</b> שבה נוצר הקשר הפפטידי. ריבוזום אאוקריוטי הוא 80S (יחידות 40S ו-60S), ופרוקריוטי – 70S (יחידות 30S ו-50S). בריבוזום שלושה אתרים לקשירת tRNA:</p>
+        <ul>
+          <li><b>אתר A</b> (Aminoacyl) – כניסה של tRNA טעון בחומצה אמינית חדשה.</li>
+          <li><b>אתר P</b> (Peptidyl) – כאן יושב ה-tRNA הנושא את שרשרת הפוליפפטיד הגדלה.</li>
+          <li><b>אתר E</b> (Exit) – יציאה של tRNA "ריק" לאחר שמסר את השרשרת.</li>
+        </ul>
+        <p>היצירה של הקשר הפפטידי מזורזת על ידי ה-rRNA של היחידה הגדולה ולא על ידי חלבון – ולכן הריבוזום הוא למעשה <b>ריבוזים</b> (RNA בעל פעילות אנזימטית). תגלית זו, שבזכותה זכתה הישראלית <b>פרופ' עדה יונת</b> בפרס נובל לכימיה (2009) על פענוח מבנה הריבוזום, תומכת בהשערת "עולם ה-RNA" בראשית החיים.</p>
+
+        <h3>שלבי התרגום</h3>
+        <p><b>1. התחלה:</b> היחידה הקטנה של הריבוזום נקשרת לכיפת ה-<span class="ltr">5'</span> של ה-mRNA וסורקת אותו עד שהיא מוצאת את קודון ההתחלה <span class="ltr">AUG</span>. tRNA ההתחלה, הנושא מתיונין, מתזווג אליו. אז מצטרפת היחידה הגדולה, כך שה-tRNA של המתיונין יושב באתר P. התהליך נעזר בגורמי התחלה ובאנרגיה מ-GTP.</p>
+        <p><b>2. הארכה</b> – מחזור בן שלושה צעדים החוזר על עצמו:</p>
+        <ol>
+          <li><b>זיהוי קודון:</b> tRNA טעון שהאנטיקודון שלו משלים לקודון החשוף נכנס לאתר A.</li>
+          <li><b>יצירת קשר פפטידי:</b> השרשרת שעל ה-tRNA באתר P מועברת אל חומצת האמינו שעל ה-tRNA באתר A, ונוצר קשר פפטידי (בין קבוצת הקרבוקסיל של השרשרת לקבוצת האמין של החומצה החדשה).</li>
+          <li><b>טרנסלוקציה:</b> הריבוזום מתקדם קודון אחד בכיוון <span class="ltr">3'</span>. ה-tRNA שנשא את השרשרת עובר לאתר P, ה-tRNA הריק עובר לאתר E ויוצא, ואתר A מתפנה לקודון הבא.</li>
+        </ol>
+        <p>באאוקריוטים מתווספות כ-2–6 חומצות אמינו בשנייה (בחיידקים – עד 20). השרשרת נבנית מהקצה האמיני (<b>N</b>) אל הקצה הקרבוקסילי (<b>C</b>), ויוצאת מהריבוזום דרך "מנהרה" ביחידה הגדולה.</p>
+        <p><b>3. סיום:</b> כשקודון סיום (<span class="ltr">UAA, UAG, UGA</span>) מגיע לאתר A, אין tRNA שמתאים לו. במקומו נקשר חלבון הנקרא <b>גורם שחרור</b> (release factor), הגורם לניתוק השרשרת מה-tRNA האחרון. שתי יחידות הריבוזום נפרדות ויכולות להתחיל סבב תרגום חדש.</p>
+
+        <h3>אחרי התרגום: מפוליפפטיד לחלבון פעיל</h3>
+        <ul>
+          <li><b>פוליזום:</b> כמה ריבוזומים מתרגמים בו-זמנית את אותה מולקולת mRNA, וכך מיוצרים עותקים רבים של החלבון במהירות.</li>
+          <li><b>קיפול:</b> רצף חומצות האמינו (<b>מבנה ראשוני</b>) קובע את הקיפול: <b>מבנה שניוני</b> (סליל α ומשטח β), <b>שלישוני</b> (המבנה התלת-ממדי של השרשרת) ו<b>רביעוני</b> (הרכבה של כמה שרשראות, כמו ארבע השרשראות של ההמוגלובין). חלבוני <b>שפרון</b> מסייעים לקיפול תקין.</li>
+          <li><b>שינויים לאחר התרגום:</b> חיתוך (למשל פרו-אינסולין נחתך לאינסולין פעיל), זרחון, הוספת סוכרים (גליקוזילציה) ועוד.</li>
+          <li><b>מיון ליעד:</b> חלבונים לשימוש בציטופלזמה מיוצרים בריבוזומים חופשיים. חלבונים המיועדים להפרשה (כמו אינסולין ונוגדנים) או לממברנה מתחילים ב<b>רצף אות</b> המכוון את הריבוזום אל <b>ה-ER המחוספס</b>, ומשם הם עוברים לגולג'י ולהפרשה.</li>
+        </ul>
+
+        <div class="callout med"><b>🩺 חיבור לרפואה:</b> אנטיביוטיקות רבות פוגעות באופן סלקטיבי בריבוזום החיידקי (70S), השונה במבנהו מהריבוזום הציטופלזמטי האנושי (80S): <b>טטרציקלינים</b> חוסמים את אתר A ביחידה הקטנה; <b>אמינוגליקוזידים</b> (סטרפטומיצין, גנטמיצין) נקשרים ליחידה 30S וגורמים לשגיאות קריאה; <b>מקרולידים</b> (אריתרומיצין, אזיתרומיצין) חוסמים את מנהרת היציאה ביחידה 50S; <b>כלורמפניקול</b> מעכב את יצירת הקשר הפפטידי. מחקריה של עדה יונת על מבנה הריבוזום סייעו להבין כיצד תרופות אלה פועלות ולתכנן חדשות. מצד שני, רעלן <b>הדיפתריה</b> משבית גורם הארכה אנושי (eEF2) ועוצר את התרגום בתאי האדם. גם <b>מחלות קיפול</b> – כמו אלצהיימר, פרקינסון ומחלות פריון (קרויצפלד-יעקב) – נובעות מחלבונים שמתקפלים באופן שגוי ונצברים בתאי המוח.</div>
+      </div>
+    </article>
+
+    <article class="card">
+      <h2 class="sec-title"><span class="num">2</span>סיכום מושגים</h2>
+      <dl class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div class="concept"><dt>תרגום</dt><dd>בניית שרשרת חומצות אמינו לפי רצף הקודונים ב-mRNA.</dd></div>
+        <div class="concept"><dt>קודון</dt><dd>שלושה נוקלאוטידים ב-mRNA המקודדים לחומצה אמינית או לסיום.</dd></div>
+        <div class="concept"><dt>אנטיקודון</dt><dd>שלושה בסיסים ב-tRNA המשלימים לקודון.</dd></div>
+        <div class="concept"><dt>צופן מנוון</dt><dd>כמה קודונים יכולים לקודד לאותה חומצה אמינית.</dd></div>
+        <div class="concept"><dt>מסגרת קריאה</dt><dd>אופן החלוקה של הרצף לשלישיות, הנקבע ע"י קודון ההתחלה.</dd></div>
+        <div class="concept"><dt>קודון התחלה</dt><dd><span class="ltr">AUG</span> – מקודד למתיונין ומתחיל את התרגום.</dd></div>
+        <div class="concept"><dt>קודוני סיום</dt><dd><span class="ltr">UAA, UAG, UGA</span> – אינם מקודדים לחומצה אמינית.</dd></div>
+        <div class="concept"><dt>tRNA</dt><dd>מוביל חומצה אמינית מסוימת אל הריבוזום; מבנה תלתן.</dd></div>
+        <div class="concept"><dt>אמינואציל-tRNA סינתטאז</dt><dd>אנזים ה"טוען" כל tRNA בחומצה האמינית הנכונה (בעזרת ATP).</dd></div>
+        <div class="concept"><dt>ריבוזום</dt><dd>מכונת התרגום: rRNA + חלבונים, יחידה קטנה וגדולה.</dd></div>
+        <div class="concept"><dt>אתרים A, P, E</dt><dd>כניסה, החזקת השרשרת ויציאה של tRNA בריבוזום.</dd></div>
+        <div class="concept"><dt>קשר פפטידי</dt><dd>קשר קוולנטי בין חומצות אמינו סמוכות בשרשרת.</dd></div>
+        <div class="concept"><dt>גורם שחרור</dt><dd>חלבון הנקשר לקודון סיום ומשחרר את השרשרת.</dd></div>
+        <div class="concept"><dt>פוליזום</dt><dd>כמה ריבוזומים המתרגמים בו-זמנית את אותו mRNA.</dd></div>
+        <div class="concept"><dt>שפרונים</dt><dd>חלבונים המסייעים לחלבונים אחרים להתקפל נכון.</dd></div>
+      </dl>
+    </article>
+
+    <article class="card">
+      <h2 class="sec-title"><span class="num">3</span>איור: ריבוזום מתרגם חלבון</h2>
+      <div class="svg-wrap">
+        <svg viewBox="0 0 800 430" role="img" aria-label="ריבוזום עם אתרי E, P, A, מולקולות tRNA ושרשרת חומצות אמינו">
+          <defs>
+            <g id="trnaShape">
+              <rect x="-7" y="-128" width="14" height="48" rx="4" fill="#fdba74" stroke="#c2410c" stroke-width="1.5"/>
+              <circle cx="-30" cy="-64" r="17" fill="#fed7aa" stroke="#c2410c" stroke-width="1.5"/>
+              <circle cx="30" cy="-64" r="17" fill="#fed7aa" stroke="#c2410c" stroke-width="1.5"/>
+              <rect x="-15" y="-84" width="30" height="40" rx="8" fill="#fdba74" stroke="#c2410c" stroke-width="1.5"/>
+              <rect x="-7" y="-46" width="14" height="20" fill="#fdba74" stroke="#c2410c" stroke-width="1.5"/>
+              <rect x="-28" y="-28" width="56" height="26" rx="9" fill="#fff7ed" stroke="#c2410c" stroke-width="1.5"/>
+            </g>
+            <marker id="arrO" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#b91c1c"/></marker>
+            <marker id="arrN2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#0b3a6e"/></marker>
+          </defs>
+          <!-- large subunit -->
+          <path d="M150 230 C140 120 250 52 400 52 C560 52 665 120 650 230 C640 285 160 285 150 230 Z" fill="#dbeafe" stroke="#0b3a6e" stroke-width="2.5"/>
+          <!-- exit tunnel -->
+          <path d="M370 150 C350 110 330 80 315 52" fill="none" stroke="#93c5fd" stroke-width="22" stroke-linecap="round" opacity=".8"/>
+          <!-- small subunit -->
+          <ellipse cx="400" cy="335" rx="225" ry="52" fill="#bfdbfe" stroke="#0b3a6e" stroke-width="2.5"/>
+          <!-- sites -->
+          <g stroke="#0b3a6e" stroke-dasharray="6 4" fill="#ffffff" fill-opacity=".45" stroke-width="1.5">
+            <rect x="225" y="150" width="110" height="160" rx="12"/>
+            <rect x="345" y="150" width="110" height="160" rx="12"/>
+            <rect x="465" y="150" width="110" height="160" rx="12"/>
+          </g>
+          <g font-size="22" font-weight="800" fill="#0b3a6e" text-anchor="middle" font-family="Consolas,monospace">
+            <text x="245" y="176">E</text><text x="365" y="176">P</text><text x="485" y="176">A</text>
+          </g>
+          <!-- mRNA -->
+          <line x1="22" y1="316" x2="778" y2="316" stroke="#9b59d0" stroke-width="6" stroke-linecap="round"/>
+          <g stroke="#7e3fb6" stroke-width="2"><line x1="220" y1="306" x2="220" y2="326"/><line x1="340" y1="306" x2="340" y2="326"/><line x1="460" y1="306" x2="460" y2="326"/><line x1="580" y1="306" x2="580" y2="326"/><line x1="700" y1="306" x2="700" y2="326"/><line x1="100" y1="306" x2="100" y2="326"/></g>
+          <g font-size="15" font-weight="800" text-anchor="middle" font-family="Consolas,monospace" fill="#5b21b6">
+            <text x="130" y="309">A</text><text x="160" y="309">U</text><text x="190" y="309">G</text>
+            <text x="250" y="309">G</text><text x="280" y="309">C</text><text x="310" y="309">A</text>
+            <text x="370" y="309">U</text><text x="400" y="309">U</text><text x="430" y="309">C</text>
+            <text x="490" y="309">A</text><text x="520" y="309">A</text><text x="550" y="309">A</text>
+            <text x="610" y="309">U</text><text x="640" y="309">G</text><text x="670" y="309">G</text>
+            <text x="730" y="309">U</text><text x="760" y="309">A</text>
+          </g>
+          <!-- tRNAs -->
+          <g transform="translate(262,290) rotate(-14)" opacity=".6"><use href="#trnaShape"/>
+            <g font-size="12" font-weight="800" text-anchor="middle" font-family="Consolas,monospace" fill="#9a3412"><text x="-15" y="-11">C</text><text x="0" y="-11">G</text><text x="15" y="-11">U</text></g></g>
+          <g transform="translate(400,290)"><use href="#trnaShape"/>
+            <g font-size="12" font-weight="800" text-anchor="middle" font-family="Consolas,monospace" fill="#9a3412"><text x="-17" y="-11">A</text><text x="0" y="-11">A</text><text x="17" y="-11">G</text></g></g>
+          <g transform="translate(520,290)"><use href="#trnaShape"/>
+            <g font-size="12" font-weight="800" text-anchor="middle" font-family="Consolas,monospace" fill="#9a3412"><text x="-17" y="-11">U</text><text x="0" y="-11">U</text><text x="17" y="-11">U</text></g></g>
+          <!-- codon-anticodon pairing ticks -->
+          <g stroke="#94a3b8" stroke-width="1.5"><line x1="383" y1="285" x2="383" y2="295"/><line x1="400" y1="285" x2="400" y2="295"/><line x1="417" y1="285" x2="417" y2="295"/><line x1="503" y1="285" x2="503" y2="295"/><line x1="520" y1="285" x2="520" y2="295"/><line x1="537" y1="285" x2="537" y2="295"/></g>
+          <!-- amino acids / polypeptide -->
+          <g stroke="#475569" stroke-width="3"><line x1="400" y1="148" x2="372" y2="118"/><line x1="372" y1="118" x2="344" y2="86"/><line x1="344" y1="86" x2="322" y2="50"/></g>
+          <g font-size="11" font-weight="700" text-anchor="middle" fill="#fff">
+            <circle cx="322" cy="44" r="17" fill="#d97706"/><text x="322" y="48">Met</text>
+            <circle cx="344" cy="86" r="17" fill="#d97706"/><text x="344" y="90">Ala</text>
+            <circle cx="372" cy="118" r="17" fill="#d97706"/><text x="372" y="122">Phe</text>
+            <circle cx="400" cy="148" r="5" fill="#475569"/>
+            <circle cx="520" cy="142" r="17" fill="#2563eb"/><text x="520" y="146">Lys</text>
+            <circle cx="235" cy="128" r="0"/>
+          </g>
+          <line x1="520" y1="159" x2="520" y2="162" stroke="#475569" stroke-width="3"/>
+          <path d="M388 112 Q455 70 505 128" fill="none" stroke="#b91c1c" stroke-width="2.5" stroke-dasharray="5 4" marker-end="url(#arrO)"/>
+          <text x="470" y="78" text-anchor="middle" font-size="13" font-weight="800" fill="#b91c1c">נוצר קשר פפטידי</text>
+          <!-- labels -->
+          <g font-size="13" fill="#0b3a6e" font-weight="700">
+            <text x="600" y="100" text-anchor="middle">יחידה גדולה (60S)</text>
+            <text x="400" y="375" text-anchor="middle">יחידה קטנה (40S)</text>
+            <text x="220" y="40" text-anchor="middle" fill="#92400e">שרשרת פוליפפטיד (קצה N)</text>
+            <text x="70" y="345" text-anchor="middle" fill="#7e3fb6">mRNA</text>
+            <text x="690" y="200" text-anchor="middle" fill="#9a3412">tRNA נושא ליזין</text>
+            <text x="690" y="218" text-anchor="middle" fill="#9a3412" font-weight="400" font-size="12">אנטיקודון: UUU</text>
+          </g>
+          <g font-size="14" font-weight="800" font-family="Consolas,monospace" fill="#475569"><text x="6" y="321">5'</text><text x="782" y="321">3'</text></g>
+          <g font-size="12.5" text-anchor="middle" fill="#334155">
+            <text x="165" y="415">אתר E: יציאת tRNA ריק</text>
+            <text x="400" y="415">אתר P: מחזיק את השרשרת</text>
+            <text x="635" y="415">אתר A: כניסת tRNA טעון</text>
+          </g>
+          <line x1="660" y1="32" x2="775" y2="32" stroke="#0b3a6e" stroke-width="3" marker-end="url(#arrN2)"/>
+          <text x="717" y="22" text-anchor="middle" font-size="12" font-weight="700" fill="#0b3a6e">תנועת הריבוזום</text>
+        </svg>
+      </div>
+      <p class="fig-cap">הריבוזום קורא את ה-mRNA (<span class="ltr">AUG·GCA·UUC·AAA·UGG…</span>). ה-tRNA באתר P נושא את השרשרת Met-Ala-Phe; tRNA חדש עם ליזין נכנס לאתר A (אנטיקודון UUU מול הקודון AAA), והשרשרת עוברת אליו בקשר פפטידי. ה-tRNA שבאתר E יוצא.</p>
+    </article>
+
+    <article class="card">
+      <h2 class="sec-title"><span class="num">4</span>סימולציה: הריבוזום הוירטואלי</h2>
+      <p class="mb-3 leading-relaxed">הזינו רצף mRNA (או צרו רצף אקראי). הריבוזום יחפש את קודון ההתחלה AUG ויתרגם קודון אחר קודון. עקבו אחר טבלת הצופן הגנטי – הקודון הנוכחי מסומן בצהוב.</p>
+      <div class="sim-box" id="sim-protein"></div>
+    </article>
+
+    <article class="card">
+      <h2 class="sec-title"><span class="num">5</span>תרגול: 10 שאלות</h2>
+      <div id="quiz-protein"></div>
+    </article>
+  </div>
+</section>
+
+<!-- ===================================================== -->
+<!-- ================== TAB 4: MUTATIONS =================== -->
+<!-- ===================================================== -->
+<section class="tab-panel" id="panel-mutation" data-panel="mutation" role="tabpanel">
+  <div class="hero mb-6">
+    <p class="text-emerald-200 text-sm font-semibold mb-1">יחידה 4</p>
+    <h2 class="text-2xl md:text-3xl font-extrabold mb-2">מוטציות והשלכותיהן המחלתיות</h2>
+    <p class="text-blue-100 max-w-3xl leading-relaxed">איך שינוי של אות אחת מתוך מיליארדים יכול לגרום למחלה קשה – ומדוע אותן מוטציות הן גם המנוע של האבולוציה.</p>
+    <div class="mt-3"><span class="chip">סוגי מוטציות</span><span class="chip">מוטגנים ותיקון DNA</span><span class="chip">אנמיה חרמשית</span><span class="chip">סרטן ותורשה</span></div>
+  </div>
+
+  <div class="space-y-6">
+    <article class="card">
+      <h2 class="sec-title"><span class="num">1</span>רקע עיוני</h2>
+      <div class="prose-he">
+        <h3>מהי מוטציה?</h3>
+        <p><b>מוטציה</b> היא שינוי קבוע ברצף הנוקלאוטידים של ה-DNA. מוטציה יכולה להיות זעירה – החלפת בסיס יחיד – או נרחבת, ולהקיף כרומוזום שלם. חשוב להבחין בין שני סוגים לפי סוג התא שבו היא מתרחשת:</p>
+        <ul>
+          <li><b>מוטציה סומטית</b> – מתרחשת בתא גוף (עור, ריאה, מעי וכו'). היא עוברת רק לתאים שנוצרים מאותו תא בחלוקה, <u>ואינה מועברת לצאצאים</u>. מוטציות סומטיות מצטברות הן הגורם העיקרי לסרטן.</li>
+          <li><b>מוטציה בתאי מין (germline)</b> – מתרחשת בתאי הזרע או הביצית (או בתאים המייצרים אותם), ולכן <u>עוברת בתורשה</u> ונמצאת בכל תאי הגוף של הצאצא.</li>
+        </ul>
+        <p>רוב המוטציות <b>ניטרליות</b> – הן מתרחשות באזורים שאינם מקודדים או אינן משנות את החלבון. מעטות מזיקות, ומעטות אף מועילות. מוטציות הן המקור הבסיסי לשונות הגנטית שעליה פועלת הברירה הטבעית.</p>
+
+        <h3>מוטציות נקודתיות (ברמת הגן)</h3>
+        <div class="tbl-wrap">
+        <table class="tbl">
+          <thead><tr><th>סוג</th><th>מה קורה</th><th>השפעה על החלבון</th><th>דוגמה</th></tr></thead>
+          <tbody>
+            <tr><td><b>החלפה שקטה</b> (silent)</td><td>בסיס מוחלף, אך הקודון החדש מקודד לאותה חומצה אמינית (בזכות ניוון הצופן)</td><td>אין שינוי</td><td class="ltr">CUG→CUA (Leu→Leu)</td></tr>
+            <tr><td><b>החלפת משמעות</b> (missense)</td><td>בסיס מוחלף והקודון מקודד לחומצה אמינית אחרת</td><td>תלוי במיקום ובתכונות החומצה: מזניחה ועד חמורה</td><td>אנמיה חרמשית: Glu→Val</td></tr>
+            <tr><td><b>חסרת משמעות</b> (nonsense)</td><td>בסיס מוחלף והקודון הופך לקודון סיום</td><td>חלבון מקוצר, בדרך כלל לא פעיל</td><td>חלק מהמוטציות ב-BRCA1 ובדושן</td></tr>
+            <tr><td><b>תזוזת מסגרת</b> (frameshift)</td><td>הוספה או חסר של מספר בסיסים שאינו כפולה של 3</td><td>כל הקודונים שאחרי המוטציה משתנים; בדרך כלל קודון סיום מוקדם</td><td>טיי-זקס (הוספת 4 בסיסים)</td></tr>
+            <tr><td><b>הוספה/חסר בכפולות של 3</b></td><td>מוסרת או נוספת חומצה אמינית שלמה, ללא שינוי במסגרת</td><td>חסרה/נוספה חומצה אמינית; הקיפול עלול להיפגע</td><td>ציסטיק פיברוזיס ΔF508</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <p>דוגמה להמחשת תזוזת מסגרת: במשפט "<span class="ltr">THE CAT ATE THE RAT</span>" – חסר של האות C ייתן "<span class="ltr">THE ATA TET HER AT</span>": כל המילים שאחרי נקודת החסר משתבשות.</p>
+
+        <h3>מוטציות כרומוזומליות וגנומיות</h3>
+        <ul>
+          <li><b>חסר (deletion)</b> של מקטע כרומוזום – למשל תסמונת "קרי דו שה" (חסר בזרוע הקצרה של כרומוזום 5).</li>
+          <li><b>הכפלה (duplication)</b> של מקטע – יוצרת עותקים נוספים של גנים.</li>
+          <li><b>היפוך (inversion)</b> – מקטע מתהפך בתוך הכרומוזום.</li>
+          <li><b>טרנסלוקציה</b> – מעבר מקטע בין כרומוזומים שאינם הומולוגיים. דוגמה מפורסמת: <b>כרומוזום פילדלפיה</b> בלוקמיה מיאלואידית כרונית (CML) – חילוף בין כרומוזומים 9 ו-22 יוצר גן היברידי <span class="ltr">BCR-ABL</span> המקודד לאנזים פעיל-תמיד הגורם לחלוקה בלתי מבוקרת. התרופה <b>אימטיניב (גליבק)</b> חוסמת אנזים זה – אחת הדוגמאות הראשונות ל"טיפול מותאם" בסרטן.</li>
+          <li><b>מוטציות מספריות (אנאופלואידיה)</b> – תוצאה של <b>אי-הפרדה</b> של כרומוזומים במיוזה: טריזומיה 21 (<b>תסמונת דאון</b>), תסמונת טרנר (X0), תסמונת קליינפלטר (XXY).</li>
+        </ul>
+
+        <h3>מה גורם למוטציות?</h3>
+        <ul>
+          <li><b>מוטציות ספונטניות</b> – טעויות בשכפול שלא תוקנו, ושינויים כימיים טבעיים בבסיסים (כמו איבוד קבוצת אמין מציטוזין).</li>
+          <li><b>קרינה אולטרה-סגולה (UV)</b> – גורמת להיווצרות <b>דימרים של תימין</b>: שני תימינים סמוכים באותו גדיל נקשרים זה לזה קוולנטית ומעוותים את הסליל. זה הגורם העיקרי לסרטן העור.</li>
+          <li><b>קרינה מייננת</b> (רנטגן, גמא, חומרים רדיואקטיביים) – גורמת לשברים דו-גדיליים ב-DNA.</li>
+          <li><b>מוטגנים כימיים</b> – למשל בנזו[a]פירן שבעשן סיגריות, אפלטוקסין מעובש על אגוזים ותירס, וחומרים המחקים בסיסים.</li>
+          <li><b>גורמים ביולוגיים</b> – נגיפים כמו HPV (סרטן צוואר הרחם) ו-HBV (סרטן כבד).</li>
+        </ul>
+        <p>חומר שגורם למוטציות נקרא <b>מוטגן</b>, וחומר שגורם לסרטן – <b>קרצינוגן</b>. מרבית הקרצינוגנים הם גם מוטגנים.</p>
+
+        <h3>מנגנוני תיקון ה-DNA</h3>
+        <p>בכל תא אנושי מתרחשים עשרות אלפי אירועי נזק ל-DNA ביום, אך רובם המכריע מתוקן:</p>
+        <ul>
+          <li><b>הגהה</b> של DNA פולימראז בזמן השכפול.</li>
+          <li><b>תיקון אי-התאמה</b> (mismatch repair) – מזהה זוגות בסיסים שגויים שנותרו אחרי השכפול. פגם במנגנון זה גורם ל<b>תסמונת לינץ'</b> – נטייה תורשתית לסרטן המעי הגס.</li>
+          <li><b>תיקון בחיתוך נוקלאוטידים</b> – מסיר קטע פגום (כמו דימר תימין) ובונה אותו מחדש. פגם תורשתי במנגנון זה גורם למחלה <b>קסרודרמה פיגמנטוזום</b> (XP): החולים רגישים במיוחד לשמש ונוטים לסרטן עור כבר בילדות.</li>
+          <li><b>תיקון שברים דו-גדיליים</b> – בעזרת הגדיל ההומולוגי (רקומבינציה הומולוגית) או בחיבור ישיר של הקצוות. החלבונים <b>BRCA1 ו-BRCA2</b> חיוניים לתיקון ההומולוגי; מוטציות בהם, הנפוצות יחסית בקרב יהודים ממוצא אשכנזי (כ-1 מכל 40), מעלות מאוד את הסיכון לסרטן שד ושחלה.</li>
+        </ul>
+
+        <h3>מוטציות ומחלות – דוגמאות מרכזיות</h3>
+        <p><b>אנמיה חרמשית (Sickle cell anemia):</b> מוטציה נקודתית אחת בגן <b>HBB</b> המקודד לשרשרת β של ההמוגלובין. בקודון 6 מוחלף A ב-T (<span class="ltr">GAG→GTG</span>), ולכן החומצה האמינית <b>גלוטמט</b> (טעונה שלילית, הידרופילית) מוחלפת ב<b>ואלין</b> (הידרופובית). ההמוגלובין המוטנטי (HbS) נצמד למולקולות אחרות בתנאי חמצן נמוך ויוצר סיבים ארוכים, שמעוותים את תאי הדם האדומים לצורת חרמש. התאים הקשיחים נתקעים בנימים, גורמים ל<b>משברי כאב</b>, לנזק לאיברים ולפירוק מהיר של תאי דם (אנמיה). זוהי דוגמה קלאסית לכך שהחלפה של בסיס אחד מתוך מיליארדים משנה את <b>מבנה החלבון ← תפקודו ← צורת התא ← תסמיני המחלה</b>.</p>
+        <div class="callout warn"><b>⚖️ יתרון הנשאים:</b> נשאים (הטרוזיגוטים, HbA/HbS) כמעט אינם חולים, ונהנים מ<b>עמידות חלקית למלריה</b> – הטפיל נפגע בתאים המכילים HbS. לכן באזורים שבהם מלריה נפוצה (אפריקה שמדרום לסהרה) האלל נשמר בשכיחות גבוהה. זו דוגמה ל"יתרון ההטרוזיגוט" בברירה הטבעית.</div>
+        <ul>
+          <li><b>ציסטיק פיברוזיס (CF):</b> מחלה רצסיבית בגן CFTR המקודד לתעלת כלוריד. המוטציה השכיחה ΔF508 היא חסר של 3 נוקלאוטידים, המסלק פנילאלנין אחד; החלבון מתקפל לא נכון ומפורק. התוצאה: ריר סמיך בריאות ובלבלב, זיהומים חוזרים וקשיי עיכול. תרופות חדשות ("מתקני CFTR") משפרות את קיפול החלבון ותפקודו.</li>
+          <li><b>טיי-זקס:</b> מחלה רצסיבית קטלנית בגן HEXA (אנזים לפירוק שומנים בתאי עצב). שכיחה יחסית בקרב יהודים אשכנזים; בזכות <b>תוכנית הסקר הגנטי לנשאים</b> בישראל ובקהילות יהודיות בעולם, מספר הלידות של חולים ירד באופן דרמטי.</li>
+          <li><b>מחלת הנטינגטון:</b> מחלה <b>דומיננטית</b> שנגרמת מהתרחבות של חזרות הרצף CAG בגן HTT (מעל 40 חזרות). מתבטאת בדרך כלל בגיל 30–50 בהפרעות תנועה, שינויים קוגניטיביים ונפשיים.</li>
+          <li><b>פנילקטונוריה (PKU):</b> מחלה רצסיבית בגן לאנזים המפרק פנילאלנין. כל תינוק בישראל נבדק לה בבדיקת הסקר לילודים ("בדיקת העקב"); דיאטה מתאימה מונעת פגיעה מוחית.</li>
+          <li><b>סרטן:</b> נובע מהצטברות מוטציות בשני סוגי גנים: <b>פרוטו-אונקוגנים</b> (גנים המעודדים חלוקה, שמוטציה הופכת ל"דוושת גז תקועה", כמו RAS) ו<b>גנים מדכאי גידול</b> (גנים העוצרים חלוקה, שמוטציה מבטלת את "הבלמים", כמו <b>p53</b> – "שומר הגנום" – המוטנטי בכמחצית מכל הגידולים).</li>
+        </ul>
+
+        <h3>דפוסי הורשה ואבחון</h3>
+        <p>במחלה <b>אוטוזומלית רצסיבית</b> החולה נושא שני עותקים פגומים; כאשר שני ההורים נשאים, הסיכון לילד חולה הוא 25% בכל הריון, ו-50% לילד נשא. במחלה <b>אוטוזומלית דומיננטית</b> די בעותק פגום אחד, וסיכוי ההורשה מהורה חולה הוא 50%. במחלות <b>תלויות X</b> (כמו המופיליה ודושן) חולים בעיקר בנים, שיש להם עותק X יחיד. כלים לאבחון ולמניעה כוללים <b>סקר נשאים</b>, אבחון טרום-לידתי (סיסי שליה, דיקור מי שפיר), <b>אבחון טרום-השרשה (PGD)</b> בהפריה חוץ-גופית, וייעוץ גנטי.</p>
+      </div>
+    </article>
+
+    <article class="card">
+      <h2 class="sec-title"><span class="num">2</span>סיכום מושגים</h2>
+      <dl class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div class="concept"><dt>מוטציה</dt><dd>שינוי קבוע ברצף ה-DNA.</dd></div>
+        <div class="concept"><dt>סומטית / תאי מין</dt><dd>סומטית – בתאי גוף, לא עוברת בתורשה; בתאי מין – עוברת לצאצאים.</dd></div>
+        <div class="concept"><dt>מוטציה שקטה</dt><dd>החלפת בסיס שאינה משנה את החומצה האמינית.</dd></div>
+        <div class="concept"><dt>Missense</dt><dd>החלפת בסיס הגורמת להחלפת חומצה אמינית אחת באחרת.</dd></div>
+        <div class="concept"><dt>Nonsense</dt><dd>החלפת בסיס היוצרת קודון סיום מוקדם – חלבון מקוצר.</dd></div>
+        <div class="concept"><dt>תזוזת מסגרת</dt><dd>הוספה/חסר שאינם כפולה של 3 – שינוי כל הקודונים שאחריהם.</dd></div>
+        <div class="concept"><dt>מוטגן / קרצינוגן</dt><dd>גורם המעלה את קצב המוטציות / גורם המעודד סרטן.</dd></div>
+        <div class="concept"><dt>דימר תימין</dt><dd>קשר בין שני תימינים סמוכים בעקבות קרינת UV.</dd></div>
+        <div class="concept"><dt>אי-הפרדה</dt><dd>כשל בהיפרדות כרומוזומים במיוזה ← טריזומיה או מונוזומיה.</dd></div>
+        <div class="concept"><dt>טרנסלוקציה</dt><dd>מעבר מקטע בין כרומוזומים לא הומולוגיים (כרומוזום פילדלפיה).</dd></div>
+        <div class="concept"><dt>אונקוגן</dt><dd>גן מעודד-חלוקה שעבר מוטציה ופועל ביתר.</dd></div>
+        <div class="concept"><dt>גן מדכא גידול</dt><dd>גן הבולם חלוקה (p53, BRCA); אובדן תפקודו מעודד סרטן.</dd></div>
+        <div class="concept"><dt>נשא (הטרוזיגוט)</dt><dd>בעל עותק תקין ועותק מוטנטי של גן רצסיבי; בדרך כלל בריא.</dd></div>
+        <div class="concept"><dt>HbS</dt><dd>המוגלובין חרמשי: Glu6Val בשרשרת β בעקבות GAG→GTG.</dd></div>
+        <div class="concept"><dt>תיקון DNA</dt><dd>הגהה, תיקון אי-התאמה, חיתוך נוקלאוטידים ותיקון שברים.</dd></div>
+      </dl>
+    </article>
+
+    <article class="card">
+      <h2 class="sec-title"><span class="num">3</span>איור: מוטציה נקודתית – לפני ואחרי</h2>
+      <div class="svg-wrap">
+        <svg viewBox="0 0 800 430" role="img" aria-label="השוואה בין גן HBB תקין לבין מוטציית האנמיה החרמשית">
+          <defs>
+            <marker id="arrR" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#dc2626"/></marker>
+            <radialGradient id="rbc" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#fca5a5"/><stop offset=".55" stop-color="#ef4444"/><stop offset="1" stop-color="#b91c1c"/></radialGradient>
+          </defs>
+          <!-- panels -->
+          <rect x="10" y="10" width="780" height="195" rx="14" fill="#f0fdf4" stroke="#86efac"/>
+          <rect x="10" y="225" width="780" height="195" rx="14" fill="#fef2f2" stroke="#fca5a5"/>
+          <text x="770" y="38" text-anchor="start" font-size="16" font-weight="800" fill="#166534">לפני: גן HBB תקין ← המוגלובין A</text>
+          <text x="770" y="253" text-anchor="start" font-size="16" font-weight="800" fill="#991b1b">אחרי: מוטציה נקודתית ← המוגלובין S</text>
+          <!-- row labels -->
+          <g font-size="13" font-weight="700" fill="#334155" text-anchor="middle">
+            <text x="45" y="75">DNA</text><text x="45" y="125">mRNA</text><text x="45" y="178">חלבון</text>
+            <text x="45" y="290">DNA</text><text x="45" y="340">mRNA</text><text x="45" y="393">חלבון</text>
+          </g>
+          <g id="mutFigRows"></g>
+          <!-- RBC normal -->
+          <ellipse cx="640" cy="112" rx="78" ry="50" fill="url(#rbc)"/>
+          <ellipse cx="640" cy="112" rx="36" ry="20" fill="#fecaca" opacity=".75"/>
+          <text x="640" y="190" text-anchor="middle" font-size="12.5" fill="#166534" font-weight="700">תא דם אדום תקין: דיסקית דו-קעורה וגמישה</text>
+          <!-- RBC sickle -->
+          <path d="M548 352 C585 262 705 262 742 352 C705 318 585 318 548 352 Z" fill="url(#rbc)" stroke="#991b1b" stroke-width="1.5"/>
+          <g stroke="#7f1d1d" stroke-width="2" opacity=".55"><line x1="590" y1="318" x2="700" y2="312"/><line x1="585" y1="326" x2="705" y2="322"/><line x1="600" y1="308" x2="690" y2="303"/></g>
+          <text x="645" y="380" text-anchor="middle" font-size="12.5" fill="#991b1b" font-weight="700">תא חרמשי: קשיח, נתקע בנימים</text>
+          <text x="645" y="398" text-anchor="middle" font-size="11.5" fill="#7f1d1d">HbS יוצר סיבים בתנאי חמצן נמוך</text>
+          <!-- mutation arrow -->
+          <path d="M290 200 L290 262" stroke="#dc2626" stroke-width="3" fill="none" marker-end="url(#arrR)"/>
+          <rect x="304" y="218" width="150" height="26" rx="13" fill="#dc2626"/>
+          <text x="379" y="236" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">החלפה: A → T</text>
+        </svg>
+      </div>
+      <p class="fig-cap">קודונים 5–7 בגן ה-β-גלובין. החלפת בסיס יחיד (A ב-T) בקודון 6 הופכת את GAG (גלוטמט) ל-GTG (ואלין). חומצת אמינו הידרופובית במקום טעונה גורמת למולקולות ההמוגלובין להיצמד זו לזו – ותאי הדם מקבלים צורת חרמש.</p>
+    </article>
+
+    <article class="card">
+      <h2 class="sec-title"><span class="num">4</span>סימולציה: מעבדת המוטציות</h2>
+      <p class="mb-3 leading-relaxed">לפניכם תחילת הגן HBB (גדיל מקודד, מקוצר לצורך התרגיל). בחרו בסיס, בחרו סוג מוטציה – וראו מה קורה לחלבון. אפשר גם להשתמש בדוגמאות המוכנות.</p>
+      <div class="sim-box" id="sim-mutation"></div>
+    </article>
+
+    <article class="card">
+      <h2 class="sec-title"><span class="num">5</span>תרגול: 10 שאלות</h2>
+      <div id="quiz-mutation"></div>
+    </article>
+  </div>
+</section>
+
+<!-- ===================================================== -->
+<!-- =================== TAB 5: CLONING ==================== -->
+<!-- ===================================================== -->
+<section class="tab-panel" id="panel-cloning" data-panel="cloning" role="tabpanel">
+  <div class="hero mb-6">
+    <p class="text-emerald-200 text-sm font-semibold mb-1">יחידה 5</p>
+    <h2 class="text-2xl md:text-3xl font-extrabold mb-2">שיבוט והיסטוריה: הכבשה דולי</h2>
+    <p class="text-blue-100 max-w-3xl leading-relaxed">כיצד הוכיחו המדענים שגרעין של תא בוגר עדיין מכיל את כל ההוראות לבניית יצור שלם – ומה המשמעות של זה לרפואה ולחברה.</p>
+    <div class="mt-3"><span class="chip">העברת גרעין (SCNT)</span><span class="chip">תכנות מחדש</span><span class="chip">שיבוט טיפולי</span><span class="chip">תאי גזע iPS</span></div>
+  </div>
+
+  <div class="space-y-6">
+    <article class="card">
+      <h2 class="sec-title"><span class="num">1</span>רקע עיוני</h2>
+      <div class="prose-he">
+        <h3>מהו שיבוט?</h3>
+        <p><b>שיבוט</b> (Cloning) הוא יצירת עותק זהה מבחינה גנטית של מולקולה, תא או אורגניזם שלם. שיבוט אינו המצאה של המעבדה – הוא קיים בטבע: <b>תאומים זהים</b> הם שיבוטים טבעיים (עובר אחד שהתפצל), חיידקים מתרבים בחלוקה אל-מינית, וצמחים רבים מתרבים מייחורים, פקעות ושלוחות (כך מגדלים למשל בננות ותפוחי אדמה).</p>
+        <p>בביולוגיה מבחינים בשלושה סוגים של שיבוט:</p>
+        <ul>
+          <li><b>שיבוט גנים (מולקולרי)</b> – יצירת עותקים רבים של גן או מקטע DNA, למשל בתוך חיידקים (ראו יחידה 6).</li>
+          <li><b>שיבוט רבייתי</b> – יצירת בעל חיים שלם הזהה גנטית לתורם (כמו דולי).</li>
+          <li><b>שיבוט טיפולי</b> – יצירת עובר מוקדם בשיטת העברת גרעין במטרה להפיק ממנו <b>תאי גזע עובריים</b> המותאמים גנטית למטופל – ללא השתלה ברחם וללא לידה.</li>
+        </ul>
+
+        <h3>שאלת היסוד: האם תא ממוין "שוכח" גנים?</h3>
+        <p>כל תאי הגוף נוצרים מביצית מופרית אחת, אך תאי עור, עצב ושריר שונים מאוד זה מזה. בתחילת המאה ה-20 שאלו המדענים: האם בתהליך ההתמיינות התאים <b>מאבדים</b> גנים שאינם נחוצים להם, או שהגנים נשארים אך "מושתקים"? אם הגנום נשאר שלם, גרעין של תא בוגר אמור להיות מסוגל – בתנאים המתאימים – לכוון התפתחות של יצור שלם.</p>
+
+        <h3>ציר הזמן</h3>
+        <ul>
+          <li><b>1902 – הנס שפמן</b> פיצל עובר דו-תאי של סלמנדרה בעזרת שערה של תינוק, וכל תא התפתח לסלמנדרה שלמה. ב-1938 הציע את ניסוי העברת הגרעין ("ניסוי פנטסטי"), אך הטכנולוגיה לביצועו עוד לא הייתה קיימת.</li>
+          <li><b>1952 – רוברט בריגס ותומאס קינג</b> העבירו גרעינים מתאי עובר מוקדם של צפרדע לביציות ללא גרעין, וקיבלו ראשנים.</li>
+          <li><b>1962 – ג'ון גורדון</b> העביר גרעין מ<b>תא מעי ממוין</b> של ראשן לביצית צפרדע ללא גרעין – והתקבלו צפרדעים בוגרות. זו הייתה ההוכחה הראשונה שגרעין של תא ממוין מכיל את כל המידע הגנטי. גורדון זכה על כך בפרס נובל ב-2012.</li>
+          <li><b>1996 – הכבשה דולי</b>, היונק הראשון ששובט מתא סומטי של פרט בוגר, נולדה ב-5 ביולי 1996 במכון רוזלין שבסקוטלנד (צוות בראשות <b>איאן וילמוט וקית' קמפבל</b>). הלידה הוכרזה לציבור בפברואר 1997 ועוררה סערה עולמית. דולי נקראה על שם הזמרת דולי פרטון – משום שמקור התא היה בלוטת חלב.</li>
+          <li><b>1997 – הכבשה פולי</b>: שיבוט של כבשה שהונדסה גנטית לייצר בחלבה חלבון קרישה אנושי – שילוב של שיבוט והנדסה גנטית לייצור תרופות.</li>
+          <li><b>2001–2005</b> – שובטו בעלי חיים רבים: פרות, חזירים, עכברים, החתולה "CC" (2001) והכלב "סנופי" (2005).</li>
+          <li><b>2006 – שיניה יאמנקה</b> גילה שהחדרת ארבעה גנים של גורמי שעתוק (Oct4, Sox2, Klf4, c-Myc) לתאי עור בוגרים "מחזירה אותם לאחור" לתאי גזע פלוריפוטנטיים – <b>תאי iPS</b> – ללא צורך בביצית או בעובר. גם הוא זכה בפרס נובל ב-2012, יחד עם גורדון.</li>
+          <li><b>2018</b> – בסין שובטו לראשונה קופים (מקוק) בשיטת SCNT: ז'ונג ז'ונג והואה הואה.</li>
+          <li><b>2020–2021</b> – שובטו סוס פז'בלסקי וחמוס שחור-רגל, מינים בסכנת הכחדה, מתאים שהוקפאו לפני עשרות שנים.</li>
+        </ul>
+
+        <h3>שיטת SCNT – העברת גרעין מתא סומטי</h3>
+        <p>SCNT (<span class="ltr">Somatic Cell Nuclear Transfer</span>) היא השיטה שבה נוצרה דולי. השלבים:</p>
+        <ol>
+          <li><b>הכנת התא התורם:</b> נלקחו תאים מבלוטת החלב (עטין) של כבשה בת 6 מגזע <b>פין דורסט</b> (Finn Dorset) – גזע בעל <b>פנים לבנות</b>. התאים גודלו בתרבית ואז "הורעבו" (ריכוז נמוך של חומרי הזנה) במשך כמה ימים. ההרעבה הכניסה אותם לשלב <b>G0</b> – מצב מנוחה שבו הכרומטין רגיש יותר ל"תכנות מחדש" ומחזור התא מסונכרן עם הביצית. זו הייתה התובנה החשובה של קמפבל.</li>
+          <li><b>הכנת הביצית:</b> נלקחה ביצית לא מופרית מכבשה מגזע <b>סקוטי שחור-פנים</b> (Scottish Blackface). בעזרת מיקרופיפטה דקה <b>הוצא הגרעין</b> של הביצית, וכך נוצרה ביצית ללא חומר גנטי גרעיני – אך עם הציטופלזמה, האברונים (כולל המיטוכונדריה) והחלבונים שלה.</li>
+          <li><b>איחוי:</b> תא העטין הוצמד לביצית ו<b>פולס חשמלי</b> קצר גרם לאיחוי הממברנות; הגרעין התורם נכנס לביצית, ופולס נוסף "הפעיל" את הביצית להתחיל להתחלק – כאילו הופרתה.</li>
+          <li><b>תרבית העובר:</b> העובר המוקדם גודל כ-6 ימים עד לשלב <b>בלסטוציסט</b>.</li>
+          <li><b>השתלה:</b> העובר הושתל ברחמה של <b>כבשה פונדקאית</b> – גם היא שחורת פנים.</li>
+          <li><b>לידה:</b> לאחר כ-5 חודשי הריון נולדה דולי – <b>לבנת פנים</b>. מכיוון שתורמת הביצית והפונדקאית היו שחורות פנים, צבע פניה של דולי היה סימן ראשון לכך שהגנום שלה הגיע מתורמת התא. בדיקות DNA אישרו שהיא זהה גנטית (בגרעין) לכבשת הפין דורסט.</li>
+        </ol>
+        <div class="callout"><b>🔑 המושג המרכזי – תכנות מחדש (Reprogramming):</b> בתא העטין רוב הגנים "כבויים" באמצעות סימנים אפיגנטיים (מתילציה של DNA ושינויים בהיסטונים). הציטופלזמה של הביצית מכילה חלבונים ומולקולות RNA המסוגלים "למחוק" חלק גדול מהסימנים האלה ולהחזיר את הגרעין למצב <b>טוטיפוטנטי</b> – מסוגל לכוון התפתחות של יצור שלם, כולל השליה.</div>
+
+        <h3>האם המשובט זהה לחלוטין?</h3>
+        <p>לא לגמרי. <b>ה-DNA המיטוכונדריאלי</b> (mtDNA) של דולי הגיע מהביצית של הכבשה השחורה, ולא מתורמת הגרעין. בנוסף, תכנות מחדש אינו מושלם, ולכן דפוסי ביטוי הגנים עשויים להיות שונים. גם הסביבה ברחם ולאחר הלידה משפיעה – החתולה CC, למשל, הייתה בעלת דוגמת פרווה שונה מזו של "אמה" הגנטית, בגלל השתקה אקראית של כרומוזום X. שיבוט יוצר "תאום זהה מאוחר", לא העתק מושלם.</p>
+
+        <h3>בעיות ומגבלות</h3>
+        <ul>
+          <li><b>יעילות נמוכה מאוד:</b> לשם יצירת דולי בוצעו 277 איחויים; רק 29 עוברים התפתחו לשלב שאפשר השתלה, ורק טלה אחד – דולי – נולד חי.</li>
+          <li><b>מומים ומחלות:</b> שיעור גבוה של הפלות, מומים מולדים ו"תסמונת הצאצא הגדול" (Large Offspring Syndrome), שמקורם בתכנות מחדש לקוי.</li>
+          <li><b>הזדקנות:</b> הטלומרים של דולי נמצאו קצרים במעט מהמצופה לגילה – אולי משום שהגרעין הגיע מכבשה בת 6. דולי פיתחה דלקת מפרקים ומתה בשנת 2003 בגיל 6.5 (תוחלת חיים רגילה של כבשה: 10–12 שנים) ממחלת ריאות נגיפית, שנפוצה גם בכבשים אחרות בעדר. מחקר מ-2016 על ארבע "אחיותיה" המשובטות (מאותו קו תאים) מצא שהן הזדקנו באופן תקין יחסית.</li>
+        </ul>
+
+        <h3>יישומים ומשמעויות</h3>
+        <ul>
+          <li><b>רפואה רגנרטיבית:</b> שיבוט טיפולי ותאי iPS מאפשרים לייצר תאים מותאמים אישית (תאי עצב, שריר לב, תאי β בלבלב) שלא יידחו על ידי מערכת החיסון, ולחקור מחלות "בצלחת". כיום מעדיפים את תאי ה-iPS, שאינם מצריכים ביציות או עוברים.</li>
+          <li><b>חקלאות ותרופות:</b> שכפול בעלי חיים בעלי תכונות רצויות, ובעלי חיים טרנסגניים המייצרים חלבונים רפואיים בחלב.</li>
+          <li><b>שימור מינים:</b> שיבוט מינים בסכנת הכחדה מתאים מוקפאים ("גן חיות קפוא").</li>
+          <li><b>אתיקה וחוק:</b> שיבוט רבייתי של בני אדם אסור כמעט בכל מדינות העולם. בישראל נחקק ב-1999 <b>חוק איסור התערבות גנטית (שיבוט אדם ושינוי גנטי בתאי רבייה)</b>, האוסר שיבוט רבייתי של אדם; החוק מוארך מעת לעת. שיבוט טיפולי ומחקר בתאי גזע מותרים בפיקוח.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="card">
+      <h2 class="sec-title"><span class="num">2</span>סיכום מושגים</h2>
+      <dl class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div class="concept"><dt>שיבוט</dt><dd>יצירת עותק זהה גנטית של מולקולה, תא או אורגניזם.</dd></div>
+        <div class="concept"><dt>SCNT</dt><dd>העברת גרעין מתא סומטי לביצית שגרעינה הוצא.</dd></div>
+        <div class="concept"><dt>תא סומטי</dt><dd>כל תא גוף שאינו תא מין; דיפלואידי (2n).</dd></div>
+        <div class="concept"><dt>ביצית חסרת גרעין</dt><dd>ביצית שגרעינה הוצא; תורמת ציטופלזמה ומיטוכונדריה.</dd></div>
+        <div class="concept"><dt>שלב G0</dt><dd>מצב מנוחה של התא, שהושג ע"י הרעבה; מקל על תכנות מחדש.</dd></div>
+        <div class="concept"><dt>איחוי חשמלי</dt><dd>פולס חשמלי המאחה את תא התורם עם הביצית ומפעיל אותה.</dd></div>
+        <div class="concept"><dt>בלסטוציסט</dt><dd>עובר מוקדם (כ-5–6 ימים) המוכן להשתלה ברחם.</dd></div>
+        <div class="concept"><dt>פונדקאית</dt><dd>הנקבה הנושאת את ההריון; אינה תורמת גנים לעובר.</dd></div>
+        <div class="concept"><dt>תכנות מחדש</dt><dd>מחיקת סימנים אפיגנטיים והחזרת הגרעין למצב טוטיפוטנטי.</dd></div>
+        <div class="concept"><dt>טוטיפוטנטי / פלוריפוטנטי</dt><dd>טוטי – יכול ליצור יצור שלם כולל שליה; פלורי – כל סוגי תאי הגוף.</dd></div>
+        <div class="concept"><dt>תאי iPS</dt><dd>תאי גזע הנוצרים מתאים בוגרים ע"י 4 גורמי שעתוק (יאמנקה).</dd></div>
+        <div class="concept"><dt>שיבוט טיפולי</dt><dd>יצירת עובר מוקדם להפקת תאי גזע מותאמים, ללא לידה.</dd></div>
+        <div class="concept"><dt>mtDNA</dt><dd>DNA מיטוכונדריאלי – מגיע מהביצית, ולכן המשובט אינו זהה ב-100%.</dd></div>
+        <div class="concept"><dt>אפיגנטיקה</dt><dd>שינויים בביטוי גנים ללא שינוי ברצף (מתילציה, היסטונים).</dd></div>
+        <div class="concept"><dt>מכון רוזלין</dt><dd>המכון בסקוטלנד שבו נוצרה דולי (וילמוט וקמפבל).</dd></div>
+      </dl>
+    </article>
+
+    <article class="card">
+      <h2 class="sec-title"><span class="num">3</span>איור: תרשים זרימה – שיבוט דולי בשיטת SCNT</h2>
+      <div class="svg-wrap">
+        <svg viewBox="0 0 800 680" role="img" aria-label="תרשים זרימה של שיבוט הכבשה דולי בשיטת העברת גרעין">
+          <defs>
+            <symbol id="sheep" viewBox="0 0 110 80">
+              <g fill="#334155"><rect x="38" y="56" width="6" height="20" rx="2"/><rect x="50" y="58" width="6" height="18" rx="2"/><rect x="72" y="56" width="6" height="20" rx="2"/><rect x="84" y="58" width="6" height="18" rx="2"/></g>
+              <g fill="#ffffff" stroke="#94a3b8" stroke-width="1.5">
+                <circle cx="48" cy="40" r="17"/><circle cx="66" cy="34" r="17"/><circle cx="82" cy="42" r="16"/><circle cx="40" cy="50" r="13"/><circle cx="60" cy="52" r="15"/><circle cx="78" cy="54" r="13"/><circle cx="92" cy="40" r="10"/>
+              </g>
+              <ellipse cx="34" cy="26" rx="7" ry="4" fill="currentColor" stroke="#64748b" stroke-width="1" transform="rotate(-25 34 26)"/>
+              <ellipse cx="22" cy="36" rx="12" ry="15" fill="currentColor" stroke="#64748b" stroke-width="1.5"/>
+              <circle cx="18" cy="32" r="2.2" fill="#0f172a" stroke="#fff" stroke-width="1"/>
+            </symbol>
+            <marker id="arrF" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#0b3a6e"/></marker>
+          </defs>
+          <g fill="none" stroke="#0b3a6e" stroke-width="2.5" marker-end="url(#arrF)">
+            <path d="M610 150 V178"/><path d="M190 150 V172"/>
+            <path d="M610 300 V325"/><path d="M190 306 V326"/>
+            <path d="M545 446 C520 462 490 472 452 480"/>
+            <path d="M290 456 C310 468 330 474 352 480"/>
+            <path d="M450 495 H548"/>
+            <path d="M620 545 V578"/>
+            <path d="M540 625 H262"/>
+          </g>
+          <!-- step badges helper: circle + number -->
+          <g font-size="13" font-weight="800" fill="#fff" text-anchor="middle">
+            <circle cx="740" cy="30" r="13" fill="#0e9f6e"/><text x="740" y="35">1</text>
+            <circle cx="320" cy="30" r="13" fill="#0e9f6e"/><text x="320" y="35">2</text>
+            <circle cx="740" cy="190" r="13" fill="#0e9f6e"/><text x="740" y="195">3</text>
+            <circle cx="320" cy="190" r="13" fill="#0e9f6e"/><text x="320" y="195">4</text>
+            <circle cx="340" cy="430" r="13" fill="#0e9f6e"/><text x="340" y="435">5</text>
+            <circle cx="740" cy="430" r="13" fill="#0e9f6e"/><text x="740" y="435">6</text>
+            <circle cx="740" cy="590" r="13" fill="#0e9f6e"/><text x="740" y="595">7</text>
+            <circle cx="60" cy="600" r="13" fill="#0e9f6e"/><text x="60" y="605">8</text>
+          </g>
+          <!-- Row 1: sheep -->
+          <use href="#sheep" x="555" y="20" width="110" height="80" style="color:#f8fafc"/>
+          <use href="#sheep" x="135" y="20" width="110" height="80" style="color:#1f2937"/>
+          <g font-size="13" text-anchor="middle">
+            <text x="610" y="118" font-weight="800" fill="#0b3a6e">כבשה A: פין דורסט (פנים לבנות)</text>
+            <text x="610" y="136" fill="#475569">תורמת התא הסומטי (הגרעין)</text>
+            <text x="190" y="118" font-weight="800" fill="#0b3a6e">כבשה B: סקוטית שחורת פנים</text>
+            <text x="190" y="136" fill="#475569">תורמת הביצית</text>
+          </g>
+          <!-- Row 2 -->
+          <path d="M576 230 C570 205 590 188 615 190 C642 192 652 212 646 232 C640 255 615 262 598 256 C585 252 579 244 576 230 Z" fill="#fde68a" stroke="#b45309" stroke-width="2"/>
+          <circle cx="612" cy="226" r="13" fill="#0b3a6e"/><text x="612" y="230" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">2n</text>
+          <circle cx="190" cy="232" r="48" fill="none" stroke="#f9a8d4" stroke-width="3" stroke-dasharray="4 3"/>
+          <circle cx="190" cy="232" r="40" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
+          <circle cx="206" cy="218" r="8" fill="#be185d"/>
+          <g font-size="13" text-anchor="middle">
+            <text x="610" y="278" font-weight="800" fill="#0b3a6e">תא מבלוטת החלב (עטין)</text>
+            <text x="610" y="294" fill="#475569">גודל בתרבית דלת מזון ← שלב G0</text>
+            <text x="190" y="298" font-weight="800" fill="#0b3a6e">ביצית לא מופרית</text>
+          </g>
+          <!-- Row 3 -->
+          <path d="M580 372 C574 349 592 334 615 336 C640 338 649 356 644 374 C639 395 616 401 600 396 C588 392 583 385 580 372 Z" fill="#fde68a" stroke="#b45309" stroke-width="2"/>
+          <circle cx="612" cy="368" r="13" fill="#0b3a6e"/>
+          <g font-size="13" text-anchor="middle">
+            <text x="610" y="418" font-weight="800" fill="#0b3a6e">תא התורם השלם</text>
+            <text x="610" y="434" fill="#475569" font-size="12">מוצמד לביצית הריקה</text>
+          </g>
+          <circle cx="175" cy="372" r="40" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
+          <rect x="198" y="364" width="90" height="16" rx="3" fill="#e0f2fe" stroke="#0369a1" stroke-width="1.5"/>
+          <circle cx="226" cy="372" r="7" fill="#be185d"/>
+          <rect x="95" y="360" width="45" height="24" rx="10" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
+          <g font-size="13" text-anchor="middle">
+            <text x="190" y="430" font-weight="800" fill="#0b3a6e">הוצאת הגרעין במיקרופיפטה</text>
+            <text x="190" y="446" fill="#475569" font-size="12">ביצית ללא גרעין (עם ציטופלזמה ו-mtDNA)</text>
+          </g>
+          <!-- Row 4: fusion -->
+          <circle cx="400" cy="490" r="42" fill="#fce7f3" stroke="#db2777" stroke-width="2"/>
+          <circle cx="400" cy="488" r="12" fill="#0b3a6e"/>
+          <path d="M430 440 L414 470 L428 470 L408 506 L440 462 L424 462 L442 440 Z" fill="#facc15" stroke="#a16207" stroke-width="1.5"/>
+          <g font-size="13" text-anchor="middle">
+            <text x="400" y="552" font-weight="800" fill="#0b3a6e">איחוי בפולס חשמלי</text>
+            <text x="400" y="568" fill="#475569" font-size="12">הגרעין התורם בתוך הביצית ← הפעלה</text>
+          </g>
+          <!-- Row 4b: embryo -->
+          <circle cx="620" cy="495" r="40" fill="#ecfdf5" stroke="#0e9f6e" stroke-width="2.5"/>
+          <g fill="#6ee7b7" stroke="#059669" stroke-width="1">
+            <circle cx="603" cy="480" r="9"/><circle cx="618" cy="474" r="9"/><circle cx="596" cy="495" r="9"/><circle cx="611" cy="490" r="9"/>
+          </g>
+          <g fill="none" stroke="#059669" stroke-width="1" opacity=".7"><circle cx="655" cy="495" r="4"/><circle cx="640" cy="525" r="4"/><circle cx="610" cy="530" r="4"/><circle cx="585" cy="520" r="4"/></g>
+          <g font-size="13" text-anchor="middle">
+            <text x="700" y="470" font-weight="800" fill="#0b3a6e">עובר מוקדם</text>
+            <text x="700" y="486" fill="#475569" font-size="12">בלסטוציסט</text>
+            <text x="700" y="502" fill="#475569" font-size="12">כ-6 ימים בתרבית</text>
+          </g>
+          <!-- Row 5: surrogate & Dolly -->
+          <use href="#sheep" x="565" y="585" width="110" height="80" style="color:#1f2937"/>
+          <ellipse cx="635" cy="640" rx="12" ry="8" fill="#fbcfe8" stroke="#db2777" stroke-width="1.2" opacity=".9"/>
+          <use href="#sheep" x="150" y="595" width="85" height="62" style="color:#f8fafc"/>
+          <g font-size="13" text-anchor="middle">
+            <text x="440" y="608" font-weight="800" fill="#0b3a6e">השתלה ברחם פונדקאית (שחורת פנים)</text>
+            <text x="400" y="645" fill="#475569" font-size="12">הריון ~5 חודשים · לידה: 5 ביולי 1996</text>
+            <text x="120" y="618" font-weight="800" fill="#0e9f6e" font-size="15">דולי!</text>
+            <text x="110" y="638" fill="#0a7a54" font-size="12">פנים לבנות</text>
+            <text x="110" y="654" fill="#0a7a54" font-size="12">= DNA של כבשה A</text>
+          </g>
+        </svg>
+      </div>
+      <p class="fig-cap">שימו לב לצבע הפנים: תורמת הביצית והפונדקאית שחורות פנים, אך דולי לבנת פנים – כמו תורמת הגרעין. ה-DNA הגרעיני קובע את התכונות התורשתיות.</p>
+    </article>
+
+    <article class="card">
+      <h2 class="sec-title"><span class="num">4</span>סימולציה: בנו את פרוטוקול השיבוט</h2>
+      <p class="mb-3 leading-relaxed">השלבים התערבבו! סדרו אותם בעזרת החצים בסדר הנכון לשיבוט דולי, ולחצו "בדוק". (רמז: יש שלבים שמתרחשים במקביל – הכנת תא התורם והכנת הביצית.)</p>
+      <div class="sim-box mb-6" id="sim-cloning"></div>
+      <h3 class="font-bold text-navy mb-2">אתגר: מי ה"אמא הגנטית" של דולי?</h3>
+      <div class="sim-box" id="sim-mother"></div>
+    </article>
+
+    <article class="card">
+      <h2 class="sec-title"><span class="num">5</span>תרגול: 10 שאלות</h2>
+      <div id="quiz-cloning"></div>
+    </article>
+  </div>
+</section>
+
+<!-- ===================================================== -->
+<!-- ============ TAB 6: GENETIC ENGINEERING =============== -->
+<!-- ===================================================== -->
+<section class="tab-panel" id="panel-crispr" data-panel="crispr" role="tabpanel">
+  <div class="hero mb-6">
+    <p class="text-emerald-200 text-sm font-semibold mb-1">יחידה 6</p>
+    <h2 class="text-2xl md:text-3xl font-extrabold mb-2">הנדסה גנטית, CRISPR והיבטים אתיים</h2>
+    <p class="text-blue-100 max-w-3xl leading-relaxed">מאינסולין מחיידקים ועד "מספריים גנטיים" שמרפאים מחלות דם – והשאלות הקשות שהטכנולוגיה מציבה בפני החברה.</p>
+    <div class="mt-3"><span class="chip">DNA רקומביננטי</span><span class="chip">CRISPR-Cas9</span><span class="chip">ריפוי גנטי</span><span class="chip">ביואתיקה</span></div>
+  </div>
+
+  <div class="space-y-6">
+    <article class="card">
+      <h2 class="sec-title"><span class="num">1</span>רקע עיוני</h2>
+      <div class="prose-he">
+        <h3>מהי הנדסה גנטית?</h3>
+        <p><b>הנדסה גנטית</b> היא שינוי מכוון של החומר התורשתי של יצור חי באמצעות כלים מולקולריים: הוספת גן, הסרתו, שינויו או בקרה על ביטויו. ההנדסה הגנטית אפשרית בזכות <b>אוניברסליות הצופן הגנטי</b> – חיידק "קורא" גן אנושי ומייצר ממנו את אותו חלבון בדיוק.</p>
+
+        <h3>ארגז הכלים של המהנדס הגנטי</h3>
+        <ul>
+          <li><b>אנזימי הגבלה (Restriction enzymes)</b> – אנזימים חיידקיים (שמגינים על החיידק מפני נגיפים) החותכים DNA ברצף זיהוי ספציפי, לרוב <b>פלינדרומי</b>. לדוגמה, EcoRI מזהה את הרצף <span class="ltr">GAATTC</span> וחותך אותו באופן "מדורג" היוצר <b>קצוות דביקים</b> – קצוות חד-גדיליים קצרים שיכולים להתזווג עם כל קצה אחר שנחתך באותו אנזים.</li>
+          <li><b>DNA ליגאז</b> – "דבק" המחבר קטעי DNA בקשר פוספודיאסטרי.</li>
+          <li><b>וקטורים</b> – "נשאים" המכניסים DNA לתא: <b>פלסמידים</b> (מולקולות DNA מעגליות קטנות בחיידקים, שמשתכפלות באופן עצמאי ולעתים נושאות גן לעמידות לאנטיביוטיקה המשמש לסינון), ונגיפים מהונדסים (AAV, לנטיווירוס).</li>
+          <li><b>PCR</b> (תגובת שרשרת של פולימראז) – שיטה שפיתח <b>קרי מוליס</b> (1983, נובל 1993) להגברת קטע DNA מסוים למיליארדי עותקים במבחנה, במחזורים חוזרים של חימום (הפרדת גדילים), קירור (היקשרות פריימרים) והארכה (Taq פולימראז).</li>
+          <li><b>אלקטרופורזה בג'ל</b> – הפרדת מקטעי DNA לפי גודלם בשדה חשמלי (ה-DNA הטעון שלילית נודד לכיוון הקוטב החיובי; מקטעים קטנים נודדים מהר יותר).</li>
+          <li><b>ריצוף DNA</b> – קביעת סדר הבסיסים (שיטת סנגר, וכיום ריצוף מהדור הבא). פרויקט הגנום האנושי הושלם ב-2003.</li>
+        </ul>
+
+        <h3>DNA רקומביננטי וייצור תרופות</h3>
+        <p>ב-1973 יצרו <b>סטנלי כהן והרברט בויר</b> את מולקולת ה-DNA הרקומביננטי הראשונה – שילוב של DNA ממקורות שונים. השלבים הבסיסיים: (1) חיתוך הגן הרצוי והפלסמיד באותו אנזים הגבלה; (2) חיבור הגן לפלסמיד בעזרת ליגאז; (3) החדרת הפלסמיד הרקומביננטי לחיידקים (טרנספורמציה); (4) סינון החיידקים שקלטו את הפלסמיד (למשל בעזרת אנטיביוטיקה); (5) גידול החיידקים בתסיסנים ענקיים והפקת החלבון.</p>
+        <p>בשנת 1982 אושר <b>אינסולין אנושי רקומביננטי</b> – התרופה הראשונה שיוצרה בהנדסה גנטית. לפני כן הופק אינסולין מלבלבי פרות וחזירים, היה זמין בכמויות מוגבלות וגרם לעתים לתגובות אלרגיות. כיום מיוצרים כך גם הורמון גדילה, גורמי קרישה לחולי המופיליה, אריתרופויטין (EPO), אינטרפרונים, נוגדנים חד-שבטיים לטיפול בסרטן ובמחלות אוטואימוניות, והחיסון לצהבת B (בשמרים).</p>
+        <p><b>יצורים מהונדסים גנטית (GMO):</b> תירס וכותנה מסוג Bt המייצרים חלבון קוטל-חרקים מחיידק; "אורז זהוב" המייצר בטא-קרוטן (קודם לוויטמין A) למניעת עיוורון בילדים במדינות מתפתחות; וגם עכברי מעבדה מהונדסים המשמשים כמודלים למחלות.</p>
+
+        <h3>CRISPR-Cas9: המספריים הגנטיים</h3>
+        <p>מקורה של מערכת CRISPR הוא ב<b>מערכת חיסון נרכשת של חיידקים</b> נגד נגיפים (בקטריופאג'ים). כשחיידק שורד הדבקה, הוא שומר קטע קצר מה-DNA של הנגיף בין "חזרות פלינדרומיות קצרות מקובצות במרווחים קבועים" (<span class="ltr">Clustered Regularly Interspaced Short Palindromic Repeats</span>) – זיכרון גנטי של אויבים. בהדבקה הבאה, החיידק משעתק את הקטע ל-RNA, שמוביל את האנזים <b>Cas9</b> אל ה-DNA של הנגיף – ו-Cas9 חותך אותו.</p>
+        <p>ב-2012 הראו <b>ג'ניפר דאודנה ועמנואל שרפנטייה</b> שאפשר "לתכנת" את המערכת לחתוך כל רצף DNA רצוי. על כך זכו בפרס נובל בכימיה ב-2020. מרכיבי המערכת:</p>
+        <ul>
+          <li><b>Cas9</b> – אנזים נוקלאז ה"חותך" את שני גדילי ה-DNA.</li>
+          <li><b>RNA מנחה (gRNA)</b> – מולקולת RNA סינתטית שבקצה שלה רצף של כ-<b>20 נוקלאוטידים</b> המשלים לרצף המטרה בגנום. ה-gRNA הוא "ה-GPS" של המערכת: הוא מוביל את Cas9 לאתר הנכון ע"י זיווג בסיסים.</li>
+          <li><b>PAM</b> (Protospacer Adjacent Motif) – רצף קצר בדנ"א המטרה, הצמוד מיד לאחר אתר הזיהוי. עבור Cas9 הנפוץ הרצף הוא <b><span class="ltr">NGG</span></b> (כל בסיס ואחריו שני G). בלי PAM, Cas9 לא יחתוך – וכך החיידק נמנע מלחתוך את מערך ה-CRISPR שלו עצמו.</li>
+        </ul>
+        <p>Cas9 יוצר <b>שבר דו-גדילי</b> כ-3 בסיסים לפני ה-PAM. מכאן, התא מתקן את השבר באחד משני מסלולים:</p>
+        <ul>
+          <li><b>NHEJ</b> (חיבור קצוות לא הומולוגי) – חיבור מהיר של הקצוות ללא תבנית. התיקון "מרושל" ולעתים קרובות מוסיף או מוחק כמה בסיסים, מה שגורם לתזוזת מסגרת ו<b>לנטרול הגן</b> (Knock-out). שימושי לחקר תפקוד גנים או להשבתת גן מזיק.</li>
+          <li><b>HDR</b> (תיקון מכוון הומולוגיה) – כאשר החוקרים מספקים <b>תבנית DNA</b> עם רצף רצוי, התא משתמש בה לתיקון מדויק: תיקון מוטציה או החדרת גן חדש (Knock-in). המסלול פחות יעיל, ופעיל בעיקר בתאים מתחלקים.</li>
+        </ul>
+        <p>גרסאות מתקדמות כוללות <b>עריכת בסיסים</b> (Base editing) – החלפת בסיס יחיד ללא שבר דו-גדילי – ו<b>עריכה ראשונית</b> (Prime editing), המאפשרת "חיפוש והחלפה" של רצפים קצרים.</p>
+
+        <h3>ריפוי גנטי – מהמעבדה למיטת החולה</h3>
+        <ul>
+          <li><b>ex vivo</b> – התאים מוצאים מגוף החולה, מהונדסים במעבדה ומוחזרים אליו. דוגמה: <b>Casgevy</b> – טיפול ה-CRISPR הראשון שאושר (בבריטניה ובארה"ב, סוף 2023) לאנמיה חרמשית ולבטא-תלסמיה. תאי גזע מדמי החולה נערכים כך שגן מדכא (BCL11A) מושתק בתאי הדם האדומים, ונוצר שוב <b>המוגלובין עוברי</b> שמחליף את ההמוגלובין הפגום. טיפולי <b>CAR-T</b> לסרטן דם פועלים באופן דומה: תאי T של החולה מהונדסים לזהות את תאי הסרטן.</li>
+          <li><b>in vivo</b> – הגן התקין מוחדר ישירות לגוף בעזרת וקטור נגיפי. דוגמאות: <b>Luxturna</b> (2017) לעיוורון תורשתי ברשתית, ו-<b>Zolgensma</b> לתינוקות עם SMA.</li>
+        </ul>
+
+        <h3>היבטים אתיים</h3>
+        <p>לכוח לשנות את הגנום יש השלכות עמוקות. הדיון הביו-אתי נשען על ארבעה עקרונות יסוד: <b>אוטונומיה</b> (זכות האדם להחליט על גופו, ובכלל זה <b>הסכמה מדעת</b>), <b>היטיבות</b> (לפעול לטובת המטופל), <b>אי-גרימת נזק</b>, ו<b>צדק</b> (חלוקה הוגנת של משאבים וסיכונים). השאלות המרכזיות:</p>
+        <ul>
+          <li><b>עריכה סומטית מול עריכת תאי רבייה (germline):</b> עריכה סומטית משפיעה רק על המטופל ומקובלת באופן רחב. עריכה של עוברים, ביציות או זרע <b>עוברת לכל הדורות הבאים</b> – ללא הסכמתם, ועם השלכות שאינן ידועות. רוב המדינות אוסרות זאת, וכך גם החוק בישראל.</li>
+          <li><b>פרשת הא ג'יאנקוי (2018):</b> מדען סיני ערך את הגן CCR5 בעוברים אנושיים כדי להקנות עמידות ל-HIV, ונולדו התאומות "לולו" ו"ננה". הקהילה המדעית גינתה את הניסוי: לא היה צורך רפואי אמיתי (קיימות דרכים בטוחות למנוע הדבקה מהאב), ההסכמה מדעת הייתה בעייתית, הפיקוח עוקף והסיכונים לא ידועים. הוא נידון לשלוש שנות מאסר.</li>
+          <li><b>בטיחות:</b> חיתוך באתרים לא רצויים (<b>off-target</b>), עריכה חלקית בחלק מהתאים (מוזאיקה) ותגובות חיסוניות לווקטורים.</li>
+          <li><b>"תינוקות מעוצבים" ושיפור (enhancement):</b> היכן עובר הגבול בין ריפוי מחלה לבין "שיפור" תכונות כמו גובה או אינטליגנציה? חשש מחזרה לרעיונות אאוגניים ומאפליה של אנשים עם מוגבלויות.</li>
+          <li><b>צדק ונגישות:</b> טיפולים גנטיים עולים מיליוני דולרים למטופל. מי יקבל אותם? האם הם ירחיבו את הפערים בין עשירים לעניים ובין מדינות?</li>
+          <li><b>סביבה:</b> "הנעה גנטית" (gene drive) יכולה להפיץ גן בכל אוכלוסיית יתושים ולמגר מלריה – אך גם לשבש מערכות אקולוגיות באופן בלתי הפיך.</li>
+          <li><b>פרטיות:</b> מידע גנטי חושף מידע גם על בני משפחה; קיים חשש לאפליה בביטוח ובתעסוקה. בישראל חוק <b>מידע גנטי</b> (2000) מגן על פרטיות המידע ואוסר אפליה על בסיסו.</li>
+        </ul>
+      </div>
+    </article>
+
+    <article class="card">
+      <h2 class="sec-title"><span class="num">2</span>סיכום מושגים</h2>
+      <dl class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div class="concept"><dt>הנדסה גנטית</dt><dd>שינוי מכוון של החומר התורשתי באמצעות כלים מולקולריים.</dd></div>
+        <div class="concept"><dt>אנזים הגבלה</dt><dd>חותך DNA ברצף זיהוי ספציפי (EcoRI: <span class="ltr">GAATTC</span>).</dd></div>
+        <div class="concept"><dt>קצוות דביקים</dt><dd>קצוות חד-גדיליים משלימים שנוצרים בחיתוך מדורג.</dd></div>
+        <div class="concept"><dt>פלסמיד / וקטור</dt><dd>DNA מעגלי בחיידקים / "נשא" להחדרת DNA לתא.</dd></div>
+        <div class="concept"><dt>DNA רקומביננטי</dt><dd>DNA המשלב רצפים ממקורות שונים.</dd></div>
+        <div class="concept"><dt>PCR</dt><dd>הגברה של קטע DNA במבחנה במחזורי חימום וקירור.</dd></div>
+        <div class="concept"><dt>GMO</dt><dd>יצור שהחומר התורשתי שלו שונה בהנדסה גנטית.</dd></div>
+        <div class="concept"><dt>CRISPR</dt><dd>מערכת חיסון חיידקית שהותאמה לעריכת גנים.</dd></div>
+        <div class="concept"><dt>Cas9</dt><dd>נוקלאז היוצר שבר דו-גדילי באתר המטרה.</dd></div>
+        <div class="concept"><dt>gRNA</dt><dd>RNA מנחה; ~20 נוקלאוטידים המשלימים למטרה.</dd></div>
+        <div class="concept"><dt>PAM</dt><dd>רצף <span class="ltr">NGG</span> הצמוד למטרה; הכרחי לחיתוך ע"י Cas9.</dd></div>
+        <div class="concept"><dt>NHEJ</dt><dd>תיקון ללא תבנית, עם שגיאות ← נטרול גן.</dd></div>
+        <div class="concept"><dt>HDR</dt><dd>תיקון לפי תבנית ← תיקון מדויק או החדרת רצף.</dd></div>
+        <div class="concept"><dt>ריפוי גנטי</dt><dd>טיפול במחלה ע"י הוספה, השבתה או תיקון של גנים.</dd></div>
+        <div class="concept"><dt>סומטי מול germline</dt><dd>סומטי – רק למטופל; תאי רבייה – עובר לדורות הבאים.</dd></div>
+        <div class="concept"><dt>Off-target</dt><dd>חיתוך שגוי באתר דומה אך לא רצוי בגנום.</dd></div>
+        <div class="concept"><dt>הסכמה מדעת</dt><dd>הסכמה מרצון לטיפול/מחקר לאחר הסבר מלא על סיכונים ותועלות.</dd></div>
+        <div class="concept"><dt>Gene drive</dt><dd>מנגנון להפצה מהירה של גן מהונדס באוכלוסייה.</dd></div>
+      </dl>
+    </article>
+
+    <article class="card">
+      <h2 class="sec-title"><span class="num">3</span>איור: מערכת CRISPR-Cas9</h2>
+      <div class="svg-wrap">
+        <svg viewBox="0 0 800 560" role="img" aria-label="Cas9 עם RNA מנחה נקשר ל-DNA המטרה ליד רצף PAM וחותך את שני הגדילים">
+          <defs>
+            <marker id="arrC" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#475569"/></marker>
+            <radialGradient id="casGrad" cx="45%" cy="40%" r="65%"><stop offset="0" stop-color="#dbeafe"/><stop offset="1" stop-color="#93c5fd"/></radialGradient>
+            <g id="scissors">
+              <circle cx="-7" cy="10" r="5" fill="none" stroke="#dc2626" stroke-width="2.5"/>
+              <circle cx="7" cy="10" r="5" fill="none" stroke="#dc2626" stroke-width="2.5"/>
+              <line x1="-4" y1="6" x2="6" y2="-14" stroke="#dc2626" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="4" y1="6" x2="-6" y2="-14" stroke="#dc2626" stroke-width="2.5" stroke-linecap="round"/>
+            </g>
+          </defs>
+          <!-- Cas9 -->
+          <path d="M282 150 C288 96 410 82 520 92 C640 102 712 150 702 236 C694 322 625 362 470 362 C340 364 270 332 276 250 Z" fill="url(#casGrad)" stroke="#0b3a6e" stroke-width="2.5" opacity=".9"/>
+          <text x="420" y="122" text-anchor="middle" font-size="15" font-weight="800" fill="#0b3a6e">Cas9 – נוקלאז ("מספריים")</text>
+          <!-- rungs -->
+          <g id="crRungs" stroke-width="5" stroke-linecap="round"></g>
+          <!-- DNA strands -->
+          <path d="M20 210 H300 C332 210 342 160 372 160 H512 C542 160 552 210 582 210 H780" fill="none" stroke="#0b3a6e" stroke-width="7" stroke-linecap="round"/>
+          <path d="M20 290 H780" fill="none" stroke="#0e9f6e" stroke-width="7" stroke-linecap="round"/>
+          <!-- PAM highlight -->
+          <rect x="588" y="194" width="66" height="32" rx="7" fill="#fde047" stroke="#ca8a04" stroke-width="2"/>
+          <g font-size="14" font-weight="800" text-anchor="middle" font-family="Consolas,monospace" fill="#713f12"><text x="600" y="215">T</text><text x="621" y="215">G</text><text x="642" y="215">G</text></g>
+          <g font-size="12" font-weight="700" text-anchor="middle" font-family="Consolas,monospace" fill="#0a7a54"><text x="600" y="310">A</text><text x="621" y="310">C</text><text x="642" y="310">C</text></g>
+          <!-- gRNA spacer -->
+          <path d="M330 262 H572" stroke="#9b59d0" stroke-width="6" stroke-linecap="round"/>
+          <path d="M572 262 C600 262 606 248 600 236 C592 220 566 214 570 196 C574 178 600 168 610 150 C620 132 600 118 620 106 C640 94 660 112 650 128 C642 140 660 150 676 140" fill="none" stroke="#9b59d0" stroke-width="6" stroke-linecap="round" opacity=".85"/>
+          <g id="crSpacer"></g>
+          <!-- cut -->
+          <line x1="528" y1="150" x2="528" y2="300" stroke="#dc2626" stroke-width="2" stroke-dasharray="5 4"/>
+          <use href="#scissors" x="528" y="140"/>
+          <use href="#scissors" x="528" y="322"/>
+          <!-- labels -->
+          <g font-size="13" font-weight="700">
+            <text x="728" y="186" text-anchor="middle" fill="#a16207">PAM (NGG)</text>
+            <text x="442" y="150" text-anchor="middle" fill="#0b3a6e">גדיל DNA מוחלף</text>
+            <text x="442" y="232" text-anchor="middle" fill="#7e3fb6">RNA מנחה (gRNA) – 20 נוקלאוטידים</text>
+            <text x="700" y="88" text-anchor="middle" fill="#7e3fb6">"שלד" ה-gRNA</text>
+            <text x="150" y="190" text-anchor="middle" fill="#0b3a6e">DNA מטרה (הגן)</text>
+            <text x="528" y="385" text-anchor="middle" fill="#dc2626">שבר דו-גדילי: 3 בסיסים לפני ה-PAM</text>
+          </g>
+          <g font-size="13" font-weight="800" font-family="Consolas,monospace" fill="#475569"><text x="4" y="215">5'</text><text x="784" y="215">3'</text><text x="4" y="295">3'</text><text x="784" y="295">5'</text></g>
+          <!-- outcomes -->
+          <path d="M490 392 C460 410 320 405 220 430" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrC)"/>
+          <path d="M566 392 C600 410 640 410 610 430" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrC)"/>
+          <rect x="415" y="436" width="370" height="114" rx="12" fill="#ecfdf5" stroke="#0e9f6e" stroke-width="1.5"/>
+          <rect x="15" y="436" width="370" height="114" rx="12" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+          <g font-size="14" font-weight="800" text-anchor="middle">
+            <text x="600" y="460" fill="#0a7a54">HDR – תיקון מכוון הומולוגיה</text>
+            <text x="200" y="460" fill="#991b1b">NHEJ – חיבור קצוות לא הומולוגי</text>
+          </g>
+          <g stroke-width="6" stroke-linecap="round">
+            <line x1="450" y1="490" x2="560" y2="490" stroke="#0b3a6e"/><line x1="560" y1="490" x2="640" y2="490" stroke="#0e9f6e" stroke-width="9"/><line x1="640" y1="490" x2="750" y2="490" stroke="#0b3a6e"/>
+            <line x1="50" y1="490" x2="185" y2="490" stroke="#0b3a6e"/><line x1="215" y1="490" x2="350" y2="490" stroke="#0b3a6e"/>
+          </g>
+          <path d="M187 482 L193 498 L200 482 L207 498 L213 482" fill="none" stroke="#dc2626" stroke-width="2.5"/>
+          <g font-size="12.5" text-anchor="middle" fill="#334155">
+            <text x="600" y="520">עם תבנית DNA תורמת ← תיקון מדויק</text>
+            <text x="600" y="538">או החדרת גן חדש (Knock-in)</text>
+            <text x="200" y="520">ללא תבנית ← הוספות/חסרים קטנים</text>
+            <text x="200" y="538">תזוזת מסגרת ← נטרול הגן (Knock-out)</text>
+          </g>
+        </svg>
+      </div>
+      <p class="fig-cap">ה-gRNA (סגול) מזדווג לגדיל המטרה של ה-DNA ומוביל את Cas9 לאתר. Cas9 בודק שקיים רצף PAM (<span class="ltr">NGG</span>, צהוב) ואז חותך את שני הגדילים. התא מתקן את השבר ב-NHEJ (נטרול גן) או ב-HDR (תיקון מדויק לפי תבנית).</p>
+    </article>
+
+    <article class="card">
+      <h2 class="sec-title"><span class="num">4</span>סימולציה: תכננו עריכה ב-CRISPR</h2>
+      <p class="mb-3 leading-relaxed">לפניכם רצף של גן קטן (גדיל מקודד). <b>משימה:</b> מצאו רצף PAM מתאים (<span class="ltr">NGG</span>) שלפניו יש לפחות 20 נוקלאוטידים, ולחצו על אחד מבסיסי ה-PAM. המערכת תתכנן את ה-gRNA, תחתוך – ואתם תבחרו את מסלול התיקון.</p>
+      <div class="sim-box mb-6" id="sim-crispr"></div>
+      <h3 class="font-bold text-navy mb-2">שולחן דיונים אתי</h3>
+      <p class="mb-3 leading-relaxed">קראו כל תרחיש, גבשו עמדה – ולחצו כדי לראות טיעונים בעד ונגד.</p>
+      <div class="grid md:grid-cols-3 gap-3" id="sim-ethics"></div>
+    </article>
+
+    <article class="card">
+      <h2 class="sec-title"><span class="num">5</span>תרגול: 10 שאלות</h2>
+      <div id="quiz-crispr"></div>
+    </article>
+  </div>
+</section>
+
+</main>
+
+<footer class="border-t border-slate-200 bg-white mt-8">
+  <div class="max-w-6xl mx-auto px-4 py-5 text-sm text-slate-500 leading-relaxed">
+    אתר לימודי בגנטיקה למגמת מדעי הרפואה · כל האיורים נוצרו כקוד SVG מוטמע · התוכן מיועד ללמידה ואינו מהווה ייעוץ רפואי.
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   Shared helpers & genetic data
+   ========================================================= */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const rnd = n => Math.floor(Math.random() * n);
+const pick = arr => arr[rnd(arr.length)];
+const shuffle = arr => { const a = arr.slice(); for (let i = a.length - 1; i > 0; i--) { const j = rnd(i + 1); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+
+const BASE_COLOR = { A: '#e45757', T: '#e09a1f', G: '#1f9d68', C: '#3b6fd8', U: '#9b59d0', N: '#64748b' };
+const DNA_COMP = { A: 'T', T: 'A', G: 'C', C: 'G' };
+const RNA_COMP = { A: 'U', U: 'A', G: 'C', C: 'G' };
+const TEMPLATE_TO_RNA = { A: 'U', T: 'A', G: 'C', C: 'G' };
+const BASE_NAME = { A: 'אדנין', T: 'תימין', G: 'גואנין', C: 'ציטוזין', U: 'אורציל' };
+
+// Standard genetic code (RNA codons)
+const CODE = (() => {
+  const b = 'UCAG', aa = 'FFLLSSSSYY**CC*WLLLLPPPPHHQQRRRRIIIMTTTTNNKKSSRRVVVVAAAADDEEGGGG';
+  const m = {}; let i = 0;
+  for (const x of b) for (const y of b) for (const z of b) m[x + y + z] = aa[i++];
+  return m;
+})();
+const AA = {
+  F: ['Phe', 'פנילאלנין', 'hydrophobic'], L: ['Leu', 'לאוצין', 'hydrophobic'], I: ['Ile', 'איזולאוצין', 'hydrophobic'],
+  M: ['Met', 'מתיונין', 'hydrophobic'], V: ['Val', 'ואלין', 'hydrophobic'], A: ['Ala', 'אלנין', 'hydrophobic'],
+  W: ['Trp', 'טריפטופן', 'hydrophobic'], S: ['Ser', 'סרין', 'polar'], T: ['Thr', 'תראונין', 'polar'],
+  Y: ['Tyr', 'טירוזין', 'polar'], Q: ['Gln', 'גלוטמין', 'polar'], N: ['Asn', 'אספרגין', 'polar'],
+  C: ['Cys', 'ציסטאין', 'polar'], H: ['His', 'היסטידין', 'pos'], K: ['Lys', 'ליזין', 'pos'],
+  R: ['Arg', 'ארגינין', 'pos'], D: ['Asp', 'אספרטט', 'neg'], E: ['Glu', 'גלוטמט', 'neg'],
+  G: ['Gly', 'גליצין', 'special'], P: ['Pro', 'פרולין', 'special'], '*': ['Stop', 'סיום', 'stop']
+};
+const AA_PROP = { hydrophobic: 'הידרופובית', polar: 'קוטבית (לא טעונה)', pos: 'טעונה חיובית', neg: 'טעונה שלילית', special: 'בעלת מבנה מיוחד', stop: '' };
+
+const ntHTML = (b, cls = '') => `<span class="nt base-${b} ${cls}">${b}</span>`;
+const beadHTML = (a, cls = '', pos = null) => {
+  const [t3, he, c] = AA[a];
+  return `<span class="aa-bead aa-${c} ${cls}" title="${he}">${t3}<small>${pos !== null ? pos : he}</small></span>`;
+};
+const toRNA = s => s.replace(/T/g, 'U');
+function translateDNA(dna) {
+  const out = []; let stop = false;
+  for (let i = 0; i + 3 <= dna.length; i += 3) {
+    const a = CODE[toRNA(dna.substr(i, 3))];
+    if (a === '*') { stop = true; break; }
+    out.push(a);
+  }
+  return { aa: out, stop };
+}
+function msg(el, type, html) { el.className = 'msg ' + type; el.innerHTML = html; el.hidden = false; }
+
+/* Make Latin-only SVG labels render left-to-right inside the RTL page */
+function fixSvgText(root = document) {
+  $$('svg text', root).forEach(t => {
+    t.setAttribute('direction', /[֐-׿]/.test(t.textContent) ? 'rtl' : 'ltr');
+    t.style.unicodeBidi = 'embed';
+  });
+}
+
+/* =========================================================
+   Tabs
+   ========================================================= */
+const TAB_KEYS = ['dna', 'rna', 'protein', 'mutation', 'cloning', 'crispr'];
+function showTab(key, push = true) {
+  if (!TAB_KEYS.includes(key)) key = 'dna';
+  $$('.tab-btn').forEach(b => {
+    const on = b.dataset.tab === key;
+    b.setAttribute('aria-selected', on);
+    b.tabIndex = on ? 0 : -1;
+    if (on) b.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+  });
+  $$('.tab-panel').forEach(p => p.classList.toggle('active', p.dataset.panel === key));
+  try { localStorage.setItem('gen-tab', key); } catch (e) {}
+  if (push) { history.replaceState(null, '', '#' + key); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+}
+$$('.tab-btn').forEach(b => b.addEventListener('click', () => showTab(b.dataset.tab)));
+$('#tabList').addEventListener('keydown', e => {
+  const i = TAB_KEYS.indexOf($('.tab-btn[aria-selected="true"]').dataset.tab);
+  let n = null;
+  if (e.key === 'ArrowLeft') n = (i + 1) % 6;
+  if (e.key === 'ArrowRight') n = (i + 5) % 6;
+  if (n !== null) { e.preventDefault(); showTab(TAB_KEYS[n]); $(`.tab-btn[data-tab="${TAB_KEYS[n]}"]`).focus(); }
+});
+
+/* =========================================================
+   Figure 1: animated double helix + ladder detail
+   ========================================================= */
+const HELIX_SEQ = 'ATGCGTACCTAGGCATTCGAGCTAACGGTCATGCA';
+let helixPhase = 0, helixOn = !window.matchMedia('(prefers-reduced-motion: reduce)').matches, helixLast = 0;
+function drawHelix() {
+  const g = $('#helixDyn');
+  const x0 = 60, x1 = 740, cy = 150, A = 72, lam = 210, k = 2 * Math.PI / lam, off = Math.PI * 0.78;
+  const th = x => k * (x - x0) + helixPhase;
+  const yA = x => cy + A * Math.sin(th(x)), zA = x => Math.cos(th(x));
+  const yB = x => cy + A * Math.sin(th(x) + off), zB = x => Math.cos(th(x) + off);
+  let back = '', front = '', rungs = '';
+  const seg = (f, z, color) => {
+    for (let x = x0; x < x1; x += 8) {
+      const x2 = Math.min(x + 8, x1), zm = z((x + x2) / 2);
+      const s = `<line x1="${x}" y1="${f(x).toFixed(1)}" x2="${x2}" y2="${f(x2).toFixed(1)}" stroke="${color}" stroke-width="${zm > 0 ? 10 : 7}" stroke-linecap="round" opacity="${zm > 0 ? 1 : .38}"/>`;
+      if (zm > 0) front += s; else back += s;
+    }
+  };
+  seg(yA, zA, '#0b3a6e'); seg(yB, zB, '#0e9f6e');
+  const n = HELIX_SEQ.length, step = (x1 - x0) / (n - 1);
+  for (let i = 0; i < n; i++) {
+    const x = x0 + i * step, a = yA(x), b = yB(x), m = (a + b) / 2;
+    const b1 = HELIX_SEQ[i], b2 = DNA_COMP[b1];
+    const depth = (zA(x) + zB(x)) / 2, op = Math.min(1, 0.45 + 0.55 * (depth + 1) / 2).toFixed(2);
+    rungs += `<g opacity="${op}"><line x1="${x}" y1="${a.toFixed(1)}" x2="${x}" y2="${m.toFixed(1)}" stroke="${BASE_COLOR[b1]}" stroke-width="6"/><line x1="${x}" y1="${m.toFixed(1)}" x2="${x}" y2="${b.toFixed(1)}" stroke="${BASE_COLOR[b2]}" stroke-width="6"/>`;
+    if (Math.abs(a - b) > 62) {
+      const p1 = (a + m) / 2, p2 = (m + b) / 2;
+      rungs += `<circle cx="${x}" cy="${p1.toFixed(1)}" r="8" fill="${BASE_COLOR[b1]}"/><text x="${x}" y="${(p1 + 4).toFixed(1)}" text-anchor="middle" font-size="10" font-weight="800" fill="#fff" direction="ltr">${b1}</text>`;
+      rungs += `<circle cx="${x}" cy="${p2.toFixed(1)}" r="8" fill="${BASE_COLOR[b2]}"/><text x="${x}" y="${(p2 + 4).toFixed(1)}" text-anchor="middle" font-size="10" font-weight="800" fill="#fff" direction="ltr">${b2}</text>`;
+    }
+    rungs += '</g>';
+  }
+  const lbl = (x, y, t, c) => `<text x="${x}" y="${(y + 5).toFixed(1)}" font-size="14" font-weight="800" fill="${c}" font-family="Consolas,monospace" direction="ltr" text-anchor="middle">${t}</text>`;
+  const labels = lbl(x0 - 26, yA(x0), "5'", '#0b3a6e') + lbl(x1 + 22, yA(x1), "3'", '#0b3a6e') +
+                 lbl(x0 - 26, yB(x0), "3'", '#0a7a54') + lbl(x1 + 22, yB(x1), "5'", '#0a7a54');
+  g.innerHTML = back + rungs + front + labels;
+}
+function helixLoop(t) {
+  if (helixOn && $('#panel-dna').classList.contains('active') && t - helixLast > 33) {
+    helixPhase += 0.035; drawHelix(); helixLast = t;
+  }
+  requestAnimationFrame(helixLoop);
+}
+$('#helixToggle').addEventListener('click', e => {
+  helixOn = !helixOn;
+  e.currentTarget.textContent = helixOn ? '⏸ עצור סיבוב' : '▶ הפעל סיבוב';
+});
+
+function drawLadder() {
+  const pairs = [['A', 'T'], ['G', 'C'], ['T', 'A'], ['C', 'G']], rows = [95, 185, 275, 365];
+  const LX = 120, RX = 680, pur = b => b === 'A' || b === 'G';
+  const pent = (cx, cy, fill) => {
+    const pts = [[0, -20], [19, -6.2], [11.8, 16.2], [-11.8, 16.2], [-19, -6.2]].map(([x, y]) => `${cx + x},${cy + y}`).join(' ');
+    return `<polygon points="${pts}" fill="${fill}" stroke="#0f172a" stroke-width="1.2"/><text x="${cx}" y="${cy + 5}" text-anchor="middle" font-size="11" font-weight="700" fill="#0f172a" direction="ltr">S</text>`;
+  };
+  const phos = (cx, cy) => `<circle cx="${cx}" cy="${cy}" r="14" fill="#f59e0b" stroke="#92400e" stroke-width="1.2"/><text x="${cx}" y="${cy + 5}" text-anchor="middle" font-size="13" font-weight="800" fill="#fff" direction="ltr">P</text>`;
+  let s = `<text x="400" y="26" text-anchor="middle" font-size="13" fill="#475569">P = קבוצת פוספט · S (מחומש) = סוכר דאוקסיריבוז · קו מקווקו = קשר מימן</text>`;
+  s += `<line x1="${LX}" y1="45" x2="${LX}" y2="380" stroke="#0b3a6e" stroke-width="5"/><line x1="${RX}" y1="80" x2="${RX}" y2="415" stroke="#0e9f6e" stroke-width="5"/>`;
+  rows.forEach((y, i) => {
+    const [b1, b2] = pairs[i];
+    const wL = pur(b1) ? 250 : 190, wR = pur(b2) ? 250 : 190;
+    const lx = LX + 24, rx = RX - 24 - wR;
+    s += `<rect x="${lx}" y="${y - 17}" width="${wL}" height="34" rx="8" fill="${BASE_COLOR[b1]}"/>`;
+    s += `<rect x="${rx}" y="${y - 17}" width="${wR}" height="34" rx="8" fill="${BASE_COLOR[b2]}"/>`;
+    s += `<text x="${lx + wL / 2}" y="${y + 5}" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">${BASE_NAME[b1]} (${b1}) · ${pur(b1) ? 'פורין' : 'פירימידין'}</text>`;
+    s += `<text x="${rx + wR / 2}" y="${y + 5}" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">${BASE_NAME[b2]} (${b2}) · ${pur(b2) ? 'פורין' : 'פירימידין'}</text>`;
+    const g1 = lx + wL, g2 = rx, hb = (b1 === 'A' || b1 === 'T') ? [-6, 6] : [-10, 0, 10];
+    hb.forEach(o => s += `<line x1="${g1 + 3}" y1="${y + o}" x2="${g2 - 3}" y2="${y + o}" stroke="#334155" stroke-width="2" stroke-dasharray="4 3"/>`);
+    s += `<text x="${(g1 + g2) / 2}" y="${y - 24}" text-anchor="middle" font-size="11.5" font-weight="700" fill="#334155">${hb.length} קשרי מימן</text>`;
+    s += phos(LX, y - 45) + pent(LX, y, '#bfdbfe');
+    s += pent(RX, y, '#bbf7d0') + phos(RX, y + 45);
+  });
+  s += `<text x="${LX + 80}" y="232" text-anchor="middle" font-size="11.5" fill="#0b3a6e" font-weight="700">קשר פוספודיאסטרי</text><path d="M${LX + 30} 228 L${LX + 8} 228" stroke="#0b3a6e" stroke-width="1.5"/>`;
+  const end = (x, y, t, c) => `<text x="${x}" y="${y}" text-anchor="middle" font-size="16" font-weight="800" fill="${c}" font-family="Consolas,monospace" direction="ltr">${t}</text>`;
+  s += end(LX - 40, 52, "5'", '#0b3a6e') + end(LX - 40, 385, "3'", '#0b3a6e') + end(RX + 40, 88, "3'", '#0a7a54') + end(RX + 40, 420, "5'", '#0a7a54');
+  s += `<text x="40" y="230" text-anchor="middle" font-size="13" font-weight="700" fill="#0b3a6e" transform="rotate(-90 40 230)">שלד סוכר-פוספט</text>`;
+  s += `<text x="760" y="250" text-anchor="middle" font-size="13" font-weight="700" fill="#0a7a54" transform="rotate(90 760 250)">שלד סוכר-פוספט</text>`;
+  $('#ladderSvg').innerHTML = s;
+}
+
+/* =========================================================
+   Figures 2, 4, 6: dynamic details
+   ========================================================= */
+function drawTranscriptionFig() {
+  const seqL = 'GATCCTAGGCTAT', seqR = 'CTGAT';
+  let r = '';
+  seqL.split('').forEach((b, i) => { const x = 45 + i * 22.5; r += `<line x1="${x}" y1="136" x2="${x}" y2="170" stroke="${BASE_COLOR[b]}"/><line x1="${x}" y1="170" x2="${x}" y2="204" stroke="${BASE_COLOR[DNA_COMP[b]]}"/>`; });
+  seqR.split('').forEach((b, i) => { const x = 682 + i * 21; r += `<line x1="${x}" y1="136" x2="${x}" y2="170" stroke="${BASE_COLOR[b]}"/><line x1="${x}" y1="170" x2="${x}" y2="204" stroke="${BASE_COLOR[DNA_COMP[b]]}"/>`; });
+  $('#txRungs').innerHTML = r;
+  const tmpl = 'TACGGACT';
+  let t = '', c = '', rna = '';
+  tmpl.split('').forEach((b, i) => {
+    const x = 418 + i * 24;
+    t += `<circle cx="${x}" cy="240" r="11" fill="${BASE_COLOR[b]}"/><text x="${x}" y="244.5" text-anchor="middle" font-size="12" font-weight="800" fill="#fff">${b}</text>`;
+    if (i >= 1 && i <= 6) c += `<text x="${x}" y="97">${DNA_COMP[b]}</text>`;
+    if (i < 6) {
+      const rb = TEMPLATE_TO_RNA[b];
+      rna += `<line x1="${x}" y1="216" x2="${x}" y2="229" stroke="#94a3b8" stroke-width="2"/><circle cx="${x}" cy="205" r="11" fill="${BASE_COLOR[rb]}"/><text x="${x}" y="209.5" text-anchor="middle" font-size="12" font-weight="800" fill="#fff">${rb}</text>`;
+    }
+  });
+  [[372, 196, 'G'], [344, 160, 'A'], [312, 124, 'C'], [268, 88, 'U'], [222, 68, 'G']].forEach(([x, y, b]) => {
+    rna += `<circle cx="${x}" cy="${y}" r="10" fill="${BASE_COLOR[b]}"/><text x="${x}" y="${y + 4}" text-anchor="middle" font-size="11" font-weight="800" fill="#fff">${b}</text>`;
+  });
+  $('#txTemplate').innerHTML = t; $('#txCoding').innerHTML = c; $('#txRna').innerHTML = rna;
+}
+
+function drawMutationFig() {
+  const panels = [
+    { off: 0, dna: ['CCT', 'GAG', 'GAG'], aa: [['P', 5], ['E', 6], ['E', 7]], mut: false },
+    { off: 215, dna: ['CCT', 'GTG', 'GAG'], aa: [['P', 5], ['V', 6], ['E', 7]], mut: true }
+  ];
+  const cxs = [140, 290, 440];
+  const aaFill = { special: '#7c3aed', neg: '#dc2626', hydrophobic: '#d97706' };
+  let s = '';
+  panels.forEach(p => {
+    const yD = 70 + p.off, yR = 120 + p.off, yP = 172 + p.off;
+    s += `<line x1="${cxs[0] + 55}" y1="${yP}" x2="${cxs[2] - 55}" y2="${yP}" stroke="#475569" stroke-width="3"/>`;
+    p.dna.forEach((cod, ci) => {
+      const cx = cxs[ci];
+      s += `<rect x="${cx - 52}" y="${yD - 20}" width="104" height="40" rx="10" fill="#fff" stroke="#cbd5e1"/>`;
+      s += `<rect x="${cx - 52}" y="${yR - 20}" width="104" height="40" rx="10" fill="#fff" stroke="#cbd5e1"/>`;
+      cod.split('').forEach((b, bi) => {
+        const x = cx - 30 + bi * 30, rb = b === 'T' ? 'U' : b;
+        const hl = p.mut && ci === 1 && bi === 1;
+        if (hl) s += `<circle cx="${x}" cy="${yD}" r="18" fill="#fde047" stroke="#dc2626" stroke-width="2.5"/><circle cx="${x}" cy="${yR}" r="18" fill="#fde047" stroke="#dc2626" stroke-width="2.5"/>`;
+        s += `<circle cx="${x}" cy="${yD}" r="13" fill="${BASE_COLOR[b]}"/><text x="${x}" y="${yD + 5}" text-anchor="middle" font-size="14" font-weight="800" fill="#fff">${b}</text>`;
+        s += `<circle cx="${x}" cy="${yR}" r="13" fill="${BASE_COLOR[rb]}"/><text x="${x}" y="${yR + 5}" text-anchor="middle" font-size="14" font-weight="800" fill="#fff">${rb}</text>`;
+      });
+      const [a, pos] = p.aa[ci], info = AA[a];
+      const hl = p.mut && ci === 1;
+      s += `<rect x="${cx - 55}" y="${yP - 17}" width="110" height="34" rx="17" fill="${aaFill[info[2]]}" ${hl ? 'stroke="#fde047" stroke-width="4"' : ''}/>`;
+      s += `<text x="${cx}" y="${yP + 5}" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">${info[1]} ${pos}</text>`;
+    });
+  });
+  $('#mutFigRows').innerHTML = s;
+}
+
+function drawCrisprFig() {
+  const top = 'ATGCCTAGTCGAG', topR = 'TGGCATCAG';
+  let r = '';
+  top.split('').forEach((b, i) => { const x = 30 + i * 21; r += `<line x1="${x}" y1="214" x2="${x}" y2="250" stroke="${BASE_COLOR[b]}"/><line x1="${x}" y1="250" x2="${x}" y2="286" stroke="${BASE_COLOR[DNA_COMP[b]]}"/>`; });
+  topR.split('').forEach((b, i) => { const x = 600 + i * 21; if (x > 770) return; r += `<line x1="${x}" y1="228" x2="${x}" y2="250" stroke="${BASE_COLOR[b]}"/><line x1="${x}" y1="250" x2="${x}" y2="286" stroke="${BASE_COLOR[DNA_COMP[b]]}"/>`; });
+  $('#crRungs').innerHTML = r;
+  const spacer = 'GACGCAUACCUG';
+  let s = '';
+  spacer.split('').forEach((b, i) => {
+    const x = 342 + i * 20, d = DNA_COMP[b === 'U' ? 'T' : b];
+    s += `<line x1="${x}" y1="270" x2="${x}" y2="285" stroke="#94a3b8" stroke-width="1.5"/>`;
+    s += `<circle cx="${x}" cy="262" r="8.5" fill="#9b59d0"/><text x="${x}" y="266" text-anchor="middle" font-size="10" font-weight="800" fill="#fff">${b}</text>`;
+    s += `<text x="${x}" y="310" text-anchor="middle" font-size="11" font-weight="700" fill="#0a7a54" font-family="Consolas,monospace">${d}</text>`;
+  });
+  $('#crSpacer').innerHTML = s;
+}
+
+/* =========================================================
+   Strand builder (used in units 1 & 2)
+   ========================================================= */
+function strandBuilder(cfg) {
+  const root = cfg.root;
+  let template = [], built = [], checked = false;
+  root.tabIndex = 0;
+  root.innerHTML = `
+    <div class="overflow-x-auto pb-1">
+      <div class="text-sm font-semibold text-slate-600 mb-1">${cfg.topLabel}</div>
+      <div class="seq-row mb-1" data-role="tmpl"></div>
+      <div class="seq-row mb-1" data-role="bonds"></div>
+      <div class="seq-row mb-1" data-role="built"></div>
+      <div class="text-sm font-semibold text-slate-600 mb-3">${cfg.bottomLabel}</div>
+    </div>
+    <div class="flex flex-wrap items-center gap-2 mb-3" dir="ltr">
+      ${cfg.alphabet.map(b => `<button class="nt pal-btn base-${b}" data-b="${b}" aria-label="${BASE_NAME[b]}">${b}</button>`).join('')}
+      <button class="btn btn-ghost" data-act="back" title="מחק אחרון">⌫ מחק</button>
+    </div>
+    <div class="flex flex-wrap gap-2 mb-3">
+      <button class="btn btn-green" data-act="check">✔ בדוק</button>
+      <button class="btn btn-ghost" data-act="solve">הצג פתרון</button>
+      <button class="btn btn-primary" data-act="new">↻ רצף חדש</button>
+    </div>
+    <div class="msg info" data-role="msg">${cfg.intro}</div>
+    <div data-role="extra" class="mt-3"></div>`;
+  const tEl = $('[data-role=tmpl]', root), bEl = $('[data-role=built]', root), hEl = $('[data-role=bonds]', root);
+  const mEl = $('[data-role=msg]', root), xEl = $('[data-role=extra]', root);
+  const answer = () => template.map(cfg.pairOf);
+  function render() {
+    tEl.innerHTML = `<span class="end-lbl">${cfg.topEnds[0]}</span>` + template.map(b => ntHTML(b)).join('') + `<span class="end-lbl">${cfg.topEnds[1]}</span>`;
+    hEl.innerHTML = `<span class="end-lbl" style="visibility:hidden">${cfg.topEnds[0]}</span>` + template.map((b, i) => {
+      const n = built[i] ? ((b === 'G' || b === 'C') ? 3 : 2) : 0;
+      return `<span class="nt sm" style="background:none;color:#94a3b8;width:2rem;height:.9rem;font-size:.7rem;line-height:.6">${n ? '┆'.repeat(n) : ''}</span>`;
+    }).join('');
+    bEl.innerHTML = `<span class="end-lbl">${cfg.bottomEnds[0]}</span>` + template.map((_, i) => {
+      if (built[i]) {
+        let c = '';
+        if (checked) c = built[i] === answer()[i] ? 'ok' : 'bad';
+        return ntHTML(built[i], c);
+      }
+      return `<span class="nt empty ${i === built.length ? 'sel' : ''}">?</span>`;
+    }).join('') + `<span class="end-lbl">${cfg.bottomEnds[1]}</span>`;
+  }
+  function add(b) {
+    if (built.length >= template.length) return;
+    checked = false; built.push(b); render();
+    if (built.length === template.length) msg(mEl, 'info', 'הגדיל מלא! לחצו "בדוק" כדי לבדוק את הזיווג.');
+  }
+  function check() {
+    if (built.length < template.length) { msg(mEl, 'warn', `הגדיל עדיין לא שלם – חסרים ${template.length - built.length} נוקלאוטידים.`); return; }
+    checked = true; render();
+    const ans = answer(), wrong = built.map((b, i) => b === ans[i] ? -1 : i).filter(i => i >= 0);
+    if (!wrong.length) { msg(mEl, 'good', cfg.successMsg(template, built)); xEl.innerHTML = cfg.extra ? cfg.extra(template, built) : ''; fixSvgText(xEl); }
+    else {
+      const i = wrong[0];
+      msg(mEl, 'bad', `${wrong.length === 1 ? 'יש טעות אחת (מסומנת' : `יש ${wrong.length} טעויות (מסומנות`} באדום). לדוגמה, בעמדה ${i + 1} מול ${template[i]} בתבנית בחרתם ${built[i]}. ${cfg.hint(template[i])}`);
+    }
+  }
+  function newSeq() { template = cfg.makeTemplate(); built = []; checked = false; xEl.innerHTML = ''; msg(mEl, 'info', cfg.intro); render(); }
+  root.addEventListener('click', e => {
+    const b = e.target.closest('[data-b]'); if (b) return add(b.dataset.b);
+    const a = e.target.closest('[data-act]'); if (!a) return;
+    const act = a.dataset.act;
+    if (act === 'back') { built.pop(); checked = false; render(); }
+    if (act === 'check') check();
+    if (act === 'solve') { built = answer(); checked = true; render(); msg(mEl, 'info', 'זהו הגדיל הנכון. נסו רצף חדש בעצמכם!'); xEl.innerHTML = cfg.extra ? cfg.extra(template, built) : ''; }
+    if (act === 'new') newSeq();
+  });
+  root.addEventListener('keydown', e => {
+    const k = e.key.toUpperCase();
+    if (cfg.alphabet.includes(k)) { e.preventDefault(); add(k); }
+    else if (e.key === 'Backspace') { e.preventDefault(); built.pop(); checked = false; render(); }
+    else if (e.key === 'Enter') { e.preventDefault(); check(); }
+  });
+  newSeq();
+}
+
+/* ---- Unit 1: DNA replication builder ---- */
+strandBuilder({
+  root: $('#sim-dna'),
+  alphabet: ['A', 'T', 'G', 'C'],
+  topLabel: 'גדיל תבנית (ישן)', bottomLabel: 'גדיל חדש – נבנה ע"י DNA פולימראז',
+  topEnds: ["3'", "5'"], bottomEnds: ["5'", "3'"],
+  intro: 'לחצו על הבסיסים (או הקלידו A/T/G/C במקלדת) כדי להוסיף נוקלאוטידים לקצה ה-3\' של הגדיל החדש.',
+  makeTemplate: () => Array.from({ length: 12 }, () => pick(['A', 'T', 'G', 'C'])),
+  pairOf: b => DNA_COMP[b],
+  hint: b => `תזכורת: ${b} מתזווג תמיד עם ${DNA_COMP[b]} (${(b === 'A' || b === 'T') ? 'שני' : 'שלושה'} קשרי מימן).`,
+  successMsg: (t) => {
+    const gc = t.filter(b => b === 'G' || b === 'C').length, at = t.length - gc;
+    return `<b>מצוין! הגדיל החדש משלים לחלוטין.</b><br>נוצרו ${at * 2 + gc * 3} קשרי מימן: ${at} זוגות A-T × 2 + ${gc} זוגות G-C × 3. התוצאה היא מולקולה חצי-שמרנית – גדיל ישן אחד וגדיל חדש אחד.`;
+  },
+  extra: (t, b) => {
+    const all = t.concat(b), c = x => all.filter(y => y === x).length;
+    return `<div class="msg info"><b>בדיקת כללי צ'רגף על המולקולה הדו-גדילית שבניתם:</b> A=${c('A')}, T=${c('T')}, G=${c('G')}, C=${c('C')} → A=T ו-G=C, ולכן פורינים (${c('A') + c('G')}) = פירימידינים (${c('T') + c('C')}).</div>`;
+  }
+});
+
+/* ---- Unit 2: transcription builder ---- */
+strandBuilder({
+  root: $('#sim-rna'),
+  alphabet: ['A', 'U', 'G', 'C'],
+  topLabel: 'DNA – גדיל התבנית', bottomLabel: 'mRNA – נבנה ע"י RNA פולימראז',
+  topEnds: ["3'", "5'"], bottomEnds: ["5'", "3'"],
+  intro: 'בנו את ה-mRNA המשלים לגדיל התבנית. במקלדת: A/U/G/C, Enter לבדיקה.',
+  makeTemplate: () => {
+    const sense = ['A', 'T', 'G'].concat(Array.from({ length: 12 }, () => pick(['A', 'T', 'G', 'C'])));
+    return sense.map(b => DNA_COMP[b]);
+  },
+  pairOf: b => TEMPLATE_TO_RNA[b],
+  hint: b => b === 'A' ? 'שימו לב: מול A ב-DNA מוצב ב-RNA אורציל (U), לא תימין!' : `מול ${b} בתבנית מוצב ${TEMPLATE_TO_RNA[b]}.`,
+  successMsg: () => '<b>כל הכבוד! ה-mRNA שועתק בהצלחה.</b> שימו לב שהקודון הראשון הוא AUG – קודון ההתחלה של התרגום.',
+  extra: (t, b) => {
+    const coding = t.map(x => DNA_COMP[x]);
+    return `<div class="sim-box bg-white"><div class="text-sm font-semibold text-slate-600 mb-1">השוואה: הגדיל המקודד של ה-DNA</div>
+      <div class="overflow-x-auto"><div class="seq-row mb-1"><span class="end-lbl">5'</span>${coding.map(x => ntHTML(x, x === 'T' ? 'hl' : '')).join('')}<span class="end-lbl">3'</span></div>
+      <div class="seq-row"><span class="end-lbl">5'</span>${b.map(x => ntHTML(x, x === 'U' ? 'hl' : '')).join('')}<span class="end-lbl">3'</span></div></div>
+      <p class="text-sm mt-2 text-slate-700">ה-mRNA <b>זהה</b> לגדיל המקודד – פרט לכך שבכל מקום שבו יש T (מסומן) מופיע ב-RNA אורציל (U).</p></div>`;
+  }
+});
+
+/* ---- Unit 2b: splicing ---- */
+(function splicingSim() {
+  const root = $('#sim-splice');
+  const base = [
+    { id: 'e1', t: 'exon', label: 'אקסון 1', w: 6 }, { id: 'i1', t: 'intron', label: 'אינטרון 1', w: 5 },
+    { id: 'e2', t: 'exon', label: 'אקסון 2', w: 5 }, { id: 'i2', t: 'intron', label: 'אינטרון 2', w: 6 },
+    { id: 'e3', t: 'exon', label: 'אקסון 3', w: 6 }
+  ];
+  let removed, cap, tail, alt;
+  root.innerHTML = `
+    <div class="overflow-x-auto pb-2"><div class="flex items-center gap-1 min-w-max" dir="ltr" data-role="row"></div></div>
+    <div class="flex flex-wrap gap-2 my-3">
+      <button class="btn btn-primary" data-act="cap">+ כיפה 5'</button>
+      <button class="btn btn-green" data-act="tail">+ זנב פולי-A</button>
+      <button class="btn btn-ghost" data-act="alt">שחבור חלופי: דלג על אקסון 2</button>
+      <button class="btn btn-ghost" data-act="reset">↻ התחל מחדש</button>
+    </div>
+    <div class="grid sm:grid-cols-3 gap-2 text-sm mb-3" data-role="status"></div>
+    <div class="msg info" data-role="msg">זהו pre-mRNA טרי שיצא מהשעתוק. התחילו בהסרת האינטרונים.</div>`;
+  const row = $('[data-role=row]', root), st = $('[data-role=status]', root), m = $('[data-role=msg]', root);
+  function render() {
+    let h = `<span class="end-lbl">5'</span>`;
+    if (cap) h += `<span class="seg cap" title="כיפת 7-מתיל-גואנוזין">m⁷G</span>`;
+    base.forEach(s => {
+      if (removed.has(s.id)) return;
+      h += `<span class="seg ${s.t}" data-id="${s.id}" style="width:${s.w}rem">${s.label}</span>`;
+    });
+    if (tail) h += `<span class="seg tail" style="width:6rem">AAAA…A</span>`;
+    h += `<span class="end-lbl">3'</span>`;
+    row.innerHTML = h;
+    const nIn = ['i1', 'i2'].filter(x => removed.has(x)).length;
+    const item = (ok, t) => `<div class="rounded-lg px-3 py-2 ${ok ? 'bg-emerald-50 text-emerald-800 border border-emerald-200' : 'bg-white border border-slate-200 text-slate-500'}">${ok ? '✔' : '○'} ${t}</div>`;
+    st.innerHTML = item(nIn === 2, `אינטרונים הוסרו (${nIn}/2)`) + item(cap, 'כיפה בקצה 5\'') + item(tail, 'זנב פולי-A בקצה 3\'');
+    if (nIn === 2 && cap && tail) {
+      msg(m, 'good', alt
+        ? '<b>mRNA בוגר – איזופורם חלופי!</b> בשחבור חלופי דילגנו על אקסון 2, כך שמאותו גן נוצר mRNA קצר יותר המקודד לחלבון שונה. כך כ-20,000 גנים אנושיים מייצרים יותר מ-100,000 חלבונים.'
+        : '<b>mRNA בוגר מוכן!</b> הוא מוגן מפירוק, יכול לצאת מהגרעין דרך נקבוביות הגרעין, והריבוזום יזהה את הכיפה בתחילת התרגום. נסו גם את כפתור השחבור החלופי.');
+    }
+  }
+  function reset() { removed = new Set(); cap = false; tail = false; alt = false; msg(m, 'info', 'זהו pre-mRNA טרי שיצא מהשעתוק. התחילו בהסרת האינטרונים.'); render(); }
+  root.addEventListener('click', e => {
+    const seg = e.target.closest('.seg[data-id]');
+    if (seg) {
+      const s = base.find(x => x.id === seg.dataset.id);
+      if (s.t === 'intron') {
+        seg.classList.add('removing');
+        setTimeout(() => { removed.add(s.id); msg(m, 'good', `${s.label} הוסר ע"י הספלייסוזום, והאקסונים שמשני צדיו חוברו זה לזה.`); render(); }, 320);
+      } else msg(m, 'warn', `${s.label} הוא <b>אקסון</b> – רצף מקודד שנשאר ב-mRNA הבוגר. הסירו רק אינטרונים!`);
+      return;
+    }
+    const a = e.target.closest('[data-act]'); if (!a) return;
+    const act = a.dataset.act;
+    if (act === 'cap') { cap = true; msg(m, 'info', 'נוספה כיפה של 7-מתיל-גואנוזין בקצה 5\' – הגנה מפני אנזימים מפרקים ואות זיהוי לריבוזום.'); render(); }
+    if (act === 'tail') { tail = true; msg(m, 'info', 'נוסף זנב של 100–250 אדנינים בקצה 3\' – מייצב את ה-mRNA ומסייע ביציאה מהגרעין.'); render(); }
+    if (act === 'alt') {
+      if (!(removed.has('i1') && removed.has('i2'))) { msg(m, 'warn', 'קודם הסירו את שני האינטרונים, ואז נסו שחבור חלופי.'); return; }
+      alt = !alt; if (alt) removed.add('e2'); else removed.delete('e2');
+      a.textContent = alt ? 'החזר את אקסון 2' : 'שחבור חלופי: דלג על אקסון 2';
+      msg(m, 'info', alt ? 'אקסון 2 "דולג" – הספלייסוזום חיבר את אקסון 1 ישירות לאקסון 3.' : 'אקסון 2 הוחזר – השחבור הרגיל.');
+      render();
+    }
+    if (act === 'reset') { $('[data-act=alt]', root).textContent = 'שחבור חלופי: דלג על אקסון 2'; reset(); }
+  });
+  reset();
+})();
+
+/* =========================================================
+   Unit 3: virtual ribosome
+   ========================================================= */
+(function ribosomeSim() {
+  const root = $('#sim-protein');
+  const order = 'UCAG';
+  let tbl = `<table class="codon-table"><thead><tr><th>1↓ 2→</th>${[...order].map(b => `<th>${b}</th>`).join('')}</tr></thead><tbody>`;
+  for (const a of order) {
+    tbl += `<tr><th>${a}</th>`;
+    for (const b of order) {
+      tbl += '<td>' + [...order].map(c => {
+        const cd = a + b + c, aa = CODE[cd];
+        const cls = aa === '*' ? 'stop' : (cd === 'AUG' ? 'start' : '');
+        return `<span class="cd ${cls}" id="cd-${cd}">${cd} ${AA[aa][0]}</span>`;
+      }).join('') + '</td>';
+    }
+    tbl += '</tr>';
+  }
+  tbl += '</tbody></table>';
+  root.innerHTML = `
+    <div class="flex flex-wrap gap-2 items-center mb-3">
+      <label for="mrnaIn" class="text-sm font-semibold text-slate-600">רצף mRNA:</label>
+      <input id="mrnaIn" dir="ltr" class="flex-1 min-w-[12rem] border border-slate-300 rounded-lg px-3 py-2 font-mono tracking-wider uppercase" value="GCCAUGGCUUUCAAAUGGGAACUGUGCUAAGC">
+      <button class="btn btn-primary" data-act="load">טען</button>
+      <button class="btn btn-ghost" data-act="random">🎲 רצף אקראי</button>
+    </div>
+    <div class="overflow-x-auto pb-2"><div class="seq-row" data-role="mrna"></div></div>
+    <div class="flex flex-wrap gap-2 my-3">
+      <button class="btn btn-green" data-act="step">צעד ◀ תרגם קודון</button>
+      <button class="btn btn-primary" data-act="auto">▶ הפעלה אוטומטית</button>
+      <button class="btn btn-ghost" data-act="reset">↻ התחל מחדש</button>
+    </div>
+    <div class="msg info mb-3" data-role="msg"></div>
+    <div class="text-sm font-semibold text-slate-600 mb-1">שרשרת הפוליפפטיד:</div>
+    <div class="sim-box bg-white mb-4 min-h-[4.5rem]"><div class="chain" data-role="chain"></div></div>
+    <details open><summary class="cursor-pointer font-semibold text-navy mb-2">טבלת הצופן הגנטי</summary><div class="overflow-x-auto">${tbl}</div>
+    <p class="text-xs text-slate-500 mt-1">קודון ההתחלה בירוק, קודוני הסיום באדום. שורה = בסיס ראשון, עמודה = בסיס שני, בתוך התא = בסיס שלישי.</p></details>`;
+  const inp = $('#mrnaIn'), mEl = $('[data-role=mrna]', root), msgEl = $('[data-role=msg]', root), chEl = $('[data-role=chain]', root);
+  let seq = '', start = -1, pos = 0, chain = [], done = false, timer = null, lastCodon = null;
+  function load(s) {
+    const clean = s.toUpperCase().replace(/T/g, 'U').replace(/\s/g, '');
+    const bad = clean.replace(/[AUGC]/g, '');
+    stopAuto();
+    seq = clean.replace(/[^AUGC]/g, ''); inp.value = seq;
+    start = seq.indexOf('AUG'); pos = 0; chain = []; done = false; lastCodon = null;
+    if (bad.length) msg(msgEl, 'warn', `הוסרו ${bad.length} תווים שאינם A/U/G/C.`);
+    else if (start < 0) msg(msgEl, 'bad', 'לא נמצא קודון התחלה AUG ברצף – הריבוזום לא יכול להתחיל לתרגם. הוסיפו AUG!');
+    else msg(msgEl, 'info', `היחידה הקטנה של הריבוזום סרקה את ה-mRNA מקצה 5' ומצאה קודון התחלה AUG בעמדה ${start + 1}. לחצו "צעד".`);
+    render();
+  }
+  function render() {
+    let h = `<span class="end-lbl">5'</span>`;
+    for (let i = 0; i < seq.length; i++) {
+      let cls = 'sm';
+      if (start < 0 || i < start) cls += ' dim';
+      else {
+        const ci = Math.floor((i - start) / 3);
+        if (!done && ci === pos) cls += ' hl';
+        if (done ? ci >= pos : ci > pos) cls += ' dim';
+        if ((i - start) % 3 === 0 && i > start) h += '<span style="width:.35rem"></span>';
+      }
+      h += ntHTML(seq[i], cls);
+    }
+    mEl.innerHTML = h + `<span class="end-lbl">3'</span>`;
+    chEl.innerHTML = chain.length ? '<span class="end-lbl">N-</span>' + chain.map((a, i) => beadHTML(a, '', i + 1)).join('<span class="text-slate-400">—</span>') + (done ? '<span class="end-lbl">-C</span>' : '') : '<span class="text-slate-400 text-sm">השרשרת ריקה – התרגום עוד לא התחיל.</span>';
+    $$('.cd.on', root).forEach(x => x.classList.remove('on'));
+    if (lastCodon && $('#cd-' + lastCodon)) $('#cd-' + lastCodon).classList.add('on');
+  }
+  function step() {
+    if (start < 0 || done) return false;
+    const i = start + pos * 3, cd = seq.substr(i, 3);
+    if (cd.length < 3) { done = true; msg(msgEl, 'warn', 'הריבוזום הגיע לסוף ה-mRNA בלי למצוא קודון סיום. בתא, mRNA כזה מזוהה כפגום ומפורק.'); render(); return false; }
+    lastCodon = cd;
+    const a = CODE[cd], anti = cd.split('').map(b => RNA_COMP[b]).join('');
+    if (a === '*') {
+      done = true; pos++;
+      msg(msgEl, 'good', `קודון הסיום <b class="ltr">${cd}</b> הגיע לאתר A. אין tRNA שמתאים לו – <b>גורם שחרור</b> נקשר, השרשרת של ${chain.length} חומצות אמינו משתחררת והריבוזום מתפרק. החלבון יעבור כעת קיפול.`);
+    } else {
+      chain.push(a); pos++;
+      const [t3, he] = AA[a];
+      msg(msgEl, 'info', `קודון <b class="ltr">${cd}</b> באתר A ← נכנס tRNA עם אנטיקודון <b class="ltr">3'-${anti}-5'</b> הנושא <b>${he} (${t3})</b>. ${chain.length > 1 ? 'נוצר קשר פפטידי, והריבוזום מתקדם קודון אחד (טרנסלוקציה).' : 'זהו tRNA ההתחלה – הוא יושב באתר P, והיחידה הגדולה מצטרפת.'}`);
+    }
+    render(); return !done;
+  }
+  function stopAuto() { if (timer) { clearInterval(timer); timer = null; } const b = $('[data-act=auto]', root); if (b) b.textContent = '▶ הפעלה אוטומטית'; }
+  function randomSeq() {
+    const B = ['A', 'U', 'G', 'C'];
+    let lead = ''; for (let i = 0; i < 2 + rnd(3); i++) lead += pick(['C', 'G', 'U']);
+    const sense = Object.keys(CODE).filter(c => CODE[c] !== '*' && c !== 'AUG');
+    let body = 'AUG'; for (let i = 0; i < 5 + rnd(4); i++) body += pick(sense);
+    body += pick(['UAA', 'UAG', 'UGA']);
+    let tail = ''; for (let i = 0; i < 2; i++) tail += pick(B);
+    return lead + body + tail;
+  }
+  root.addEventListener('click', e => {
+    const a = e.target.closest('[data-act]'); if (!a) return;
+    const act = a.dataset.act;
+    if (act === 'load') load(inp.value);
+    if (act === 'random') load(randomSeq());
+    if (act === 'step') { stopAuto(); step(); }
+    if (act === 'reset') load(seq);
+    if (act === 'auto') {
+      if (timer) return stopAuto();
+      if (done) load(seq);
+      a.textContent = '⏸ עצור';
+      timer = setInterval(() => { if (!step()) stopAuto(); }, 1100);
+    }
+  });
+  inp.addEventListener('keydown', e => { if (e.key === 'Enter') load(inp.value); });
+  load(inp.value);
+})();
+
+/* =========================================================
+   Unit 4: mutation lab
+   ========================================================= */
+(function mutationSim() {
+  const root = $('#sim-mutation');
+  const WT = ['ATG', 'GTG', 'CAT', 'CTG', 'ACT', 'CCT', 'GAG', 'GAG', 'AAG', 'TCT', 'GCC', 'GTT', 'ACT', 'GCC', 'CTG', 'TGG', 'GGC', 'AAG', 'TAA'].join('');
+  const wtP = translateDNA(WT).aa;
+  let sel = 19, type = 'sub', base = 'T';
+  root.innerHTML = `
+    <div class="flex flex-wrap gap-2 mb-3">
+      <span class="text-sm font-semibold text-slate-600 self-center">דוגמאות מוכנות:</span>
+      <button class="btn btn-ghost" data-preset="sickle">אנמיה חרמשית</button>
+      <button class="btn btn-ghost" data-preset="silent">מוטציה שקטה</button>
+      <button class="btn btn-ghost" data-preset="nonsense">Nonsense</button>
+      <button class="btn btn-ghost" data-preset="frame">תזוזת מסגרת</button>
+      <button class="btn btn-ghost" data-preset="inframe">חסר של 3 בסיסים</button>
+    </div>
+    <div class="text-sm font-semibold text-slate-600 mb-1">1. לחצו על בסיס ברצף התקין (גדיל מקודד):</div>
+    <div class="overflow-x-auto pb-2"><div class="seq-row" data-role="wt"></div></div>
+    <div class="grid md:grid-cols-2 gap-3 my-3">
+      <div>
+        <div class="text-sm font-semibold text-slate-600 mb-1">2. סוג המוטציה:</div>
+        <div class="flex flex-wrap gap-2" data-role="types">
+          <button class="btn btn-ghost" data-type="sub">החלפה</button>
+          <button class="btn btn-ghost" data-type="ins">הוספה (אחרי הבסיס)</button>
+          <button class="btn btn-ghost" data-type="del">חסר</button>
+        </div>
+      </div>
+      <div data-role="baseWrap">
+        <div class="text-sm font-semibold text-slate-600 mb-1">3. הבסיס החדש:</div>
+        <div class="flex gap-2" dir="ltr" data-role="bases">${['A', 'T', 'G', 'C'].map(b => `<button class="nt pal-btn base-${b}" data-base="${b}">${b}</button>`).join('')}</div>
+      </div>
+    </div>
+    <div class="flex flex-wrap gap-2 mb-4"><button class="btn btn-green" data-act="apply">⚡ בצע מוטציה</button></div>
+    <div data-role="out"></div>`;
+  const wtEl = $('[data-role=wt]', root), out = $('[data-role=out]', root);
+  const seqHTML = (s, hl, extraCls = '') => {
+    let h = `<span class="end-lbl">5'</span>`;
+    for (let i = 0; i < s.length; i++) {
+      if (i && i % 3 === 0) h += '<span style="width:.35rem"></span>';
+      h += `<button class="nt sm base-${s[i]} ${hl.includes(i) ? extraCls : ''}" data-i="${i}">${s[i]}</button>`;
+    }
+    return h + `<span class="end-lbl">3'</span>`;
+  };
+  function renderControls() {
+    wtEl.innerHTML = seqHTML(WT, [sel], 'sel');
+    $$('[data-type]', root).forEach(b => { b.className = 'btn ' + (b.dataset.type === type ? 'btn-primary' : 'btn-ghost'); });
+    $$('[data-base]', root).forEach(b => b.classList.toggle('sel', b.dataset.base === base));
+    $('[data-role=baseWrap]', root).style.opacity = type === 'del' ? .35 : 1;
+  }
+  function chainHTML(p, ref, stop) {
+    return '<span class="end-lbl">N-</span>' + p.map((a, i) => beadHTML(a, ref && ref[i] !== a ? 'diff' : '', i === 0 ? 'M' : i)).join('') +
+      (stop ? '<span class="aa-bead aa-stop">Stop<small>סיום</small></span>' : '<span class="text-xs text-red-700 font-semibold px-2">…ללא קודון סיום</span>');
+  }
+  function apply(mut) {
+    let s = WT, hl = [];
+    const { t, i, b, len = 1 } = mut;
+    if (t === 'sub') { s = WT.slice(0, i) + b + WT.slice(i + 1); hl = [i]; }
+    if (t === 'ins') { s = WT.slice(0, i + 1) + b + WT.slice(i + 1); hl = [i + 1]; }
+    if (t === 'del') { s = WT.slice(0, i) + WT.slice(i + len); hl = i < s.length ? [i] : []; }
+    if (t === 'sub' && WT[i] === b) { out.innerHTML = `<div class="msg warn">הבסיס שבחרתם זהה לבסיס המקורי (${b}) – זו לא מוטציה. בחרו בסיס אחר.</div>`; return; }
+    const r = translateDNA(s), p = r.aa;
+    const ci = Math.floor(i / 3), d = s.length - WT.length;
+    let title, body, cls = 'bad';
+    const wtCod = WT.substr(ci * 3, 3), muCod = s.substr(ci * 3, 3);
+    if (!s.startsWith('ATG')) {
+      title = 'אובדן קודון ההתחלה';
+      body = `קודון ההתחלה ATG השתנה ל-<span class="ltr">${s.substr(0, 3)}</span>. הריבוזום לא יזהה את נקודת ההתחלה, ולכן החלבון ככל הנראה לא ייוצר כלל (או שהתרגום יתחיל ב-AUG אחר בהמשך).`;
+    } else if (d % 3 !== 0) {
+      title = 'תזוזת מסגרת קריאה (Frameshift)';
+      body = `${d > 0 ? 'הוספה' : 'חסר'} של ${Math.abs(d)} בסיס – מספר שאינו מתחלק ב-3. מנקודת המוטציה (קודון ${ci}) והלאה כל הקודונים נקראים אחרת, ולכן רצף חומצות האמינו משתבש לחלוטין (מסומן בצהוב). ` +
+        (r.stop ? `קודון סיום הופיע במסגרת החדשה, והחלבון נקטע אחרי ${p.length} חומצות אמינו במקום ${wtP.length}.` : 'במסגרת החדשה לא הופיע קודון סיום בתוך הקטע – החלבון המתקבל שגוי לגמרי.') +
+        ' זה הסוג ההרסני ביותר של מוטציה נקודתית – למשל, המוטציה הנפוצה בטיי-זקס.';
+    } else if (d !== 0) {
+      title = d < 0 ? 'חסר ללא תזוזת מסגרת (In-frame deletion)' : 'הוספה ללא תזוזת מסגרת (In-frame insertion)';
+      body = `${d < 0 ? 'חסרו' : 'נוספו'} ${Math.abs(d)} בסיסים – כפולה של 3 – ולכן מסגרת הקריאה נשמרה. החלבון ${d < 0 ? 'מאבד' : 'מקבל'} ${Math.abs(d) / 3} חומצת אמינו, ושאר הרצף תקין. ההשפעה תלויה במיקום: כך בדיוק נגרמת המוטציה ΔF508 בציסטיק פיברוזיס – חסר פנילאלנין אחד גורם לקיפול שגוי של חלבון CFTR.`;
+      cls = 'warn';
+    } else {
+      const wa = CODE[toRNA(wtCod)], ma = CODE[toRNA(muCod)];
+      if (wa === ma) {
+        title = 'מוטציה שקטה (Silent)'; cls = 'good';
+        body = `הקודון השתנה מ-<span class="ltr">${wtCod}</span> ל-<span class="ltr">${muCod}</span>, אך שניהם מקודדים ל<b>${AA[wa][1]}</b>. בזכות <b>ניוון הצופן הגנטי</b> רצף החלבון לא השתנה, ובדרך כלל אין לכך השפעה על הפנוטיפ.`;
+      } else if (ma === '*') {
+        title = 'מוטציה חסרת משמעות (Nonsense)';
+        body = `הקודון <span class="ltr">${wtCod}</span> (${AA[wa][1]}) הפך לקודון הסיום <span class="ltr">${muCod}</span>. החלבון נקטע אחרי ${p.length} חומצות אמינו במקום ${wtP.length}. חלבון מקוצר כזה בדרך כלל אינו מתפקד, ולעתים קרובות התא אף מפרק את ה-mRNA הפגום.`;
+      } else if (wa === '*') {
+        title = 'אובדן קודון סיום (Stop-loss)'; cls = 'warn';
+        body = `קודון הסיום <span class="ltr">${wtCod}</span> הפך ל-<span class="ltr">${muCod}</span> (${AA[ma][1]}). הריבוזום ממשיך לתרגם מעבר לסוף הגן עד שימצא קודון סיום אחר – החלבון מתארך ועלול לא לתפקד.`;
+      } else {
+        title = 'החלפת משמעות (Missense)'; cls = 'warn';
+        const pa = AA_PROP[AA[wa][2]], pb = AA_PROP[AA[ma][2]];
+        body = `הקודון <span class="ltr">${wtCod}</span> (${AA[wa][1]}) הפך ל-<span class="ltr">${muCod}</span> (${AA[ma][1]}) בעמדה ${ci}. ` +
+          (pa !== pb ? `שינוי משמעותי בתכונות: ${AA[wa][1]} היא חומצה ${pa}, ואילו ${AA[ma][1]} – ${pb}. שינוי כזה עלול לשבש את קיפול החלבון או את תפקודו.` : `לשתי החומצות תכונות דומות (${pa}), ולכן ייתכן שההשפעה מתונה ("החלפה שמרנית").`);
+        if (ci === 6 && wa === 'E' && ma === 'V') {
+          body += ' <br><b>🩸 זו בדיוק המוטציה של האנמיה החרמשית!</b> גלוטמט טעון בעמדה 6 של שרשרת β מוחלף בוואלין הידרופובי, ומולקולות ההמוגלובין (HbS) נצמדות זו לזו ויוצרות סיבים המעוותים את תאי הדם האדומים.';
+        }
+      }
+    }
+    out.innerHTML = `
+      <div class="text-sm font-semibold text-slate-600 mb-1">הרצף המוטנטי:</div>
+      <div class="overflow-x-auto pb-2"><div class="seq-row mb-3">${seqHTML(s, hl, 'hl').replace(/<button/g, '<span').replace(/<\/button>/g, '</span>')}</div></div>
+      <div class="grid gap-3">
+        <div><div class="text-sm font-semibold text-emerald-700 mb-1">חלבון תקין (${wtP.length} חומצות אמינו):</div><div class="chain">${chainHTML(wtP, null, true)}</div></div>
+        <div><div class="text-sm font-semibold text-red-700 mb-1">חלבון מוטנטי (${p.length} חומצות אמינו):</div><div class="chain">${chainHTML(p, wtP, r.stop)}</div></div>
+      </div>
+      <div class="msg ${cls} mt-3"><b>${title}</b><br>${body}</div>`;
+  }
+  const PRESETS = {
+    sickle: { t: 'sub', i: 19, b: 'T' }, silent: { t: 'sub', i: 11, b: 'A' }, nonsense: { t: 'sub', i: 24, b: 'T' },
+    frame: { t: 'del', i: 10 }, inframe: { t: 'del', i: 24, len: 3 }
+  };
+  root.addEventListener('click', e => {
+    const n = e.target.closest('[data-i]'); if (n && wtEl.contains(n)) { sel = +n.dataset.i; renderControls(); return; }
+    const ty = e.target.closest('[data-type]'); if (ty) { type = ty.dataset.type; renderControls(); return; }
+    const b = e.target.closest('[data-base]'); if (b) { base = b.dataset.base; renderControls(); return; }
+    const pr = e.target.closest('[data-preset]');
+    if (pr) {
+      const p = PRESETS[pr.dataset.preset]; sel = p.i; type = p.t; if (p.b) base = p.b;
+      renderControls(); apply(p); return;
+    }
+    if (e.target.closest('[data-act=apply]')) apply({ t: type, i: sel, b: base });
+  });
+  renderControls(); apply(PRESETS.sickle);
+})();
+
+/* =========================================================
+   Unit 5: SCNT ordering + genetic mother challenge
+   ========================================================= */
+(function cloningSim() {
+  const root = $('#sim-cloning');
+  const STEPS = [
+    { id: 1, t: 'נטילת תאים מבלוטת החלב של כבשת פין דורסט (פנים לבנות)' },
+    { id: 2, t: 'גידול התאים בתרבית דלת מזון ("הרעבה") – כניסה לשלב G0' },
+    { id: 3, t: 'נטילת ביצית לא מופרית מכבשה סקוטית שחורת פנים' },
+    { id: 4, t: 'הוצאת הגרעין מהביצית באמצעות מיקרופיפטה' },
+    { id: 5, t: 'איחוי תא העטין עם הביצית חסרת הגרעין בפולס חשמלי' },
+    { id: 6, t: 'גידול העובר בתרבית כ-6 ימים עד שלב הבלסטוציסט' },
+    { id: 7, t: 'השתלת העובר ברחם כבשה פונדקאית' },
+    { id: 8, t: 'לידת דולי – טלה לבן פנים, זהה גנטית לתורמת התא' }
+  ];
+  const RULES = [[1, 2], [3, 4], [2, 5], [4, 5], [5, 6], [6, 7], [7, 8]];
+  const WHY = {
+    2: 'הרעבת התאים חייבת לבוא אחרי נטילתם – ולפני האיחוי.', 4: 'אי אפשר להוציא גרעין מביצית לפני שנוטלים אותה.',
+    5: 'האיחוי מתבצע רק אחרי ששני המרכיבים מוכנים: תא תורם ב-G0 וביצית ללא גרעין.', 6: 'העובר מתחיל להתפתח רק אחרי האיחוי וההפעלה החשמלית.',
+    7: 'משתילים רק עובר שהגיע לשלב הבלסטוציסט.', 8: 'הלידה היא כמובן השלב האחרון – אחרי כ-5 חודשי הריון.',
+    1: 'נטילת התא התורם היא מהשלבים הראשונים.', 3: 'נטילת הביצית היא מהשלבים הראשונים.'
+  };
+  let order, checked = false;
+  const ok = () => { const p = {}; order.forEach((s, i) => p[s.id] = i); return id => RULES.filter(([a, b]) => a === id || b === id).every(([a, b]) => p[a] < p[b]); };
+  function render() {
+    const isOk = ok();
+    root.innerHTML = `<ol class="space-y-2 mb-3">${order.map((s, i) => `
+      <li class="step-item ${checked ? (isOk(s.id) ? 'ok' : 'bad') : ''}">
+        <span class="sn">${i + 1}</span><span class="flex-1 leading-snug">${s.t}</span>
+        <button class="icon-btn" data-up="${i}" ${i === 0 ? 'disabled style="opacity:.3"' : ''} aria-label="הזז למעלה">▲</button>
+        <button class="icon-btn" data-down="${i}" ${i === order.length - 1 ? 'disabled style="opacity:.3"' : ''} aria-label="הזז למטה">▼</button>
+      </li>`).join('')}</ol>
+      <div class="flex flex-wrap gap-2 mb-3"><button class="btn btn-green" data-act="check">✔ בדוק סדר</button><button class="btn btn-ghost" data-act="solve">הצג סדר נכון</button><button class="btn btn-primary" data-act="shuffle">↻ ערבב</button></div>
+      <div data-role="msg"></div>`;
+    if (checked) {
+      const bad = order.filter(s => !isOk(s.id));
+      const m = $('[data-role=msg]', root);
+      if (!bad.length) msg(m, 'good', '<b>מצוין! זהו פרוטוקול SCNT נכון.</b> שימו לב: הכנת תא התורם (שלבי העטין) והכנת הביצית יכולות להתבצע במקביל ובכל סדר, אך שתיהן חייבות להסתיים לפני האיחוי החשמלי.');
+      else msg(m, 'bad', `${bad.length} שלבים אינם במקומם (באדום). רמז: ${WHY[bad[0].id]}`);
+    }
+  }
+  function shuffleSteps() { do { order = shuffle(STEPS); } while (RULES.every(([a, b]) => order.findIndex(s => s.id === a) < order.findIndex(s => s.id === b))); checked = false; render(); }
+  root.addEventListener('click', e => {
+    const u = e.target.closest('[data-up]'), d = e.target.closest('[data-down]');
+    if (u) { const i = +u.dataset.up; [order[i - 1], order[i]] = [order[i], order[i - 1]]; checked = false; render(); }
+    if (d) { const i = +d.dataset.down; [order[i + 1], order[i]] = [order[i], order[i + 1]]; checked = false; render(); }
+    const a = e.target.closest('[data-act]'); if (!a) return;
+    if (a.dataset.act === 'check') { checked = true; render(); }
+    if (a.dataset.act === 'solve') { order = STEPS.slice(); checked = true; render(); }
+    if (a.dataset.act === 'shuffle') shuffleSteps();
+  });
+  shuffleSteps();
+
+  const mroot = $('#sim-mother');
+  const sheepSvg = face => `<svg viewBox="0 0 110 80" class="w-24 h-auto mx-auto" aria-hidden="true"><use href="#sheep" width="110" height="80" style="color:${face}"/></svg>`;
+  const OPTS = [
+    { k: 'A', face: '#f8fafc', name: 'כבשה A – פין דורסט', role: 'תרמה את תא העטין (הגרעין)', fb: ['good', '<b>נכון!</b> הגרעין של תא העטין – ובו כל הכרומוזומים – הגיע מכבשה A. לכן דולי זהה לה ב-DNA הגרעיני ולבנת פנים כמוה. דיוק חשוב: ה-DNA המיטוכונדריאלי (37 גנים בלבד) הגיע דווקא מהביצית של כבשה B, ולכן דולי אינה "העתק" מושלם ב-100%.'] },
+    { k: 'B', face: '#1f2937', name: 'כבשה B – סקוטית', role: 'תרמה את הביצית', fb: ['warn', '<b>חלקית.</b> כבשה B תרמה את הביצית: ציטופלזמה, אברונים וה-DNA המיטוכונדריאלי (mtDNA). אבל הגרעין שלה <u>הוצא</u> – ולכן כמעט כל התכונות התורשתיות של דולי (כולל הפנים הלבנות) אינן ממנה.'] },
+    { k: 'C', face: '#1f2937', name: 'כבשה C – פונדקאית', role: 'נשאה את ההריון', fb: ['bad', '<b>לא.</b> הפונדקאית סיפקה סביבה להתפתחות – רחם, חמצן ומזון – אך לא תרמה אף גן לדולי. העובר הושתל ברחמה כשהיה כבר בלסטוציסט עם גנום מלא מכבשה A.'] }
+  ];
+  mroot.innerHTML = `<div class="grid sm:grid-cols-3 gap-3 mb-3">${OPTS.map(o => `
+    <button class="bg-white border border-slate-300 rounded-xl p-3 hover:border-navy hover:shadow transition text-center" data-k="${o.k}">
+      ${sheepSvg(o.face)}<div class="font-bold text-navy mt-1">${o.name}</div><div class="text-sm text-slate-500">${o.role}</div></button>`).join('')}</div>
+    <div data-role="msg" class="msg info">לחצו על הכבשה שלדעתכם היא ה"אמא הגנטית" של דולי.</div>`;
+  mroot.addEventListener('click', e => {
+    const b = e.target.closest('[data-k]'); if (!b) return;
+    const o = OPTS.find(x => x.k === b.dataset.k);
+    msg($('[data-role=msg]', mroot), o.fb[0], o.fb[1]);
+  });
+})();
+
+/* =========================================================
+   Unit 6: CRISPR designer + ethics
+   ========================================================= */
+(function crisprSim() {
+  const root = $('#sim-crispr');
+  const GENE = 'ATGGCTTCAGTACCGGATCTGAAGTTCGTGCACCTGAGGAACAAGCTTGGATCCGTAAGTGGTTAA';
+  const wtP = translateDNA(GENE).aa;
+  let N = null, stage = 'pick', result = null, showHints = false;
+  const validPAMs = () => { const r = []; for (let n = 20; n + 2 < GENE.length; n++) if (GENE[n + 1] === 'G' && GENE[n + 2] === 'G') r.push(n); return r; };
+  root.innerHTML = `
+    <div class="overflow-x-auto pb-2"><div class="seq-row" data-role="seq"></div></div>
+    <div class="flex flex-wrap gap-2 my-3" data-role="btns"></div>
+    <div class="msg info" data-role="msg">לחצו על אחד הבסיסים של רצף PAM (בסיס כלשהו ואחריו GG).</div>
+    <div data-role="out" class="mt-3"></div>`;
+  const seqEl = $('[data-role=seq]', root), btns = $('[data-role=btns]', root), m = $('[data-role=msg]', root), out = $('[data-role=out]', root);
+  function renderSeq(s = GENE, marks = {}) {
+    let h = `<span class="end-lbl">5'</span>`;
+    const hints = showHints && stage === 'pick' ? validPAMs() : [];
+    for (let i = 0; i < s.length; i++) {
+      if (marks.cut === i) h += `<span class="text-red-600 font-black text-xl px-0.5" title="אתר החיתוך">${stage === 'pick' || stage === 'ready' ? '┊' : '✂'}</span>`;
+      else if (i && i % 3 === 0) h += '<span style="width:.3rem"></span>';
+      let cls = 'sm';
+      if (marks.proto && i >= marks.proto[0] && i < marks.proto[1]) cls += ' hl';
+      if (marks.pam && i >= marks.pam && i < marks.pam + 3) cls += ' sel';
+      if (marks.ins && i >= marks.ins[0] && i < marks.ins[1]) cls += ' bad';
+      if (hints.some(n => i >= n && i < n + 3)) cls += ' ok';
+      h += `<button class="nt ${cls} base-${s[i]}" data-i="${i}" ${stage === 'pick' ? '' : 'tabindex="-1"'}>${s[i]}</button>`;
+    }
+    seqEl.innerHTML = h + `<span class="end-lbl">3'</span>`;
+  }
+  function renderButtons() {
+    if (stage === 'pick') btns.innerHTML = `<button class="btn btn-ghost" data-act="hint">💡 ${showHints ? 'הסתר רמז' : 'הראה את כל אתרי ה-PAM'}</button>`;
+    if (stage === 'ready') btns.innerHTML = `<button class="btn btn-green" data-act="cut">✂ הפעל את Cas9</button><button class="btn btn-ghost" data-act="reset">בחר מטרה אחרת</button>`;
+    if (stage === 'cut') btns.innerHTML = `<button class="btn btn-primary" data-act="nhej">תיקון NHEJ (ללא תבנית)</button><button class="btn btn-green" data-act="hdr">תיקון HDR (עם תבנית)</button>`;
+    if (stage === 'done') btns.innerHTML = `<button class="btn btn-primary" data-act="again">↻ תקן שוב מאותו חיתוך</button><button class="btn btn-ghost" data-act="reset">התחל מחדש</button>`;
+  }
+  function choose(j) {
+    const cands = [j, j - 1, j - 2].filter(n => n >= 0 && n + 2 < GENE.length && GENE[n + 1] === 'G' && GENE[n + 2] === 'G');
+    const valid = cands.filter(n => n >= 20);
+    if (!cands.length) { msg(m, 'bad', `הבסיס ${GENE[j]} בעמדה ${j + 1} אינו חלק מרצף PAM. חפשו רצף של בסיס כלשהו (N) ואחריו שני G: <span class="ltr">NGG</span>.`); return; }
+    if (!valid.length) { msg(m, 'warn', `זה אכן רצף PAM (<span class="ltr">${GENE.substr(cands[0], 3)}</span>), אבל לפניו יש רק ${cands[0]} נוקלאוטידים – לא מספיק ל-gRNA שאורכו 20. בחרו PAM אחר בהמשך הגן.`); return; }
+    N = valid[0]; stage = 'ready';
+    const proto = GENE.slice(N - 20, N);
+    renderSeq(GENE, { proto: [N - 20, N], pam: N, cut: N - 3 }); renderButtons();
+    msg(m, 'good', `<b>בחירה מצוינת!</b> PAM = <span class="ltr">${GENE.substr(N, 3)}</span>. 20 הנוקלאוטידים שלפניו (מסומנים בצהוב) הם רצף המטרה. Cas9 יחתוך 3 בסיסים לפני ה-PAM (הקו האדום).`);
+    out.innerHTML = `<div class="sim-box bg-white"><div class="text-sm font-semibold text-slate-600 mb-1">ה-gRNA שתכננתם (אזור ה-spacer, 20 נוקלאוטידים):</div>
+      <div class="overflow-x-auto"><div class="seq-row"><span class="end-lbl">5'</span>${toRNA(proto).split('').map(b => ntHTML(b, 'sm')).join('')}<span class="end-lbl">3'</span><span class="text-xs text-slate-500 px-2" dir="rtl">+ "שלד" שנקשר ל-Cas9</span></div></div>
+      <p class="text-sm text-slate-600 mt-2">רצף ה-gRNA זהה לרצף המטרה בגדיל המקודד (עם U במקום T), ולכן הוא משלים לגדיל השני של ה-DNA ומתזווג אליו.</p></div>`;
+  }
+  function doCut() {
+    stage = 'cut'; renderSeq(GENE, { proto: [N - 20, N], pam: N, cut: N - 3 }); renderButtons();
+    msg(m, 'warn', '<b>✂ חיתוך!</b> Cas9 יצר שבר דו-גדילי. שבר כזה מסוכן לתא – והוא חייב לתקן אותו. איזה מסלול תיקון יפעל?');
+  }
+  function repair(kind) {
+    const c = N - 3; let s, ins = null, text, cls;
+    if (kind === 'nhej') {
+      const op = pick(['del1', 'del2', 'ins1']);
+      if (op === 'ins1') { const b = pick(['A', 'T', 'G', 'C']); s = GENE.slice(0, c) + b + GENE.slice(c); ins = [c, c + 1]; text = `נוסף בסיס אחד (${b})`; }
+      else { const k = op === 'del1' ? 1 : 2; s = GENE.slice(0, c) + GENE.slice(c + k); text = `נמחקו ${k} בסיסים (${GENE.substr(c, k)})`; }
+      cls = 'bad';
+    } else {
+      const tag = 'GAATTC'; s = GENE.slice(0, c) + tag + GENE.slice(c); ins = [c, c + 6]; cls = 'good';
+      text = 'הוחדר בדיוק הרצף שבתבנית (GAATTC – אתר EcoRI המשמש כאן כ"סמן")';
+    }
+    const r = translateDNA(s);
+    stage = 'done'; renderSeq(s, { ins }); renderButtons();
+    const chain = (p, ref, stop) => '<span class="end-lbl">N-</span>' + p.map((a, i) => beadHTML(a, ref && ref[i] !== a ? 'diff' : '', i + 1)).join('') + (stop ? '<span class="aa-bead aa-stop">Stop<small>סיום</small></span>' : '<span class="text-xs text-red-700 font-semibold px-2">…ללא קודון סיום</span>');
+    out.innerHTML = `<div class="grid gap-3">
+      <div><div class="text-sm font-semibold text-emerald-700 mb-1">חלבון מקורי:</div><div class="chain">${chain(wtP, null, true)}</div></div>
+      <div><div class="text-sm font-semibold ${kind === 'nhej' ? 'text-red-700' : 'text-emerald-700'} mb-1">חלבון לאחר העריכה:</div><div class="chain">${chain(r.aa, wtP, r.stop)}</div></div></div>`;
+    if (kind === 'nhej') msg(m, cls, `<b>תוצאת NHEJ:</b> ${text} באתר החיתוך (באדום). השינוי אינו כפולה של 3 – ולכן נגרמה <b>תזוזת מסגרת</b>: רצף החלבון השתבש${r.stop && r.aa.length < wtP.length ? ' ונוצר קודון סיום מוקדם' : ''}. <b>הגן נוטרל (Knock-out).</b> NHEJ אקראי, ולכן כל תא עשוי לקבל תוצאה אחרת – נסו "תקן שוב".`);
+    else msg(m, cls, `<b>תוצאת HDR:</b> ${text}. התא השתמש ב-DNA התורם כתבנית לתיקון מדויק. כך אפשר לתקן מוטציה נקודתית או להחדיר גן שלם (Knock-in). בתכנון אמיתי משנים בתבנית גם את ה-PAM (בשינוי שקט), כדי ש-Cas9 לא יחתוך את הרצף המתוקן שוב.`);
+  }
+  function reset() { N = null; stage = 'pick'; out.innerHTML = ''; renderSeq(); renderButtons(); msg(m, 'info', 'לחצו על אחד הבסיסים של רצף PAM (בסיס כלשהו ואחריו GG).'); }
+  root.addEventListener('click', e => {
+    const n = e.target.closest('[data-i]'); if (n && stage === 'pick') return choose(+n.dataset.i);
+    const a = e.target.closest('[data-act]'); if (!a) return;
+    const act = a.dataset.act;
+    if (act === 'hint') { showHints = !showHints; renderSeq(); renderButtons(); }
+    if (act === 'cut') doCut();
+    if (act === 'nhej') repair('nhej');
+    if (act === 'hdr') repair('hdr');
+    if (act === 'again') doCut();
+    if (act === 'reset') reset();
+  });
+  reset();
+
+  const DILEMMAS = [
+    { t: 'עריכת עוברים למניעת מחלה', q: 'זוג שבו שני בני הזוג נשאים של מחלה תורשתית קטלנית מבקש לערוך את העוברים שלהם ב-CRISPR, כך שגם הנכדים לא יישאו את המוטציה. האם לאשר?',
+      pro: ['מניעת סבל ומוות של ילד', 'התיקון יעבור גם לדורות הבאים – "מחיקת" המחלה מהמשפחה', 'זכות ההורים לבחור (אוטונומיה)'],
+      con: ['קיימת חלופה בטוחה: אבחון טרום-השרשה (PGD) ובחירת עובר בריא', 'סיכון לחיתוך off-target ולמוזאיקה – נזק שיעבור בתורשה', 'הדורות הבאים אינם יכולים לתת הסכמה מדעת', 'מדרון חלקלק לעבר "תינוקות מעוצבים"'] },
+    { t: 'טיפול גני במיליוני דולרים', q: 'טיפול גני חד-פעמי מרפא מחלת דם קשה, אך עולה כ-2 מיליון דולר למטופל. האם על מערכת הבריאות הציבורית לממן אותו?',
+      pro: ['ריפוי חד-פעמי עשוי לחסוך עשרות שנות אשפוזים, עירויי דם ותרופות', 'כל חולה זכאי לטיפול הטוב ביותר (צדק, היטיבות)', 'מימון ציבורי מעודד פיתוח טיפולים נוספים'],
+      con: ['תקציב הבריאות מוגבל – אותו סכום יכול לממן טיפולים לאלפי חולים אחרים', 'ההשפעות ארוכות הטווח עדיין לא ידועות', 'פער בין מדינות עשירות לעניות – רוב חולי האנמיה החרמשית חיים באפריקה'] },
+    { t: 'יתושים מהונדסים נגד מלריה', q: 'מדענים מציעים לשחרר יתושים עם "הנעה גנטית" (gene drive) שתפיץ גן לעקרות בכל אוכלוסיית היתושים באזור – ותמנע מאות אלפי מקרי מוות ממלריה בשנה.',
+      pro: ['מלריה הורגת יותר מ-600,000 בני אדם בשנה, רובם ילדים', 'שיטה זולה שאינה תלויה בריסוס או בתרופות', 'פוגעת רק במין יתושים אחד מבין מאות'],
+      con: ['שינוי בלתי הפיך – אי אפשר "להחזיר" את היתושים', 'השפעות לא צפויות על שרשרות מזון ועל מערכות אקולוגיות', 'יתושים אינם מכירים גבולות – מי מחליט עבור מדינות שכנות?'] }
+  ];
+  $('#sim-ethics').innerHTML = DILEMMAS.map((d, i) => `
+    <div class="dilemma">
+      <h4 class="font-bold text-navy mb-1">${d.t}</h4>
+      <p class="text-sm leading-relaxed mb-3">${d.q}</p>
+      <button class="btn btn-ghost w-full" data-d="${i}">הצג טיעונים בעד ונגד</button>
+      <div class="mt-3 text-sm space-y-2" data-dbody="${i}" hidden>
+        <div class="msg good"><b>בעד:</b><ul class="list-disc pr-5 mt-1">${d.pro.map(x => `<li>${x}</li>`).join('')}</ul></div>
+        <div class="msg bad"><b>נגד:</b><ul class="list-disc pr-5 mt-1">${d.con.map(x => `<li>${x}</li>`).join('')}</ul></div>
+        <p class="text-slate-500 text-xs">אין כאן תשובה "נכונה" אחת – נסו לנמק את עמדתכם בעזרת ארבעת העקרונות: אוטונומיה, היטיבות, אי-גרימת נזק וצדק.</p>
+      </div>
+    </div>`).join('');
+  $('#sim-ethics').addEventListener('click', e => {
+    const b = e.target.closest('[data-d]'); if (!b) return;
+    const body = $(`[data-dbody="${b.dataset.d}"]`); body.hidden = !body.hidden;
+    b.textContent = body.hidden ? 'הצג טיעונים בעד ונגד' : 'הסתר טיעונים';
+  });
+})();
+
+/* =========================================================
+   Quizzes – 60 questions. The correct answer is always listed
+   first in the data and the options are shuffled on render.
+   ========================================================= */
+const QUIZ = {
+  dna: [
+    { q: `ממה בנוי נוקלאוטיד של DNA?`, o: [`סוכר דאוקסיריבוז, קבוצת פוספט ובסיס חנקני`, `סוכר ריבוז, קבוצת פוספט ובסיס חנקני`, `חומצה אמינית, סוכר וקבוצת פוספט`, `גליצרול, חומצות שומן וקבוצת פוספט`],
+      e: `נוקלאוטיד DNA בנוי משלושה רכיבים: סוכר דאוקסיריבוז (5 פחמנים, חסר OH בפחמן 2'), קבוצת פוספט ובסיס חנקני (A, T, G או C). סוכר ריבוז מאפיין את ה-RNA; חומצות אמינו הן יחידות הבנייה של חלבונים; גליצרול וחומצות שומן בונים שומנים.` },
+    { q: `בקטע DNA דו-גדילי 30% מהבסיסים הם אדנין (A). מה אחוז הגואנין (G)?`, o: [`20%`, `30%`, `40%`, `70%`],
+      e: `לפי כללי צ'רגף A=T, ולכן גם T=30% ו-A+T=60%. נותרו 40% לזוגות G-C, ומאחר ש-G=C, כל אחד מהם הוא 20%. התשובה 30% נובעת מבלבול בין A ל-G; 40% הוא סכום G+C ולא G לבדו.` },
+    { q: `איזה זוג בסיסים מחובר בשלושה קשרי מימן?`, o: [`גואנין–ציטוזין (G-C)`, `אדנין–תימין (A-T)`, `אדנין–אורציל (A-U)`, `גואנין–תימין (G-T)`],
+      e: `G-C מחוברים בשלושה קשרי מימן, ו-A-T (וב-RNA גם A-U) בשניים. לכן DNA עשיר ב-G-C יציב יותר ודורש טמפרטורה גבוהה יותר להפרדת הגדילים. G-T אינו זוג תקין – זו אי-התאמה שמנגנוני התיקון מזהים.` },
+    { q: `מה פירוש המונח "אנטי-מקבילות" בסליל ה-DNA?`, o: [`שני הגדילים מסודרים בכיוונים הפוכים: אחד 5'→3' והשני 3'→5'`, `שני הגדילים זהים ברצף הבסיסים שלהם`, `הגדילים אינם מחוברים זה לזה בשום קשר`, `גדיל אחד בנוי מ-DNA והשני מ-RNA`],
+      e: `אנטי-מקבילות פירושה שהגדילים "רצים" בכיוונים מנוגדים: קצה 5' של גדיל אחד ממוקם מול קצה 3' של הגדיל המשלים. הגדילים אינם זהים אלא משלימים, והם מחוברים בקשרי מימן בין הבסיסים. לתכונה זו השלכה חשובה: היא הסיבה לקיומו של גדיל מפגר בשכפול.` },
+    { q: `איזה אנזים פותח את הסליל הכפול על ידי שבירת קשרי המימן בין הבסיסים?`, o: [`הליקאז`, `ליגאז`, `פריימז`, `DNA פולימראז`],
+      e: `הליקאז "פותח את הרוכסן" ושובר את קשרי המימן תוך ניצול ATP. ליגאז מחבר מקטעים; פריימז בונה פריימר RNA; DNA פולימראז מוסיף נוקלאוטידים לגדיל החדש. שימו לב: הליקאז שובר קשרי מימן בלבד – לא את הקשרים הפוספודיאסטריים של השלד.` },
+    { q: `מדוע הגדיל המפגר נבנה במקטעים קצרים (מקטעי אוקזאקי)?`, o: [`כי DNA פולימראז יכול להוסיף נוקלאוטידים רק לקצה 3', וכיוון הבנייה בגדיל זה מנוגד לכיוון פתיחת המזלג`, `כי בגדיל המפגר יש יותר בסיסי G-C שקשה לשכפל`, `כי הליקאז פותח את הגדיל המפגר לאט יותר`, `כי בגדיל המפגר יש אינטרונים שיש לדלג עליהם`],
+      e: `DNA פולימראז בונה רק בכיוון 5'→3'. בגדיל המוביל הכיוון הזה תואם את התקדמות המזלג ולכן הבנייה רציפה; בגדיל המפגר הכיוון הפוך, ולכן הפולימראז בונה קטעים קצרים "לאחור" ומתחיל מחדש בכל פעם שנחשף קטע נוסף. אינטרונים קשורים לשחבור RNA ולא לשכפול.` },
+    { q: `מה הוכיח ניסוי מסלסון וסטאל (1958)?`, o: [`ששכפול ה-DNA הוא חצי-שמרני`, `ששכפול ה-DNA הוא שמרני`, `שה-DNA הוא החומר התורשתי`, `שה-DNA בנוי כסליל כפול`],
+      e: `לאחר דור אחד במצע עם חנקן קל התקבל רק DNA בצפיפות ביניים – כל מולקולה הכילה גדיל כבד ישן וגדיל קל חדש. מודל שמרני היה נותן פס כבד ופס קל. את היות ה-DNA החומר התורשתי הוכיחו אייברי והרשי-צ'ייס, ואת מבנה הסליל הציעו ווטסון וקריק.` },
+    { q: `מה תפקידו של האנזים ליגאז בשכפול ה-DNA?`, o: [`לחבר את מקטעי אוקזאקי זה לזה ביצירת קשר פוספודיאסטרי`, `לפתוח את הסליל הכפול`, `לבנות פריימר RNA`, `להסיר נוקלאוטידים שגויים בזמן ההגהה`],
+      e: `לאחר שהפריימרים הוסרו והוחלפו ב-DNA, נותרים "חריצים" בשלד בין המקטעים. ליגאז סוגר אותם ביצירת קשר פוספודיאסטרי. אותו אנזים משמש בהנדסה גנטית כדי "להדביק" גן לפלסמיד. ההגהה מתבצעת ע"י DNA פולימראז עצמו.` },
+    { q: `מדוע נדרש פריימר בתחילת שכפול ה-DNA?`, o: [`כי DNA פולימראז אינו יכול להתחיל שרשרת חדשה, אלא רק להאריך קצה 3'-OH קיים`, `כי הפריימר פותח את הסליל הכפול`, `כי הפריימר מגן על ה-DNA מפני אנזימים מפרקים`, `כי הפריימר מסמן את סוף הגן`],
+      e: `ל-DNA פולימראז דרושה קבוצת OH חופשית בקצה 3' כדי לחבר אליה נוקלאוטיד. פריימז בונה פריימר RNA קצר שמספק "נקודת אחיזה" זו. אותו עיקרון בדיוק מנוצל ב-PCR – שם מוסיפים פריימרים סינתטיים כדי לקבוע איזה קטע ישוכפל.` },
+    { q: `באילו תאים האנזים טלומראז פעיל במיוחד?`, o: [`בתאי גזע, בתאי מין ובמרבית תאי הסרטן`, `בתאי עור ושריר בוגרים`, `בתאי דם אדומים בוגרים`, `בכל תאי הגוף באותה מידה`],
+      e: `טלומראז מאריך את הטלומרים ומונע את קיצורם בכל חלוקה. ברוב התאים הסומטיים הוא כמעט אינו פעיל – ולכן מספר חלוקותיהם מוגבל. בתאי גזע ומין הוא פעיל, וכ-85%–90% מהגידולים הסרטניים "מפעילים" אותו מחדש כדי להתחלק ללא הגבלה. לתאי דם אדומים בוגרים אין גרעין כלל.` }
+  ],
+  rna: [
+    { q: `איזה בסיס חנקני מופיע ב-RNA ואינו מופיע ב-DNA?`, o: [`אורציל (U)`, `תימין (T)`, `ציטוזין (C)`, `גואנין (G)`],
+      e: `ב-RNA אורציל מחליף את התימין ומתזווג עם אדנין. תימין קיים רק ב-DNA; ציטוזין וגואנין משותפים לשתי חומצות הגרעין. תימין הוא למעשה אורציל עם קבוצת מתיל, והשימוש בו ב-DNA מסייע למערכות התיקון לזהות נזקים.` },
+    { q: `מה ההבדל בסוכר בין RNA ל-DNA?`, o: [`ב-RNA הסוכר הוא ריבוז, שמכיל קבוצת OH בפחמן 2'`, `ב-RNA הסוכר הוא דאוקסיריבוז`, `ב-DNA הסוכר הוא גלוקוז`, `אין הבדל בסוכר – ההבדל הוא רק בבסיסים`],
+      e: `ריבוז מכיל קבוצת OH בפחמן 2', ואילו בדאוקסיריבוז שב-DNA יש במקומה מימן בלבד. קבוצת ה-OH הנוספת הופכת את ה-RNA לפחות יציב כימית – מתאים למולקולה "זמנית" – בעוד ה-DNA היציב מתאים לאחסון ארוך טווח.` },
+    { q: `רצף גדיל התבנית של DNA הוא 3'-TACGGA-5'. מה יהיה רצף ה-mRNA?`, o: [`5'-AUGCCU-3'`, `5'-ATGCCT-3'`, `5'-UACGGA-3'`, `3'-AUGCCU-5'`],
+      e: `ה-mRNA משלים לתבנית ואנטי-מקביל לה: מול T מוצב A, מול A – U, מול C – G ומול G – C, ולכן 5'-AUGCCU-3'. התשובה ATGCCT מכילה T – זהו רצף הגדיל המקודד של ה-DNA, לא RNA. UACGGA הוא העתקה של התבנית ולא השלמה לה. 3'-AUGCCU-5' שגוי בכיווניות.` },
+    { q: `כיצד פועלים חיסוני ה-mRNA (כמו חיסוני הקורונה)?`, o: [`ה-mRNA מתורגם בציטופלזמה לחלבון נגיפי שמעורר תגובה חיסונית, ואינו נכנס לגרעין או משתלב ב-DNA`, `ה-mRNA משתלב ב-DNA של התא ומשנה אותו לצמיתות`, `ה-mRNA מכיל נגיף מוחלש שמתרבה בגוף`, `ה-mRNA משמש ישירות כנוגדן נגד הנגיף`],
+      e: `ה-mRNA בחיסון מקודד לחלבון הספייק. ריבוזומים בציטופלזמה מתרגמים אותו, ומערכת החיסון לומדת לזהות את החלבון. ל-mRNA אין דרך להשתלב ב-DNA: הוא אינו נכנס לגרעין, ובתאי האדם אין רוורס טרנסקריפטאז שיהפוך אותו ל-DNA. ה-mRNA מתפרק תוך ימים.` },
+    { q: `איזה אנזים משעתק גנים המקודדים לחלבונים בתאים אאוקריוטיים?`, o: [`RNA פולימראז II`, `DNA פולימראז`, `RNA פולימראז I`, `רוורס טרנסקריפטאז`],
+      e: `באאוקריוטים יש שלושה RNA פולימראזות עיקריים: I משעתק rRNA, II משעתק mRNA (גנים מקודדי חלבון) ו-III משעתק tRNA. DNA פולימראז משמש לשכפול, ורוורס טרנסקריפטאז בונה DNA מתבנית RNA (בנגיפי רטרו).` },
+    { q: `מהו תפקידו של הפרומוטור?`, o: [`רצף DNA לפני הגן, שאליו נקשרים גורמי השעתוק ו-RNA פולימראז, והמסמן היכן מתחיל השעתוק`, `רצף בסוף הגן שגורם לפולימראז להינתק`, `חלבון המזרז יצירת קשר פפטידי`, `רצף ב-mRNA שאליו נקשר הריבוזום`],
+      e: `הפרומוטור (למשל עם TATA box) הוא "תחנת העגינה" של מכונת השעתוק, והוא קובע גם את כיוון השעתוק ואת הגדיל שישמש תבנית. הפרומוטור עצמו אינו משועתק. הרצף שבסוף הגן הוא אות סיום, והקשר הפפטידי נוצר בריבוזום.` },
+    { q: `מה מוסר מה-pre-mRNA בתהליך השחבור?`, o: [`אינטרונים`, `אקסונים`, `הכיפה בקצה 5'`, `הזנב הפולי-A`],
+      e: `בשחבור הספלייסוזום מסיר את האינטרונים (רצפים מתערבים) ומחבר את האקסונים זה לזה. האקסונים הם הקטעים ש"יוצאים" מהגרעין (Exit) ונשארים ב-mRNA הבוגר. הכיפה והזנב מתווספים בעיבוד ואינם מוסרים בשחבור.` },
+    { q: `מה תפקידם של הכיפה בקצה 5' ושל הזנב הפולי-A?`, o: [`להגן על ה-mRNA מפירוק, לסייע ביציאתו מהגרעין ולאפשר לריבוזום לזהות אותו`, `לקודד לחומצות האמינו הראשונה והאחרונה בחלבון`, `לחבר את ה-mRNA ל-DNA`, `לסמן אינטרונים שיש להסיר`],
+      e: `שני המבנים אינם מתורגמים לחומצות אמינו. הכיפה משמשת אות זיהוי לריבוזום בתחילת התרגום ומגינה מאנזימים, והזנב מייצב את ה-mRNA וקובע את משך חייו בציטופלזמה. שניהם מסייעים גם בייצוא מהגרעין.` },
+    { q: `מה מאפשר שחבור חלופי (Alternative splicing)?`, o: [`ייצור של כמה חלבונים שונים מגן אחד, באמצעות צירופים שונים של אקסונים`, `תיקון מוטציות ב-DNA`, `שעתוק של שני הגדילים של אותו גן בו-זמנית`, `תרגום של mRNA ללא ריבוזום`],
+      e: `בשחבור חלופי חלק מהאקסונים נכללים או "מדולגים" בהתאם לסוג התא או לשלב ההתפתחות. כך כ-20,000 גנים אנושיים מייצרים יותר מ-100,000 חלבונים. דוגמה: מגן אחד נוצרים קלציטונין בבלוטת התריס ו-CGRP בתאי עצב.` },
+    { q: `מדוע הרעלן אמניטין-α מפטריית "כובע המוות" קטלני?`, o: [`הוא מעכב את RNA פולימראז II, ולכן התאים (בעיקר בכבד) מפסיקים לייצר mRNA וחלבונים חיוניים`, `הוא מפרק את ה-DNA בגרעין`, `הוא נקשר לריבוזומים של חיידקי המעי`, `הוא גורם למוטציות בתאי מין`],
+      e: `ללא RNA פולימראז II אין שעתוק של גנים מקודדי חלבון, ותאים שאינם מסוגלים לחדש את החלבונים שלהם מתים. הכבד, שמקבל את הרעלן בריכוז הגבוה ביותר מהמעי, נפגע ראשון – ועלולה להתפתח אי-ספיקת כבד. זו דוגמה לכך שהבנת השעתוק מסבירה תופעה רפואית.` }
+  ],
+  protein: [
+    { q: `כמה קודונים אפשריים קיימים בצופן הגנטי?`, o: [`64`, `20`, `61`, `16`],
+      e: `4 בסיסים בשלוש עמדות נותנים 4×4×4 = 64 צירופים. 61 מהם מקודדים לחומצות אמינו ו-3 הם קודוני סיום. 20 הוא מספר חומצות האמינו, ו-16 (4²) הוא מספר הצירופים של שני בסיסים – לא מספיק כדי לקודד 20 חומצות אמינו.` },
+    { q: `מהו קודון ההתחלה של התרגום, ולאיזו חומצה אמינית הוא מקודד?`, o: [`AUG – מתיונין`, `UAA – מתיונין`, `UGA – טריפטופן`, `GGG – גליצין`],
+      e: `AUG הוא קודון ההתחלה ומקודד למתיונין, ולכן כל חלבון מתחיל במתיונין (שלעתים מוסר מאוחר יותר). UAA ו-UGA הם קודוני סיום (אם כי במיטוכונדריה UGA מקודד לטריפטופן). GGG מקודד לגליצין אך אינו קודון התחלה.` },
+    { q: `מה המשמעות של הקביעה "הצופן הגנטי מנוון"?`, o: [`כמה קודונים שונים יכולים לקודד לאותה חומצה אמינית`, `קודון אחד יכול לקודד לכמה חומצות אמינו שונות`, `הצופן שונה בכל מין של יצור חי`, `הצופן מתנוון ונהרס עם הגיל`],
+      e: `לדוגמה, ללאוצין יש 6 קודונים שונים. הניוון מרוכז לרוב בבסיס השלישי, ולכן מוטציות רבות בעמדה זו הן "שקטות". ההפך – קודון שמקודד לכמה חומצות – אינו קיים: הצופן חד-משמעי. הצופן גם כמעט אוניברסלי.` },
+    { q: `מה האנטיקודון של ה-tRNA שיתזווג לקודון 5'-GCU-3'?`, o: [`3'-CGA-5'`, `3'-GCU-5'`, `3'-CGT-5'`, `5'-CGA-3'`],
+      e: `האנטיקודון משלים לקודון ואנטי-מקביל לו: מול G – C, מול C – G, מול U – A, ולכן 3'-CGA-5'. התשובה 3'-CGT-5' מכילה T – שאינו קיים ב-RNA. 3'-GCU-5' זהה לקודון ולא משלים לו, ו-5'-CGA-3' שגוי בכיווניות.` },
+    { q: `איזה אנזים מחבר כל חומצה אמינית ל-tRNA המתאים לה?`, o: [`אמינואציל-tRNA סינתטאז`, `פפטידיל טרנספראז`, `RNA פולימראז`, `ליגאז`],
+      e: `קיימים 20 אנזימי אמינואציל-tRNA סינתטאז – אחד לכל חומצה אמינית. הם "טוענים" את ה-tRNA תוך ניצול ATP, ולמעשה הם שמבצעים את התרגום האמיתי בין שפת חומצות הגרעין לשפת החלבונים. פעילות הפפטידיל טרנספראז (של ה-rRNA) יוצרת את הקשר הפפטידי בריבוזום.` },
+    { q: `לאיזה אתר בריבוזום נכנס tRNA טעון חדש במהלך שלב ההארכה?`, o: [`אתר A`, `אתר P`, `אתר E`, `ליחידה הקטנה, מחוץ לאתרים`],
+      e: `tRNA טעון (Aminoacyl) נכנס לאתר A. אתר P מחזיק את ה-tRNA הנושא את השרשרת (Peptidyl), ודרך אתר E יוצא ה-tRNA הריק (Exit). רק בשלב ההתחלה ה-tRNA של המתיונין נכנס ישירות לאתר P.` },
+    { q: `מה יהיה רצף חומצות האמינו המקודד ע"י ה-mRNA 5'-AUG-UUU-GGC-UAA-3'?`, o: [`Met-Phe-Gly`, `Met-Phe-Gly-Stop (ארבע חומצות אמינו)`, `Met-Leu-Gly`, `Phe-Gly-Tyr`],
+      e: `AUG = מתיונין, UUU = פנילאלנין, GGC = גליצין, ו-UAA הוא קודון סיום שאינו מקודד לחומצה אמינית כלשהי – לכן השרשרת היא Met-Phe-Gly. "Stop" אינו חומצה אמינית. UUA ו-CUU מקודדים ללאוצין, אך UUU – לפנילאלנין.` },
+    { q: `מדוע אנטיביוטיקות כמו טטרציקלין ואריתרומיצין פוגעות בחיידקים כמעט בלי לפגוע בתאי האדם?`, o: [`כי הריבוזום החיידקי (70S) שונה במבנהו מהריבוזום הציטופלזמטי האנושי (80S)`, `כי לתאי אדם אין ריבוזומים`, `כי תאי חיידקים אינם מבצעים תרגום`, `כי האנטיביוטיקה פוגעת רק ב-DNA של החיידק`],
+      e: `התרופות נקשרות לאזורים ייחודיים ביחידות 30S או 50S של הריבוזום החיידקי ועוצרות את ייצור החלבונים. הריבוזום האנושי שונה מספיק כדי שהתרופה כמעט לא תיקשר אליו. מחקריה של עדה יונת על מבנה הריבוזום סייעו להבין זאת.` },
+    { q: `מה קורה כאשר הריבוזום מגיע לקודון סיום?`, o: [`גורם שחרור נקשר לאתר A, השרשרת משתחררת ויחידות הריבוזום נפרדות`, `tRNA מיוחד מביא חומצת אמינו "סיום"`, `הריבוזום חוזר לתחילת ה-mRNA ומתרגם שוב את אותו קטע`, `ה-mRNA נחתך והשרשרת נשארת מחוברת לריבוזום`],
+      e: `לקודוני הסיום אין tRNA מתאים. במקום tRNA נקשר חלבון – גורם שחרור – שגורם לניתוק השרשרת מה-tRNA האחרון באתר P. הריבוזום מתפרק ליחידותיו, שיכולות להתחיל תרגום חדש.` },
+    { q: `היכן מיוצר חלבון המיועד להפרשה מהתא, כמו אינסולין?`, o: [`בריבוזומים הקשורים ל-ER המחוספס, ומשם הוא עובר לגולג'י ולהפרשה`, `בריבוזומים חופשיים בציטופלזמה`, `בתוך הגרעין`, `בליזוזומים`],
+      e: `חלבוני הפרשה וממברנה מתחילים ב"רצף אות" שמכוון את הריבוזום אל ה-ER המחוספס. החלבון נכנס לחלל ה-ER, עובר עיבוד (למשל חיתוך פרו-אינסולין) וממשיך לגולג'י ומשם להפרשה. ריבוזומים חופשיים מייצרים חלבונים לשימוש בציטופלזמה.` }
+  ],
+  mutation: [
+    { q: `איך נקראת החלפת בסיס שאינה משנה את החומצה האמינית המקודדת?`, o: [`מוטציה שקטה (Silent)`, `מוטציית Missense`, `מוטציית Nonsense`, `תזוזת מסגרת`],
+      e: `בזכות ניוון הצופן, קודון חדש יכול לקודד לאותה חומצה אמינית (למשל CUG ו-CUA – שניהם לאוצין). החלבון אינו משתנה, ולכן בדרך כלל אין השפעה. Missense משנה חומצה אמינית, Nonsense יוצרת קודון סיום, ותזוזת מסגרת נגרמת מהוספה או חסר.` },
+    { q: `מוטציה שינתה את הקודון UAC (טירוזין) ל-UAA. מהו סוג המוטציה?`, o: [`Nonsense – נוצר קודון סיום מוקדם`, `שקטה`, `Missense`, `הכפלה כרומוזומלית`],
+      e: `UAA הוא קודון סיום. הריבוזום יעצור בנקודה זו ויתקבל חלבון מקוצר, שבדרך כלל אינו פעיל. זו החלפת בסיס יחיד (C ב-A), ולא שינוי כרומוזומלי.` },
+    { q: `מדוע הוספה של נוקלאוטיד אחד לגן מזיקה בדרך כלל יותר מהחלפה של נוקלאוטיד אחד?`, o: [`כי היא משנה את מסגרת הקריאה, וכל הקודונים שאחרי נקודת המוטציה משתנים`, `כי היא תמיד יוצרת קודון התחלה חדש`, `כי היא משנה רק חומצה אמינית אחת`, `כי היא מתרחשת רק בתאי מין`],
+      e: `הקודונים נקראים ברצף בשלישיות. הוספה של בסיס אחד "מזיזה" את כל השלישיות שאחריה, ולכן כל רצף החלבון משתבש ולרוב מופיע קודון סיום מוקדם. החלפה, לעומת זאת, משפיעה לכל היותר על קודון אחד.` },
+    { q: `מהו הבסיס הגנטי של האנמיה החרמשית?`, o: [`החלפת A ב-T בקודון 6 של הגן HBB, הגורמת להחלפת גלוטמט בוואלין`, `חסר של 3 נוקלאוטידים בגן CFTR`, `טריזומיה של כרומוזום 11`, `התרחבות חזרות של הרצף CAG`],
+      e: `GAG הופך ל-GTG, וגלוטמט הטעון מוחלף בוואלין ההידרופובי. ההמוגלובין המוטנטי (HbS) יוצר סיבים בתנאי חמצן נמוך, ותאי הדם מקבלים צורת חרמש. חסר ב-CFTR גורם לציסטיק פיברוזיס, וחזרות CAG – להנטינגטון.` },
+    { q: `מוטציה נגרמה בתא עור של אדם כתוצאה מחשיפה לשמש. מה נכון לגביה?`, o: [`היא לא תעבור לצאצאיו, אך עלולה לתרום להתפתחות סרטן עור`, `היא תעבור בוודאות לכל צאצאיו`, `היא תופיע מיד בכל תאי גופו`, `מוטציות בתאי עור תמיד מתוקנות ואינן מזיקות`],
+      e: `זו מוטציה סומטית: היא עוברת רק לתאים שנוצרים מאותו תא, ולא לתאי המין – ולכן לא לצאצאים. הצטברות מוטציות סומטיות בגנים השולטים בחלוקה היא הבסיס להתפתחות סרטן (למשל מלנומה).` },
+    { q: `איזה נזק אופייני נגרם ל-DNA מקרינה אולטרה-סגולה (UV)?`, o: [`דימרים של תימין – קשר קוולנטי בין שני תימינים סמוכים`, `שבירת קשרים פפטידיים`, `אי-הפרדה של כרומוזומים`, `טרנסלוקציה בין כרומוזומים 9 ו-22`],
+      e: `קרינת UV גורמת לשני תימינים שכנים באותו גדיל להיקשר זה לזה, מה שמעוות את הסליל ומשבש שכפול ושעתוק. הנזק מתוקן במנגנון "תיקון בחיתוך נוקלאוטידים"; חולי XP, שמנגנון זה פגום אצלם, רגישים מאוד לשמש.` },
+    { q: `מהו הגורם השכיח לתסמונת דאון?`, o: [`טריזומיה 21 – עותק נוסף של כרומוזום 21 בעקבות אי-הפרדה במיוזה`, `מוטציה נקודתית בגן על כרומוזום 21`, `חסר בזרוע הקצרה של כרומוזום 5`, `טרנסלוקציה בין כרומוזומים 9 ו-22`],
+      e: `ברוב המקרים (כ-95%) הסיבה היא אי-הפרדה של זוג כרומוזומי 21 במיוזה, כך שתא מין נושא שני עותקים ונוצרת טריזומיה. במיעוט המקרים מדובר בטרנסלוקציה של כרומוזום 21. חסר ב-5 גורם לתסמונת "קרי דו שה", וטרנסלוקציה 9-22 – ללוקמיה CML.` },
+    { q: `המוטציה השכיחה בציסטיק פיברוזיס (ΔF508) היא חסר של 3 נוקלאוטידים. מה השפעתה?`, o: [`חסרה חומצת אמינו אחת (פנילאלנין) ללא תזוזת מסגרת, אך החלבון מתקפל לא נכון`, `תזוזת מסגרת המשבשת את כל החלבון`, `נוצר קודון סיום מיד אחרי המוטציה`, `אין שינוי בחלבון – זו מוטציה שקטה`],
+      e: `3 נוקלאוטידים הם קודון שלם, ולכן מסגרת הקריאה נשמרת ושאר החלבון תקין. עם זאת, חסרונה של פנילאלנין 508 גורם לקיפול שגוי של תעלת הכלוריד CFTR, והתא מפרק אותה לפני שהיא מגיעה לממברנה.` },
+    { q: `טיי-זקס היא מחלה אוטוזומלית רצסיבית. שני הורים בריאים הם נשאים. מה הסיכוי שילד שלהם יהיה חולה?`, o: [`25%`, `0%`, `50%`, `100%`],
+      e: `כל הורה מוסר אלל פגום בהסתברות 1/2, ולכן ההסתברות ששני האללים יהיו פגומים היא 1/2 × 1/2 = 1/4. ההסתברות לילד נשא היא 50%, ולילד שאינו נושא כלל – 25%. בדיקות סקר לנשאים בישראל הפחיתו מאוד את שכיחות המחלה.` },
+    { q: `מדוע הגן p53 מכונה "שומר הגנום"?`, o: [`זהו גן מדכא גידול: החלבון שלו עוצר את מחזור התא כשיש נזק ל-DNA ומכוון לתיקון או למוות תאי מתוכנן`, `זהו אונקוגן המאיץ חלוקת תאים`, `הוא מקודד לאנזים טלומראז`, `הוא מגן על ה-DNA מפני קרינה ע"י ספיגתה`],
+      e: `כאשר ה-DNA ניזוק, p53 "לוחץ על הבלמים" של מחזור התא ומאפשר תיקון; אם הנזק חמור מדי – הוא מפעיל אפופטוזיס. כשהגן עובר מוטציה, תאים פגומים ממשיכים להתחלק. מוטציות ב-p53 נמצאות בכמחצית מכל הגידולים הסרטניים.` }
+  ],
+  cloning: [
+    { q: `מה פירוש ראשי התיבות SCNT?`, o: [`העברת גרעין מתא סומטי (Somatic Cell Nuclear Transfer)`, `שיבוט תאי גזע באמצעות טכנולוגיה גרעינית`, `סינתזה כימית של נוקלאוטידים`, `העברת כרומוזומים בין תאי מין`],
+      e: `בשיטה זו מעבירים את הגרעין (או את התא כולו) מתא סומטי – תא גוף רגיל – לביצית שגרעינה הוצא. זו השיטה שבה נוצרה דולי, ובה משתמשים גם בשיבוט טיפולי.` },
+    { q: `מאיזה סוג תא נלקח הגרעין שממנו נוצרה דולי?`, o: [`תא מבלוטת החלב (עטין) של כבשה בוגרת`, `ביצית של כבשה צעירה`, `תא עור של עובר כבשים`, `תא זרע של איל`],
+      e: `הגרעין הגיע מתא עטין של כבשת פין דורסט בת 6. זה היה ההישג הגדול: הוכחה שגם גרעין של תא בוגר וממוין ניתן "לתכנת מחדש" כך שיכוון התפתחות של יונק שלם. מכאן גם שמה – על שם הזמרת דולי פרטון.` },
+    { q: `לאיזו כבשה דולי זהה מבחינת ה-DNA הגרעיני?`, o: [`לכבשת הפין דורסט שתרמה את תא העטין`, `לכבשה הסקוטית שתרמה את הביצית`, `לכבשה הפונדקאית שנשאה את ההריון`, `לכל שלוש הכבשים באופן שווה`],
+      e: `הגרעין – ובו כל הכרומוזומים – הגיע מתא העטין. הגרעין של הביצית הוצא, והפונדקאית סיפקה רק סביבה להתפתחות. הראיה הבולטת: דולי לבנת פנים, בעוד תורמת הביצית והפונדקאית שחורות פנים.` },
+    { q: `מדוע דולי אינה זהה גנטית ב-100% לכבשה שתרמה את הגרעין?`, o: [`כי ה-DNA המיטוכונדריאלי שלה הגיע מהביצית של הכבשה הסקוטית`, `כי חצי מהכרומוזומים שלה הגיעו מהפונדקאית`, `כי בזמן השיבוט נוצרו מוטציות בכל הגנים`, `כי היא נוצרה מהפריה רגילה של זרע וביצית`],
+      e: `המיטוכונדריה נמצאות בציטופלזמה ונושאות DNA משלהן (37 גנים באדם). הן מגיעות מהביצית, ולכן ה-mtDNA של דולי היה של הכבשה הסקוטית. בנוסף, התכנות מחדש והסביבה גורמים להבדלים בביטוי הגנים.` },
+    { q: `מדוע "הרעיבו" את תאי העטין בתרבית לפני העברת הגרעין?`, o: [`כדי להכניס אותם לשלב מנוחה (G0) ולסנכרן את מחזור התא עם הביצית, מה שמקל על תכנות הגרעין מחדש`, `כדי להרוג תאים חולים`, `כדי להוציא מהם את המיטוכונדריה`, `כדי להגדיל את מספר הכרומוזומים בתא`],
+      e: `זו הייתה התובנה של קית' קמפבל. תא ב-G0 אינו משכפל DNA, והכרומטין שלו רגיש יותר להשפעת הציטופלזמה של הביצית. סנכרון זה שיפר מאוד את סיכויי ההצלחה של התכנות מחדש.` },
+    { q: `מה היוותה הראיה הראשונית לכך שדולי אכן שובטה מתא העטין?`, o: [`פניה היו לבנות כמו אלה של תורמת התא, בעוד תורמת הביצית והפונדקאית היו שחורות פנים`, `היא נולדה עם צמר בצבע זהה לזה של הפונדקאית`, `היא נולדה תאומה לכבשה אחרת`, `היא נולדה בדיוק ביום הולדתה של התורמת`],
+      e: `החוקרים בחרו בכוונה גזעים שונים במראה, כך שתכונה גלויה תעיד על מקור הגנום. הפנים הלבנות הצביעו על תורמת הגרעין, ובדיקות DNA אישרו זאת.` },
+    { q: `מה ההבדל העיקרי בין שיבוט רבייתי לשיבוט טיפולי?`, o: [`שיבוט רבייתי נועד ליצור פרט שלם; שיבוט טיפולי נועד להפיק תאי גזע מעובר מוקדם, ללא השתלה ברחם`, `שיבוט רבייתי מתבצע רק בצמחים`, `בשיבוט טיפולי אין צורך בגרעין`, `אין הבדל – שני המונחים זהים`],
+      e: `בשני הסוגים נוצר עובר בשיטת SCNT, אך בשיבוט טיפולי העובר אינו מושתל: מפיקים ממנו תאי גזע עובריים הזהים גנטית למטופל, שלא יידחו ע"י מערכת החיסון שלו. שיבוט רבייתי של בני אדם אסור בחוק בישראל.` },
+    { q: `מה הייתה חשיבות ניסויו של ג'ון גורדון בצפרדעים (1962)?`, o: [`הוא הראה שגרעין של תא ממוין (תא מעי של ראשן) מכיל את כל המידע הגנטי ליצירת צפרדע שלמה`, `הוא גילה את מבנה הסליל הכפול`, `הוא יצר את היונק המשובט הראשון`, `הוא גילה את האנזים טלומראז`],
+      e: `גורדון העביר גרעין מתא מעי לביצית ללא גרעין וקיבל צפרדעים בוגרות. כך הוכח שבמהלך ההתמיינות התאים אינם מאבדים גנים – הגנים רק מושתקים. על כך זכה בפרס נובל ב-2012, יחד עם יאמנקה.` },
+    { q: `כמה ניסיונות איחוי בוצעו עד שנולדה דולי?`, o: [`277 איחויים – ונולד טלה חי אחד בלבד`, `ניסיון אחד בלבד`, `כ-10 ניסיונות`, `כ-50% מהניסיונות הצליחו`],
+      e: `מתוך 277 איחויים רק 29 עוברים התפתחו לשלב שאפשר השתלה, ורק דולי נולדה חיה. היעילות הנמוכה, ושיעור המומים וההפלות הגבוה, נובעים בעיקר מתכנות מחדש לא מושלם – ומהווים טיעון מרכזי נגד שיבוט אדם.` },
+    { q: `מה מיוחד בתאי ה-iPS שפיתח שיניה יאמנקה (2006)?`, o: [`הם תאי גזע פלוריפוטנטיים שנוצרים מתאים בוגרים ע"י החדרת 4 גורמי שעתוק – ללא צורך בביצית או בעובר`, `הם תאים שעברו שיבוט רבייתי`, `הם תאי זרע שעברו הנדסה גנטית`, `הם תאים שאינם מסוגלים להתחלק`],
+      e: `יאמנקה גילה שארבעה גורמי שעתוק (Oct4, Sox2, Klf4, c-Myc) מספיקים כדי "להחזיר לאחור" תא עור לתא גזע. כך אפשר לייצר תאים מותאמים אישית למטופל, בלי הבעיות האתיות של שימוש בביציות ובעוברים.` }
+  ],
+  crispr: [
+    { q: `מה תפקידו של אנזים הגבלה בהנדסה גנטית?`, o: [`לחתוך DNA ברצף זיהוי ספציפי, לרוב פלינדרומי`, `לחבר קטעי DNA זה לזה`, `לשכפל DNA במבחנה`, `לתרגם mRNA לחלבון`],
+      e: `אנזים הגבלה, כמו EcoRI, מזהה רצף ספציפי (GAATTC) וחותך אותו – לעתים ביצירת "קצוות דביקים". בטבע אנזימים אלה מגנים על חיידקים מפני נגיפים. את החיבור מבצע ליגאז, את השכפול במבחנה – PCR.` },
+    { q: `כיצד מייצרים כיום את רוב האינסולין לחולי סוכרת?`, o: [`בחיידקים או בשמרים שהוחדר להם הגן האנושי לאינסולין (DNA רקומביננטי)`, `מלבלבים של פרות וחזירים`, `בסינתזה כימית של חומצות אמינו בלבד`, `מתרומות דם של אנשים בריאים`],
+      e: `מאז 1982 מיוצר אינסולין אנושי רקומביננטי: הגן מוכנס לפלסמיד, החיידקים "קוראים" אותו בזכות אוניברסליות הצופן ומייצרים אינסולין זהה לאנושי. לפני כן השתמשו באינסולין מבעלי חיים, שהיה מוגבל בכמותו וגרם לעתים לאלרגיות.` },
+    { q: `מה תפקידו של ה-RNA המנחה (gRNA) במערכת CRISPR-Cas9?`, o: [`להוביל את Cas9 אל רצף המטרה בגנום ע"י זיווג בסיסים משלים (כ-20 נוקלאוטידים)`, `לחתוך את ה-DNA`, `לתקן את השבר לאחר החיתוך`, `לתרגם את הגן הערוך לחלבון`],
+      e: `ה-gRNA הוא ה"GPS" של המערכת: הרצף שבקצהו משלים לרצף המטרה ומאפשר זיהוי מדויק. Cas9 הוא שחותך, ואת התיקון מבצעים מנגנוני התיקון של התא עצמו (NHEJ או HDR).` },
+    { q: `מהו רצף ה-PAM ומדוע הוא חשוב?`, o: [`רצף קצר (NGG עבור Cas9) הצמוד לאתר המטרה, ש-Cas9 חייב לזהות כדי לחתוך`, `רצף בקצה ה-gRNA הנקשר לחלבון Cas9`, `האזור שבו נוצר הקשר הפפטידי`, `רצף סיום של גן`],
+      e: `Cas9 חותך רק כאשר מיד אחרי רצף המטרה ב-DNA יש PAM. כך החיידק נמנע מלחתוך את מערך ה-CRISPR שלו עצמו (שאין בו PAM). בתכנון עריכה, יש לבחור אתר מטרה שצמוד ל-NGG.` },
+    { q: `מה מקורה של מערכת CRISPR בטבע?`, o: [`מערכת חיסון נרכשת של חיידקים נגד נגיפים`, `מנגנון תיקון DNA בתאי אדם`, `אנזים שמקורו בצמחים`, `מערכת לייצור נוגדנים ביונקים`],
+      e: `חיידקים שומרים קטעי DNA מנגיפים שתקפו אותם במערך ה-CRISPR. בהדבקה חוזרת, RNA מהקטע מוביל את Cas9 לחתוך את ה-DNA הנגיפי. דאודנה ושרפנטייה הפכו את המערכת לכלי עריכה – וזכו בפרס נובל בכימיה ב-2020.` },
+    { q: `מה התוצאה הצפויה של תיקון NHEJ לאחר חיתוך ע"י Cas9?`, o: [`חיבור הקצוות ללא תבנית, לעתים עם הוספות או חסרים קטנים – הגורמים לנטרול הגן`, `תיקון מדויק לפי תבנית DNA שסופקה`, `הכפלה של הגן כולו`, `החלפת הגן בגרסה מגן אחר`],
+      e: `NHEJ מהיר אך "מרושל": הוספות או חסרים קטנים גורמים בדרך כלל לתזוזת מסגרת ולקודון סיום מוקדם, ולכן הגן מושבת (Knock-out). תיקון מדויק לפי תבנית הוא HDR.` },
+    { q: `מה ההבדל העיקרי בין ריפוי גנטי סומטי לבין עריכה גנטית של תאי רבייה (germline)?`, o: [`שינוי סומטי משפיע רק על המטופל, ואילו שינוי בתאי רבייה או בעוברים עובר לדורות הבאים`, `ריפוי סומטי מתבצע רק בצמחים`, `עריכת תאי רבייה זולה ובטוחה יותר`, `אין הבדל – שתי השיטות משפיעות רק על המטופל`],
+      e: `זהו ההבדל המרכזי בדיון האתי: שינוי בתאי רבייה יופיע בכל תאי הצאצאים ויועבר הלאה, ללא הסכמתם ועם סיכונים לא ידועים. לכן עריכה כזו אסורה ברוב המדינות, ובהן ישראל, בעוד ריפוי סומטי מאושר ונמצא בשימוש.` },
+    { q: `מהו Casgevy, שאושר בשנת 2023?`, o: [`טיפול CRISPR ראשון שאושר – לאנמיה חרמשית ולבטא-תלסמיה – באמצעות עריכת תאי גזע של החולה להגברת המוגלובין עוברי`, `חיסון mRNA נגד שפעת`, `אנטיביוטיקה הפוגעת בריבוזום החיידקי`, `תרופה המעכבת את האנזים טלומראז`],
+      e: `תאי גזע של מח העצם מוצאים מהחולה, נערכים כדי להשתיק את BCL11A (מדכא ההמוגלובין העוברי) ומוחזרים לגופו (טיפול ex vivo). ההמוגלובין העוברי מפצה על ההמוגלובין הפגום. זו דוגמה מרשימה לחיבור בין יחידת המוטציות ליחידת ההנדסה הגנטית.` },
+    { q: `מדוע ניסוי הא ג'יאנקוי (2018), שבו נערכו עוברים אנושיים, נחשב להפרה אתית חמורה?`, o: [`כי בוצע שינוי תורשתי בעוברים ללא צורך רפואי מוצדק, ללא פיקוח ראוי ועם סיכונים לא ידועים`, `כי הוא השתמש בצמחים מהונדסים`, `כי הוא שיבט כבשה ללא אישור`, `כי הוא פרסם את תוצאותיו בכתב עת מדעי`],
+      e: `העריכה (בגן CCR5, להקניית עמידות ל-HIV) עברה לתאומות ולצאצאיהן, בעוד קיימות דרכים בטוחות למנוע הדבקה. ההסכמה מדעת הייתה בעייתית, הנהלים עקפו את הפיקוח, והסיכון ל-off-target ולמוזאיקה לא נבדק כראוי. הוא נידון למאסר.` },
+    { q: `איזה עיקרון ביו-אתי עוסק בשאלה האם טיפולים גנטיים יקרים יהיו נגישים לכל החולים?`, o: [`צדק`, `אוטונומיה`, `אי-גרימת נזק`, `סודיות רפואית`],
+      e: `עקרון הצדק עוסק בחלוקה הוגנת של משאבים, תועלות וסיכונים בחברה. אוטונומיה עוסקת בזכות האדם להחליט על גופו (הסכמה מדעת), ואי-גרימת נזק – בהימנעות מפגיעה במטופל.` }
+  ]
+};
+
+const quizScores = {};
+function updateGlobal() {
+  const total = Object.values(quizScores).reduce((a, s) => a + s.correct, 0);
+  $('#globalScore').textContent = `${total} / 60`;
+}
+function renderQuiz(key) {
+  const root = $('#quiz-' + key), list = QUIZ[key];
+  const letters = ['א', 'ב', 'ג', 'ד'];
+  const state = list.map(() => ({ order: shuffle([0, 1, 2, 3]), chosen: null }));
+  quizScores[key] = { correct: 0, answered: 0 };
+  function head() {
+    const s = quizScores[key];
+    return `<div class="flex flex-wrap items-center justify-between gap-3 mb-2">
+      <div class="font-semibold text-slate-700">ענית על <b>${s.answered}</b> מתוך 10 · תשובות נכונות: <b class="text-sci">${s.correct}</b></div>
+      <button class="btn btn-ghost" data-act="reset">↻ התחל מחדש</button></div>
+      <div class="progress-bar mb-4"><div style="width:${s.answered * 10}%"></div></div>`;
+  }
+  function render() {
+    let h = head() + '<div class="space-y-4">';
+    list.forEach((item, qi) => {
+      const st = state[qi], answered = st.chosen !== null, right = st.chosen === 0;
+      h += `<div class="quiz-q ${answered ? (right ? 'answered-ok' : 'answered-bad') : ''}">
+        <div class="font-bold mb-3 leading-relaxed"><span class="text-sci">שאלה ${qi + 1}.</span> ${item.q}</div>
+        <div class="grid gap-2">${st.order.map((oi, pos) => {
+          let c = '';
+          if (answered) { if (oi === 0) c = 'correct'; else if (oi === st.chosen) c = 'wrong'; }
+          return `<button class="opt ${c}" data-q="${qi}" data-o="${oi}" ${answered ? 'disabled' : ''}><span class="ol">${letters[pos]}</span><span>${item.o[oi]}</span></button>`;
+        }).join('')}</div>
+        ${answered ? `<div class="feedback ${right ? 'ok' : 'no'}">${right ? '<b>✔ נכון!</b> ' : `<b>✘ לא מדויק.</b> בחרת: "${item.o[st.chosen]}". התשובה הנכונה: <b>"${item.o[0]}"</b>.<br>`}<b>הסבר:</b> ${item.e}</div>` : ''}
+      </div>`;
+    });
+    h += '</div>';
+    const s = quizScores[key];
+    if (s.answered === 10) {
+      const grade = s.correct >= 9 ? ['good', '🏆 מצוין! שליטה מלאה בחומר.'] : s.correct >= 7 ? ['good', '👍 יפה מאוד! עברו על ההסברים של השאלות שטעיתם בהן.'] : s.correct >= 5 ? ['warn', '📘 לא רע – מומלץ לחזור לרקע העיוני ולסיכום המושגים ולנסות שוב.'] : ['bad', '🔁 כדאי לקרוא שוב את הרקע העיוני ולהתנסות בסימולציה, ואז לנסות מחדש.'];
+      h += `<div class="msg ${grade[0]} mt-4"><b>סיכום: ${s.correct} מתוך 10 (${s.correct * 10}%).</b> ${grade[1]}</div>`;
+    }
+    root.innerHTML = h;
+  }
+  root.addEventListener('click', e => {
+    const b = e.target.closest('.opt');
+    if (b && !b.disabled) {
+      const qi = +b.dataset.q, oi = +b.dataset.o;
+      if (state[qi].chosen !== null) return;
+      state[qi].chosen = oi;
+      quizScores[key].answered++; if (oi === 0) quizScores[key].correct++;
+      const y = b.closest('.quiz-q').getBoundingClientRect().top;
+      render(); updateGlobal();
+      const card = $$('.quiz-q', root)[qi];
+      window.scrollBy(0, card.getBoundingClientRect().top - y);
+      return;
+    }
+    if (e.target.closest('[data-act=reset]')) {
+      state.forEach(s => { s.chosen = null; s.order = shuffle([0, 1, 2, 3]); });
+      quizScores[key] = { correct: 0, answered: 0 }; render(); updateGlobal();
+    }
+  });
+  render();
+}
+
+/* =========================================================
+   Init
+   ========================================================= */
+drawHelix(); drawLadder(); drawTranscriptionFig(); drawMutationFig(); drawCrisprFig();
+fixSvgText();
+TAB_KEYS.forEach(renderQuiz);
+updateGlobal();
+requestAnimationFrame(helixLoop);
+(function initTab() {
+  let k = location.hash.replace('#', '');
+  if (!TAB_KEYS.includes(k)) { try { k = localStorage.getItem('gen-tab') || 'dna'; } catch (e) { k = 'dna'; } }
+  showTab(k, false);
+})();
+</script>
+</body>
+</html>
