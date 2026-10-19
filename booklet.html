@@ -1,0 +1,1225 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>גנטיקה, הנדסה גנטית ושיבוט</title>
+<meta name="description" content="חוברת עומק: DNA, תולדות הגנטיקה, מוטציות ומחלות גנטיות, גילוי ואבחון, הנדסה גנטית, CRISPR, שיבוט ואתיקה – עם ציר זמן, טבלאות, מילון מושגים ומקורות.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800&family=Frank+Ruhl+Libre:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f6f2; --paper:#ffffff; --ink:#1d2330; --muted:#5b6475; --line:#e3e1da;
+  --accent:#0b3a6e; --accent-2:#0e9f6e; --accent-soft:#e8f0fa; --warn-soft:#fbeee6;
+  --note-soft:#eef1fa; --note:#3b4f9a; --code:#f1efe8;
+  --shadow:0 1px 2px rgba(20,25,35,.05),0 6px 24px rgba(20,25,35,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#12151b; --paper:#191d25; --ink:#e7e9ee; --muted:#a2a9b8; --line:#2c323d;
+    --accent:#93c5fd; --accent-2:#34d399; --accent-soft:#16253d; --warn-soft:#33221a;
+    --note-soft:#1c2340; --note:#9fb1f2; --code:#232833;
+    --shadow:none;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#12151b; --paper:#191d25; --ink:#e7e9ee; --muted:#a2a9b8; --line:#2c323d;
+  --accent:#93c5fd; --accent-2:#34d399; --accent-soft:#16253d; --warn-soft:#33221a;
+  --note-soft:#1c2340; --note:#9fb1f2; --code:#232833; --shadow:none;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Heebo",system-ui,sans-serif;font-size:17px;line-height:1.8;text-rendering:optimizeLegibility}
+a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:3px}
+bdi,.ltr{unicode-bidi:isolate}
+.ltr{direction:ltr;display:inline-block}
+
+/* ---------- cover ---------- */
+.cover{background:linear-gradient(135deg,#072a52 0%,#0b3a6e 60%,#0a6b5a 100%);color:#fff;padding:72px 16px 64px;position:relative;overflow:hidden}
+.cover::after{content:"";position:absolute;inset:0;background:
+  radial-gradient(circle at 12% 20%,rgba(255,255,255,.10) 0 2px,transparent 3px) 0 0/38px 38px;opacity:.6;pointer-events:none}
+.cover-inner{max-width:1100px;margin:0 auto;padding-top:20px;position:relative;z-index:1}
+.kicker{font-weight:500;letter-spacing:.02em;opacity:.85;font-size:15px}
+.cover h1{font-family:"Frank Ruhl Libre",serif;font-weight:900;font-size:clamp(34px,6vw,64px);line-height:1.12;margin:10px 0 14px}
+.cover .sub{font-size:clamp(17px,2.2vw,21px);max-width:760px;opacity:.95;margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.chips span{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);padding:4px 12px;border-radius:999px;font-size:14px}
+.meta{margin-top:28px;font-size:14px;opacity:.8}
+.helix{position:absolute;left:4%;top:50%;transform:translateY(-50%);width:200px;opacity:.22;z-index:0}
+
+/* ---------- layout ---------- */
+.layout{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:270px minmax(0,1fr);gap:36px;padding:36px 16px 80px}
+nav.toc{position:sticky;top:16px;align-self:start;max-height:calc(100vh - 32px);overflow:auto;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px 16px;box-shadow:var(--shadow);font-size:14.5px}
+nav.toc h2{font-size:16px;margin:0 0 10px;color:var(--accent)}
+nav.toc ol{margin:0;padding:0 18px 0 0}
+nav.toc li{margin:3px 0;line-height:1.5}
+nav.toc a{color:var(--ink);text-decoration:none}
+nav.toc a:hover,nav.toc a.active{color:var(--accent);font-weight:500}
+main{min-width:0}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:34px clamp(18px,4vw,44px);box-shadow:var(--shadow);margin-bottom:28px}
+
+/* ---------- typography ---------- */
+h2.ch{font-family:"Frank Ruhl Libre",serif;font-size:clamp(26px,3.4vw,34px);line-height:1.25;margin:0 0 6px;scroll-margin-top:16px}
+.ch-num{display:inline-block;color:var(--accent-2);font-family:"Heebo",sans-serif;font-weight:800;font-size:14px;letter-spacing:.06em;margin-bottom:4px}
+.lead{color:var(--muted);font-size:18px;margin:0 0 20px}
+h3{font-size:21px;margin:30px 0 8px;color:var(--accent);scroll-margin-top:16px}
+h4{font-size:17.5px;margin:20px 0 4px}
+p{margin:0 0 14px}
+ul,ol{padding-right:22px;padding-left:0;margin:0 0 14px}
+li{margin:4px 0}
+strong{font-weight:700}
+sup.ref a{font-size:12px;text-decoration:none;font-weight:500;padding:0 1px}
+hr.soft{border:0;border-top:1px solid var(--line);margin:28px 0}
+
+/* ---------- boxes ---------- */
+.box{border-radius:12px;padding:16px 20px;margin:20px 0;border-right:5px solid}
+.box h4{margin-top:0}
+.box p:last-child,.box ul:last-child{margin-bottom:0}
+.key{background:var(--accent-soft);border-color:var(--accent)}
+.warn{background:var(--warn-soft);border-color:var(--accent-2)}
+.note{background:var(--note-soft);border-color:var(--note)}
+.case{background:var(--code);border-color:var(--muted)}
+.box .lbl{font-weight:800;font-size:13px;letter-spacing:.05em;display:block;margin-bottom:4px}
+.key .lbl{color:var(--accent)} .warn .lbl{color:var(--accent-2)} .note .lbl{color:var(--note)} .case .lbl{color:var(--muted)}
+
+/* ---------- tables ---------- */
+.tbl{overflow-x:auto;margin:16px 0 22px;border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;font-size:15.5px;min-width:520px}
+th,td{padding:10px 12px;text-align:right;vertical-align:top;border-bottom:1px solid var(--line)}
+th{background:var(--accent-soft);color:var(--ink);font-weight:700}
+tr:last-child td{border-bottom:0}
+caption{caption-side:top;text-align:right;font-weight:700;padding:10px 12px;color:var(--muted);font-size:14px}
+
+/* ---------- flow diagram ---------- */
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;margin:18px 0 22px}
+.flow .step{flex:1 1 120px;background:var(--paper);border:1.5px solid var(--accent);border-radius:10px;padding:10px 12px;font-size:14.5px;text-align:center;line-height:1.5}
+.flow .step b{display:block;color:var(--accent)}
+.flow .arr{align-self:center;color:var(--accent-2);font-weight:800}
+.figcap{font-size:14px;color:var(--muted);margin-top:-12px;margin-bottom:18px}
+
+/* ---------- timeline ---------- */
+.timeline{position:relative;margin:18px 0;padding-right:26px}
+.timeline::before{content:"";position:absolute;right:7px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.tl{position:relative;margin-bottom:14px}
+.tl::before{content:"";position:absolute;right:-25px;top:9px;width:12px;height:12px;border-radius:50%;background:var(--paper);border:3px solid var(--accent)}
+.tl .yr{font-weight:800;color:var(--accent-2);margin-left:8px}
+.era{font-weight:800;color:var(--accent);margin:22px 0 8px;font-size:15px}
+
+/* ---------- questions & glossary ---------- */
+.q ol li{margin-bottom:8px}
+dl.gloss{display:grid;grid-template-columns:minmax(150px,220px) 1fr;gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+dl.gloss dt,dl.gloss dd{margin:0;padding:9px 14px;border-bottom:1px solid var(--line)}
+dl.gloss dt{font-weight:700;background:var(--accent-soft)}
+ol.refs{font-size:15px;padding-right:30px}
+ol.refs li{margin-bottom:8px;word-break:break-word}
+ol.refs .src-type{color:var(--muted);font-size:13px}
+
+.topbtn{position:fixed;left:18px;bottom:18px;background:var(--accent);color:#fff;border:0;border-radius:999px;width:44px;height:44px;font-size:20px;cursor:pointer;box-shadow:var(--shadow);opacity:.9}
+.backlink{position:absolute;right:16px;top:16px;z-index:2;color:#fff;text-decoration:none;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:4px 14px;font-size:13px}
+.backlink:hover{background:rgba(255,255,255,.25)}
+.themebtn{position:absolute;left:16px;top:16px;z-index:2;background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:4px 12px;font:inherit;font-size:13px;cursor:pointer}
+footer{text-align:center;color:var(--muted);font-size:14px;padding:0 16px 40px}
+
+@media (max-width:900px){
+  .layout{grid-template-columns:1fr;gap:20px}
+  nav.toc{position:static;max-height:none}
+  .helix{display:none}
+  dl.gloss{grid-template-columns:1fr}
+  dl.gloss dt{border-bottom:0}
+}
+@media print{
+  @page{size:A4;margin:16mm 14mm 16mm 14mm}
+  :root{--bg:#fff;--paper:#fff;--shadow:none}
+  body{font-size:11.5pt;line-height:1.65;background:#fff;color:#111}
+  .cover{padding:40mm 12mm 30mm;min-height:250mm;-webkit-print-color-adjust:exact;print-color-adjust:exact;break-after:page}
+  .helix{display:block}
+  .layout{display:block;padding:0;max-width:none}
+  nav.toc{position:static;max-height:none;border:0;box-shadow:none;padding:0;font-size:12pt;break-after:page}
+  nav.toc h2{font-size:22pt;font-family:"Frank Ruhl Libre",serif;margin-bottom:12px}
+  nav.toc li{margin:5px 0}
+  .card{border:0;box-shadow:none;padding:0;margin:0;break-before:page}
+  .card:first-of-type{break-before:auto}
+  h3,h4{break-after:avoid}
+  .box,.tbl,table,tr,.flow,.tl{break-inside:avoid}
+  .tbl{overflow:visible}
+  table{min-width:0}
+  .box,th,.cover,.ch-num{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .topbtn,.themebtn,.backlink{display:none}
+  a{color:inherit;text-decoration:none}
+  ol.refs a{color:#0b3a6e}
+}
+</style>
+</head>
+<body>
+
+<header class="cover" id="top">
+  <a class="backlink" href="index.html">→ חזרה לאתר DNA Explorer</a>
+  <button class="themebtn" id="themebtn" type="button" aria-label="החלפת מצב תצוגה">מצב כהה/בהיר</button>
+  <svg class="helix" viewBox="0 0 120 400" aria-hidden="true">
+    <g fill="none" stroke="#fff" stroke-width="5">
+      <path d="M20 0 C100 50 100 50 20 100 C-60 150 100 150 100 200 C100 250 20 250 20 300 C20 350 100 350 100 400"/>
+      <path d="M100 0 C20 50 20 50 100 100 C180 150 20 150 20 200 C20 250 100 250 100 300 C100 350 20 350 20 400"/>
+    </g>
+    <g stroke="#fff" stroke-width="3" opacity=".8">
+      <line x1="30" y1="20" x2="90" y2="20"/><line x1="45" y1="40" x2="75" y2="40"/>
+      <line x1="30" y1="80" x2="90" y2="80"/><line x1="30" y1="120" x2="90" y2="120"/>
+      <line x1="45" y1="160" x2="75" y2="160"/><line x1="30" y1="220" x2="90" y2="220"/>
+      <line x1="40" y1="260" x2="80" y2="260"/><line x1="30" y1="320" x2="90" y2="320"/>
+      <line x1="45" y1="360" x2="75" y2="360"/>
+    </g>
+  </svg>
+  <div class="cover-inner">
+    <div class="kicker">חוברת עומק • מדעי החיים והבריאות</div>
+    <h1>גנטיקה, הנדסה גנטית ושיבוט</h1>
+    <p class="sub">מה-DNA ועד CRISPR ודולי הכבשה: היסטוריה של גילויים, מנגנונים, מוטציות ומחלות, ניסויים מכוננים ורמות ההצלחה שלהם, יישומים, יתרונות וחסרונות, ושאלות אתיות.</p>
+    <div class="chips"><span>DNA וגנום</span><span>תולדות הגנטיקה</span><span>מוטציות</span><span>מחלות גנטיות</span><span>אבחון וגילוי</span><span>הנדסה גנטית</span><span>CRISPR</span><span>שיבוט</span><span>אתיקה ורגולציה</span></div>
+    <div class="meta">עודכן: אוקטובר 2026 • כולל ציר זמן, טבלאות מסכמות, מילון מושגים, שאלות לחזרה ו-50 מקורות מידע • <a href="booklet.pdf" download style="color:#fff">הורדת החוברת כ-PDF</a></div>
+  </div>
+</header>
+
+<div class="layout">
+<nav class="toc" aria-label="תוכן העניינים">
+  <h2>תוכן העניינים</h2>
+  <ol>
+    <li><a href="#intro">מבוא: למה גנטיקה?</a></li>
+    <li><a href="#dna">יסודות: DNA, גנים, כרומוזומים וגנום</a></li>
+    <li><a href="#history">תולדות הגנטיקה: ממנדל ועד הגנום האנושי</a></li>
+    <li><a href="#mutations">מוטציות: סוגים, גורמים ותיקון</a></li>
+    <li><a href="#diseases">מחלות גנטיות ודפוסי תורשה</a></li>
+    <li><a href="#diagnosis">גילוי ואבחון גנטי</a></li>
+    <li><a href="#ge-tools">הנדסה גנטית: הכלים והניסויים המכוננים</a></li>
+    <li><a href="#ge-medicine">ביוטכנולוגיה רפואית: מאינסולין לנוגדנים</a></li>
+    <li><a href="#gmo">אורגניזמים מהונדסים: מחקר, חקלאות וסביבה</a></li>
+    <li><a href="#gene-therapy">טיפול גני: הצלחות, כישלונות ולקחים</a></li>
+    <li><a href="#crispr">CRISPR ועריכת גנום</a></li>
+    <li><a href="#cloning">שיבוט: מושגים והיסטוריה</a></li>
+    <li><a href="#dolly">דולי והניסויים שאחריה</a></li>
+    <li><a href="#cloning-success">רמת ההצלחה של שיבוט וגורמי הכשל</a></li>
+    <li><a href="#therapeutic">שיבוט טיפולי, תאי גזע ו-iPSC</a></li>
+    <li><a href="#pros-cons">שימושים, יתרונות וחסרונות</a></li>
+    <li><a href="#ethics">אתיקה</a></li>
+    <li><a href="#regulation">רגולציה וחקיקה (כולל ישראל)</a></li>
+    <li><a href="#future">לאן התחום הולך?</a></li>
+    <li><a href="#timeline">נספח א': ציר זמן מרוכז</a></li>
+    <li><a href="#glossary">נספח ב': מילון מושגים</a></li>
+    <li><a href="#questions">נספח ג': שאלות לחזרה ולדיון</a></li>
+    <li><a href="#sources">מקורות מידע</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<!-- ===================== 1 ===================== -->
+<section class="card" id="intro">
+  <div class="ch-num">פרק 1</div>
+  <h2 class="ch">מבוא: למה גנטיקה?</h2>
+  <p class="lead">גנטיקה היא המדע של התורשה והשונות. בתוך כ-150 שנה היא עברה מספירת אפונים בגן של מנזר לעריכה מדויקת של אות אחת בגנום של תינוק חולה.</p>
+  <p>כל תא בגופנו (למעט תאי דם אדומים בוגרים) מכיל עותק של הגנום: רצף של כ-3.1 מיליארד זוגות בסיסים, ובו כ-20,000 גנים המקודדים לחלבונים.<sup class="ref"><a href="#s1">[1]</a></sup> הרצף הזה הוא "הוראות ההפעלה" של התא. הוא קובע במידה רבה איך נראים החלבונים שלנו, מתי הם מיוצרים ובאילו רקמות. שינוי ברצף, מוטציה, יכול להיות חסר משמעות, יכול לגרום למחלה, ולפעמים הוא מקור לשונות ולהתאמה אבולוציונית.</p>
+  <p>ההבנה של מנגנונים אלה הולידה שתי טכנולוגיות שעוסקת בהן החוברת:</p>
+  <ul>
+    <li><strong>הנדסה גנטית</strong>: שינוי מכוון של החומר התורשתי של אורגניזם, החל מהכנסת גן אנושי לחיידק כדי לייצר אינסולין ועד עריכת גנים בתאי מטופלים בעזרת CRISPR.</li>
+    <li><strong>שיבוט</strong>: יצירת עותק זהה מבחינה גנטית של מקטע DNA, של תא או של אורגניזם שלם, כמו דולי הכבשה (1996).</li>
+  </ul>
+  <p>שתי הטכנולוגיות שינו את הרפואה, החקלאות והמחקר. הן גם מעוררות שאלות קשות: האם מותר לשנות את התורשה של הדורות הבאים? מי ייהנה מהטיפולים החדשים? איפה עובר הגבול בין טיפול להשבחה? והאם שיבוט של בני אדם יכול להיות מוצדק אי-פעם?</p>
+  <div class="box note"><span class="lbl">איך לקרוא את החוברת</span>
+    <p>פרקים 2–6 הם הבסיס הביולוגי: DNA, היסטוריה, מוטציות, מחלות ואבחון. פרקים 7–11 עוסקים בהנדסה גנטית, פרקים 12–15 בשיבוט, ופרקים 16–19 ביתרונות, בחסרונות, באתיקה, ברגולציה ובעתיד. מספרים בסוגריים מרובעים, כמו <sup class="ref"><a href="#s1">[1]</a></sup>, מפנים לרשימת המקורות שבסוף החוברת.</p>
+  </div>
+</section>
+
+<!-- ===================== 2 ===================== -->
+<section class="card" id="dna">
+  <div class="ch-num">פרק 2</div>
+  <h2 class="ch">יסודות: DNA, גנים, כרומוזומים וגנום</h2>
+  <p class="lead">לפני שמשנים משהו, צריך להבין מה בדיוק משנים.</p>
+
+  <h3>2.1 מבנה ה-DNA</h3>
+  <p>DNA (חומצה דאוקסיריבונוקלאית) הוא פולימר ארוך הבנוי מיחידות שנקראות <strong>נוקלאוטידים</strong>. כל נוקלאוטיד מורכב משלושה חלקים: סוכר דאוקסיריבוז, קבוצת זרחה ואחד מארבעה בסיסים חנקניים: <bdi>A</bdi> (אדנין), <bdi>T</bdi> (תימין), <bdi>G</bdi> (גואנין) ו-<bdi>C</bdi> (ציטוזין).</p>
+  <ul>
+    <li><strong>סליל כפול</strong>: שני גדילים כרוכים זה סביב זה. "השלד" החיצוני בנוי מסוכר וזרחה, והבסיסים פונים פנימה.</li>
+    <li><strong>זיווג משלים</strong>: A מזדווג עם T (שני קשרי מימן) ו-G עם C (שלושה קשרי מימן). לכן רצף גדיל אחד קובע את רצף הגדיל השני.</li>
+    <li><strong>אנטי-מקבילות</strong>: שני הגדילים פונים בכיוונים הפוכים (′5→′3 מול ′3→′5). לכך יש חשיבות רבה בשכפול.</li>
+    <li><strong>חוק צ'רגף</strong>: בכל DNA דו-גדילי כמות A שווה לכמות T וכמות G שווה לכמות C. זה היה אחד הרמזים למבנה.<sup class="ref"><a href="#s6">[6]</a></sup></li>
+  </ul>
+
+  <h3>2.2 שכפול DNA</h3>
+  <p>לפני כל חלוקת תא ה-DNA משוכפל באופן <strong>חצי-שמרני</strong>: הגדילים נפרדים, וכל אחד משמש תבנית לבניית גדיל חדש. כך בכל מולקולת בת יש גדיל "ישן" אחד וגדיל "חדש" אחד. מזלסון וסטאל הוכיחו זאת בניסוי קלאסי ב-1958.<sup class="ref"><a href="#s7">[7]</a></sup> האנזים המרכזי הוא <strong>DNA פולימראז</strong>, שגם "מגיה" את עבודתו. שיעור השגיאות הסופי, אחרי מנגנוני התיקון, הוא כשגיאה אחת לכמיליארד בסיסים.</p>
+
+  <h3>2.3 מגן לחלבון: "הדוגמה המרכזית"</h3>
+  <div class="flow" role="img" aria-label="תרשים: DNA מתועתק ל-RNA ומתורגם לחלבון">
+    <div class="step"><b>DNA</b>רצף בגרעין</div><div class="arr">←</div>
+    <div class="step"><b>שעתוק</b>RNA פולימראז יוצר mRNA</div><div class="arr">←</div>
+    <div class="step"><b>עיבוד</b>הסרת אינטרונים (שחבור)</div><div class="arr">←</div>
+    <div class="step"><b>תרגום</b>בריבוזום, לפי קודונים</div><div class="arr">←</div>
+    <div class="step"><b>חלבון</b>קיפול ותפקוד</div>
+  </div>
+  <p class="figcap">תרשים 1: זרימת המידע הגנטי בתא האאוקריוטי.</p>
+  <p><strong>הקוד הגנטי</strong> נקרא בשלישיות של בסיסים (<strong>קודונים</strong>). יש 64 קודונים: 61 מקודדים ל-20 חומצות אמינו ו-3 הם קודוני עצירה. הקוד <strong>מנוון</strong>, כלומר לרוב חומצות האמינו יש כמה קודונים, והוא <strong>כמעט אוניברסלי</strong>, אותו קוד בחיידק, בצמח ובאדם. האוניברסליות הזאת היא שמאפשרת להכניס גן אנושי לחיידק ולקבל חלבון אנושי תקין, וזה היסוד של ההנדסה הגנטית.</p>
+
+  <h3>2.4 גן, כרומוזום, גנום</h3>
+  <div class="tbl"><table>
+    <caption>טבלה 1: מושגי יסוד</caption>
+    <tr><th>מושג</th><th>הגדרה</th><th>דוגמה</th></tr>
+    <tr><td>נוקלאוטיד</td><td>יחידת הבנייה של DNA/RNA</td><td>A, T, G, C (ב-RNA: U במקום T)</td></tr>
+    <tr><td>גן</td><td>מקטע DNA שמקודד לתוצר תפקודי (חלבון או RNA), כולל אזורי בקרה</td><td>הגן <bdi>HBB</bdi> מקודד לשרשרת בטא של המוגלובין</td></tr>
+    <tr><td>אקסון / אינטרון</td><td>אקסונים נשמרים ב-mRNA הבשל; אינטרונים מוסרים בשחבור</td><td>גן ממוצע באדם מכיל כמה אקסונים</td></tr>
+    <tr><td>פרומוטור / אנהנסר</td><td>אזורי בקרה שקובעים מתי, איפה וכמה הגן יתבטא</td><td>האנהנסר של <bdi>BCL11A</bdi>, המטרה של טיפול Casgevy</td></tr>
+    <tr><td>כרומוזום</td><td>מולקולת DNA ארוכה ארוזה עם חלבונים (היסטונים)</td><td>לאדם 46 כרומוזומים: 22 זוגות אוטוזומים וזוג כרומוזומי מין</td></tr>
+    <tr><td>גנום</td><td>כלל המידע הגנטי של האורגניזם</td><td>הגנום האנושי, כ-3.1 מיליארד זוגות בסיסים</td></tr>
+    <tr><td>אלל</td><td>גרסה של גן</td><td>אלל תקין לעומת אלל חרמשי של <bdi>HBB</bdi></td></tr>
+    <tr><td>גנוטיפ / פנוטיפ</td><td>ההרכב הגנטי לעומת התכונות הנצפות</td><td>הומוזיגוט חרמשי, ובפועל אנמיה ומשברי כאב</td></tr>
+  </table></div>
+
+  <h3>2.5 עובדות מעניינות על הגנום האנושי</h3>
+  <ul>
+    <li>רק כ-1.5%–2% מהגנום מקודדים לחלבונים. השאר כולל אזורי בקרה, גנים ל-RNA לא מקודד, רצפים חוזרים ושאריות של נגיפים עתיקים.<sup class="ref"><a href="#s1">[1]</a></sup></li>
+    <li>שני בני אדם לא קרובים זהים בכ-99.6%–99.9% מרצף ה-DNA. כל ההבדלים בינינו נמצאים באחוזים הבודדים שנותרו.</li>
+    <li>לכל אדם יש בממוצע כ-60–70 מוטציות חדשות (<bdi>de novo</bdi>) שלא היו אצל אף אחד מהוריו.<sup class="ref"><a href="#s16">[16]</a></sup></li>
+    <li>למיטוכונדריה יש DNA עצמאי קטן (כ-16,569 זוגות בסיסים) שעובר בתורשה מהאם בלבד.</li>
+  </ul>
+
+  <h3>2.6 אפיגנטיקה: מעבר לרצף</h3>
+  <p>לכל התאים בגוף אותו DNA, ובכל זאת תא עצב שונה מאוד מתא כבד. ההבדל נובע מ<strong>בקרת ביטוי גנים</strong>: אילו גנים "דולקים" ואילו "כבויים". חלק מהבקרה נעשה בסימונים <strong>אפיגנטיים</strong>, כמו מתילציה של DNA ושינויים כימיים בהיסטונים, שמשנים את נגישות ה-DNA בלי לשנות את הרצף. לאפיגנטיקה תפקיד מרכזי בשיבוט: כדי ליצור עובר מתא בוגר, צריך "למחוק" את הסימונים הישנים (ראו <a href="#cloning-success">פרק 14</a>).</p>
+
+  <div class="box key"><span class="lbl">נקודות מפתח</span>
+    <ul>
+      <li>DNA הוא סליל כפול של נוקלאוטידים עם זיווג משלים: A–T, G–C.</li>
+      <li>המידע זורם מ-DNA ל-RNA ולחלבון. הקוד הגנטי אוניברסלי כמעט לחלוטין.</li>
+      <li>גנום = כל ה-DNA. גן = יחידה תפקודית. כרומוזום = DNA ארוז.</li>
+      <li>אותו DNA יכול להתבטא בצורות שונות בזכות בקרה ואפיגנטיקה.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== 3 ===================== -->
+<section class="card" id="history">
+  <div class="ch-num">פרק 3</div>
+  <h2 class="ch">תולדות הגנטיקה: ממנדל ועד הגנום האנושי</h2>
+  <p class="lead">אין ממציא אחד לגנטיקה. כל גילוי נשען על קודמו, ורבים מהם נדחו או נשכחו לפני שהבינו את חשיבותם.</p>
+
+  <h3>3.1 גרגור מנדל וחוקי התורשה (1865–1866)</h3>
+  <p>הנזיר האוגוסטיני <strong>גרגור מנדל</strong> הכליא כ-28,000 צמחי אפונה בגן המנזר בברנו (היום בצ'כיה) בין 1856 ל-1863. הוא בחן שבע תכונות שלכל אחת שתי צורות ברורות, כמו זרע חלק או מקומט, ופרח סגול או לבן. מנדל <strong>ספר</strong> את הצאצאים וניתח את היחסים המספריים, וזה היה חידוש מהפכני בביולוגיה של זמנו.</p>
+  <ul>
+    <li><strong>חוק ההיפרדות</strong>: לכל פרט יש שני "גורמים" (היום: אללים) לכל תכונה, וכל תא מין מקבל רק אחד מהם. בדור F2 מתקבל יחס של 3:1 בין התכונה השולטת לתכונה הנסגנת.</li>
+    <li><strong>חוק הצירוף החופשי</strong>: תכונות שונות עוברות בתורשה באופן בלתי תלוי (היום יודעים שזה נכון לגנים על כרומוזומים שונים או רחוקים זה מזה). בהכלאה של שתי תכונות מתקבל יחס של 9:3:3:1.</li>
+  </ul>
+  <p>עבודתו פורסמה ב-1866 אך כמעט התעלמו ממנה. היא "התגלתה מחדש" ב-1900, כמעט בו-זמנית, על ידי שלושה חוקרים: הוגו דה פריס, קרל קורנס ואריך פון צ'רמק.<sup class="ref"><a href="#s2">[2]</a></sup></p>
+
+  <h3>3.2 גילוי ה-DNA ותורת התורשה הכרומוזומית</h3>
+  <ul>
+    <li><strong>1869, פרידריך מישר</strong>: בודד ממוגלה על תחבושות חומר עשיר בזרחן מגרעיני תאי דם לבנים וכינה אותו "נוקלאין". זה היה ה-DNA, אך תפקידו לא היה ידוע.</li>
+    <li><strong>1902–1903, סאטון ובוברי</strong>: הציעו שה"גורמים" של מנדל נמצאים על הכרומוזומים.</li>
+    <li><strong>1909, וילהלם יוהנסן</strong>: טבע את המונחים "גן", "גנוטיפ" ו"פנוטיפ".</li>
+    <li><strong>1910–1915, תומס הנט מורגן</strong>: מחקר על זבובי פירות (<i>Drosophila</i>) הוכיח שגנים יושבים על כרומוזומים, גילה תורשה תלוית מין (עיניים לבנות) ותאחיזה. תלמידו סטורטבנט שרטט ב-1913 את מפת הגנים הראשונה. מורגן זכה בפרס נובל ב-1933.<sup class="ref"><a href="#s3">[3]</a></sup></li>
+    <li><strong>1927, הרמן מולר</strong>: הראה שקרני רנטגן גורמות למוטציות (נובל 1946). הייתה זו הראיה הראשונה לכך שגורמים סביבתיים משנים את החומר התורשתי.</li>
+  </ul>
+
+  <h3>3.3 מהו החומר התורשתי? שלושה ניסויים מכריעים</h3>
+  <p>עד שנות ה-40 רוב המדענים האמינו שהחומר התורשתי הוא <strong>חלבון</strong>. חלבונים בנויים מ-20 "אותיות" ונראו מורכבים מספיק, בעוד DNA, עם 4 אותיות בלבד, נחשב משעמם. שלושה ניסויים שינו את התמונה:</p>
+  <div class="tbl"><table>
+    <caption>טבלה 2: הניסויים שהוכיחו ש-DNA הוא החומר התורשתי</caption>
+    <tr><th>שנה</th><th>חוקרים</th><th>הניסוי</th><th>המסקנה</th></tr>
+    <tr><td>1928</td><td>פרדריק גריפית</td><td>הזריק לעכברים פנאומוקוקים לא אלימים (R) יחד עם פנאומוקוקים אלימים (S) שהומתו בחום. העכברים מתו, ומדמם בודדו חיידקי S חיים.</td><td>קיים "גורם מתמיר" שעובר מחיידקים מתים לחיים ומשנה את תכונותיהם.</td></tr>
+    <tr><td>1944</td><td>אייברי, מקלאוד ומקארטי</td><td>טיהרו את המרכיבים של חיידקי S ופירקו כל אחד בנפרד בעזרת אנזימים. רק פירוק ה-DNA ביטל את ההתמרה.<sup class="ref"><a href="#s4">[4]</a></sup></td><td>הגורם המתמיר הוא DNA.</td></tr>
+    <tr><td>1952</td><td>הרשי וצ'ייס</td><td>סימנו נגיפי בקטריופאג': חלבון בגופרית רדיואקטיבית ו-DNA בזרחן רדיואקטיבי. רק ה-DNA נכנס לחיידק.<sup class="ref"><a href="#s5">[5]</a></sup></td><td>החומר הגנטי של הנגיף הוא DNA. המסקנה שכנעה את הקהילה המדעית.</td></tr>
+  </table></div>
+
+  <h3>3.4 הסליל הכפול (1953)</h3>
+  <p>כמה צוותים התחרו בפענוח מבנה ה-DNA. ב-1952 צילמו <strong>רוזלינד פרנקלין</strong> והדוקטורנט שלה ריימונד גוסלינג בקינגס קולג' בלונדון את תמונת עקיפת קרני ה-X המפורסמת ("תמונה 51"), שהצביעה על מבנה סלילי. <strong>ג'יימס ווטסון ופרנסיס קריק</strong> מקיימברידג' שילבו את נתוניה של פרנקלין (שהועברו אליהם בלי ידיעתה המלאה), את חוקי צ'רגף ובניית מודלים, ופרסמו ב-25 באפריל 1953 ב-<i>Nature</i> את מודל הסליל הכפול.<sup class="ref"><a href="#s6">[6]</a></sup> באותו גיליון התפרסמו גם מאמרים של פרנקלין ושל מוריס וילקינס.</p>
+  <p>המשפט המפורסם במאמר רמז על המשמעות: הזיווג הספציפי "מרמז מיד על מנגנון העתקה אפשרי" לחומר הגנטי. ב-1962 קיבלו ווטסון, קריק ווילקינס את פרס נובל. פרנקלין נפטרה מסרטן ב-1958 בגיל 37, ופרס נובל אינו מוענק לאחר המוות. תרומתה הוכרה במלואה רק עשרות שנים מאוחר יותר.</p>
+  <div class="box case"><span class="lbl">לדיון: מדע ואתיקה כבר ב-1953</span>
+    <p>השימוש בנתונים של פרנקלין בלי הסכמתה המפורשת הוא דוגמה מוקדמת לשאלות של קרדיט, שקיפות ויחסי כוח במדע, ובכלל זה יחסם של מוסדות מדעיים לנשים.</p>
+  </div>
+
+  <h3>3.5 פענוח הקוד הגנטי (1958–1966)</h3>
+  <ul>
+    <li><strong>1958</strong>: קריק מנסח את "הדוגמה המרכזית" (DNA → RNA → חלבון). מזלסון וסטאל מוכיחים שהשכפול חצי-שמרני.<sup class="ref"><a href="#s7">[7]</a></sup></li>
+    <li><strong>1961</strong>: מרשל נירנברג והיינריך מתאיי מוסיפים RNA מלאכותי שכולו U (<bdi>poly-U</bdi>) למיצוי תאים ומקבלים חלבון שכולו פנילאלנין. כך פוענח הקודון הראשון: <bdi>UUU</bdi>. באותה שנה הראו קריק וברנר שהקוד בנוי משלישיות.</li>
+    <li><strong>1966</strong>: הקוד כולו פוענח. נירנברג, קוראנה והולי קיבלו את פרס נובל ב-1968.</li>
+  </ul>
+
+  <h3>3.6 מגנטיקה לגנומיקה</h3>
+  <ul>
+    <li><strong>1977, פרדריק סנגר</strong>: פיתח שיטה לריצוף DNA (שיטת סיום השרשרת) וזכה בפרס נובל שני (1980). באותה שנה פיתחו מקסם וגילברט שיטה מקבילה.</li>
+    <li><strong>1983, קרי מוליס</strong>: המציא את ה-<bdi>PCR</bdi>, שיטה לשכפול מקטע DNA מיליוני פעמים במבחנה (נובל 1993). השיטה הפכה לבסיס של אבחון, זיהוי פלילי, מחקר, ובהמשך גם של בדיקות הקורונה.</li>
+    <li><strong>1990–2003, פרויקט הגנום האנושי</strong>: מאמץ בינלאומי לריצוף הגנום האנושי, בעלות של כ-2.7 מיליארד דולר. טיוטה פורסמה ב-2001 (במקביל לחברת Celera של קרייג ונטר), והגרסה ה"מלאה" הוכרזה ב-2003.<sup class="ref"><a href="#s1">[1]</a></sup></li>
+    <li><strong>2022, קונסורציום T2T</strong>: פרסם לראשונה רצף שלם באמת של גנום אנושי, כולל כ-8% שהיו חסרים עד אז.<sup class="ref"><a href="#s8">[8]</a></sup></li>
+    <li><strong>היום</strong>: ריצוף גנום שלם עולה כמה מאות דולרים ונמשך שעות עד ימים. זו ירידה של יותר מפי מיליון בעלות מאז הפרויקט המקורי.</li>
+  </ul>
+
+  <div class="box key"><span class="lbl">נקודות מפתח</span>
+    <ul>
+      <li>מנדל גילה את חוקי התורשה (1866). מורגן מיקם את הגנים על הכרומוזומים.</li>
+      <li>גריפית (1928), אייברי (1944) והרשי-צ'ייס (1952) הוכיחו ש-DNA הוא החומר התורשתי.</li>
+      <li>פרנקלין, ווטסון וקריק פענחו את מבנה הסליל הכפול (1953). הקוד הגנטי פוענח עד 1966.</li>
+      <li>ריצוף ו-PCR הובילו לפרויקט הגנום האנושי (2003) ולגנום השלם (2022).</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== 4 ===================== -->
+<section class="card" id="mutations">
+  <div class="ch-num">פרק 4</div>
+  <h2 class="ch">מוטציות: סוגים, גורמים ותיקון</h2>
+  <p class="lead">מוטציה היא כל שינוי ברצף ה-DNA. היא מקור השונות הגנטית, הבסיס של האבולוציה, וגם הגורם למחלות רבות.</p>
+
+  <h3>4.1 מוטציות ברמת הגן (נקודתיות וקטנות)</h3>
+  <div class="tbl"><table>
+    <caption>טבלה 3: סוגי מוטציות ברמת הרצף</caption>
+    <tr><th>סוג</th><th>מה קורה</th><th>השפעה אפשרית</th><th>דוגמה</th></tr>
+    <tr><td>שקטה (<bdi>silent</bdi>)</td><td>החלפת בסיס שלא משנה את חומצת האמינו, בזכות ניוון הקוד</td><td>לרוב אין השפעה</td><td><bdi>GAA→GAG</bdi>, שניהם גלוטמט</td></tr>
+    <tr><td>שגויה (<bdi>missense</bdi>)</td><td>החלפת בסיס שמחליפה חומצת אמינו</td><td>מאפס השפעה ועד מחלה קשה</td><td>אנמיה חרמשית: <bdi>GAG→GTG</bdi>, גלוטמט ← ואלין בעמדה 6 של בטא-גלובין</td></tr>
+    <tr><td>חסרת משמעות (<bdi>nonsense</bdi>)</td><td>יצירת קודון עצירה מוקדם</td><td>חלבון קטוע ולרוב לא תפקודי</td><td><bdi>W1282X</bdi> ב-CFTR, נפוצה יחסית בקרב יהודים אשכנזים</td></tr>
+    <tr><td>תזוזת מסגרת (<bdi>frameshift</bdi>)</td><td>הוספה או חסר של בסיסים שמספרם אינו כפולה של 3</td><td>כל הקודונים שאחריה משתבשים</td><td>המוטציה הנפוצה במחלת טיי-זקס באשכנזים (הוספת 4 בסיסים ב-<bdi>HEXA</bdi>)</td></tr>
+    <tr><td>חסר בתוך המסגרת</td><td>חסר של 3 בסיסים (קודון שלם)</td><td>חסרה חומצת אמינו אחת</td><td><bdi>ΔF508</bdi> ב-CFTR, המוטציה הנפוצה בעולם בסיסטיק פיברוזיס</td></tr>
+    <tr><td>הרחבת רצף חוזר</td><td>רצף של שלושה בסיסים שחוזר על עצמו מתארך</td><td>המחלה מחמירה ככל שהרצף ארוך יותר</td><td>הנטינגטון (<bdi>CAG</bdi>), X שביר (<bdi>CGG</bdi>)</td></tr>
+  </table></div>
+
+  <h3>4.2 מוטציות כרומוזומליות</h3>
+  <ul>
+    <li><strong>מבניות</strong>: חסר (<bdi>deletion</bdi>), הכפלה (<bdi>duplication</bdi>), היפוך (<bdi>inversion</bdi>) והעתקה (<bdi>translocation</bdi>). דוגמה: ב<strong>לוקמיה מיאלואידית כרונית</strong> (CML) העתקה בין כרומוזומים 9 ו-22 יוצרת את "כרומוזום פילדלפיה" ואת הגן ההיברידי <bdi>BCR-ABL</bdi>. התרופה <strong>גליבק</strong> (אימטיניב) פותחה במיוחד נגדו והייתה מהתרופות המכוונות-מטרה הראשונות.</li>
+    <li><strong>מספריות (אנאופלואידיה)</strong>: עודף או חוסר של כרומוזום שלם, בדרך כלל בגלל אי-היפרדות במיוזה. דוגמאות: <strong>תסמונת דאון</strong> (טריזומיה 21, כ-1 מכל 700 לידות, והסיכון עולה עם גיל האם), תסמונת טרנר (<bdi>45,X</bdi>) ותסמונת קליינפלטר (<bdi>47,XXY</bdi>).</li>
+  </ul>
+
+  <h3>4.3 מה גורם למוטציות?</h3>
+  <ul>
+    <li><strong>מוטציות ספונטניות</strong>: שגיאות בשכפול, ופירוק כימי טבעי של בסיסים (דאמינציה של ציטוזין, לדוגמה). רוב המוטציות החדשות בצאצאים מקורן בזרע, ומספרן עולה עם גיל האב.</li>
+    <li><strong>מוטגנים פיזיקליים</strong>: קרינה מייננת (רנטגן, גמא), שגורמת לשבירות בגדיל ה-DNA, וקרינת UV, שיוצרת דימרים של תימין (גורם מרכזי לסרטן עור).</li>
+    <li><strong>מוטגנים כימיים</strong>: חומרים בעשן סיגריות (בנזופירן), אפלטוקסין מעובש, וחומרים כימותרפיים מסוימים.</li>
+    <li><strong>גורמים ביולוגיים</strong>: נגיפים שמשתלבים בגנום (HPV, HBV), ו"גנים קופצים" (טרנספוזונים), שגילתה ברברה מקלינטוק בתירס (נובל 1983).</li>
+  </ul>
+
+  <h3>4.4 מנגנוני תיקון DNA</h3>
+  <p>בכל תא נגרמים מדי יום עשרות אלפי נזקים ל-DNA, ורובם מתוקנים. בין מנגנוני התיקון: הגהה של הפולימראז, <strong>תיקון אי-התאמות</strong> (<bdi>mismatch repair</bdi>), תיקון בחיתוך בסיס או נוקלאוטיד, ותיקון שבר דו-גדילי בשתי דרכים עיקריות:</p>
+  <ul>
+    <li><strong><bdi>NHEJ</bdi></strong> (חיבור קצוות לא הומולוגי): מהיר אך לא מדויק, ולעיתים מוסיף או מוחק בסיסים.</li>
+    <li><strong><bdi>HDR</bdi></strong> (תיקון מכוון הומולוגיה): מדויק, ומשתמש ברצף תבנית.</li>
+  </ul>
+  <p>שני המנגנונים האלה הם בדיוק מה שעריכת גנים בשיטת CRISPR מנצלת (ראו <a href="#crispr">פרק 11</a>). פגמים בגנים של מנגנוני התיקון מעלים מאוד את הסיכון לסרטן. כך למשל ב-<bdi>BRCA1/2</bdi>, המעורבים ב-HDR, ובתסמונת לינץ'.</p>
+
+  <h3>4.5 סומטית או תורשתית?</h3>
+  <div class="tbl"><table>
+    <tr><th></th><th>מוטציה סומטית</th><th>מוטציה בתאי נבט (תורשתית)</th></tr>
+    <tr><td>היכן</td><td>בתאי גוף (עור, ריאה, דם)</td><td>בביצית, בזרע או בעובר המוקדם</td></tr>
+    <tr><td>עוברת לצאצאים?</td><td>לא</td><td>כן</td></tr>
+    <tr><td>דוגמה</td><td>רוב מקרי הסרטן</td><td>BRCA1 מולד, טיי-זקס, הנטינגטון</td></tr>
+    <tr><td>משמעות להנדסה גנטית</td><td>עריכה סומטית משפיעה רק על המטופל</td><td>עריכה בתאי נבט עוברת לכל הדורות הבאים, ומכאן הוויכוח האתי</td></tr>
+  </table></div>
+
+  <div class="box warn"><span class="lbl">תפיסה שגויה נפוצה</span>
+    <p>"מוטציה = מחלה" אינה נכונה. רוב המוטציות ניטרליות, וחלקן מועילות. דוגמה: מוטציה בגן <bdi>LCT</bdi> שמאפשרת לעכל לקטוז בבגרות התפשטה באוכלוסיות של מגדלי בקר. נשאות של אלל חרמשי מקנה עמידות חלקית למלריה, ולכן האלל נפוץ באפריקה.</p>
+  </div>
+</section>
+
+<!-- ===================== 5 ===================== -->
+<section class="card" id="diseases">
+  <div class="ch-num">פרק 5</div>
+  <h2 class="ch">מחלות גנטיות ודפוסי תורשה</h2>
+  <p class="lead">ידועות יותר מ-7,000 מחלות נדירות, ולרובן יש בסיס גנטי. יחד הן פוגעות בכ-300 מיליון בני אדם ברחבי העולם.<sup class="ref"><a href="#s17">[17]</a></sup></p>
+
+  <h3>5.1 דפוסי תורשה</h3>
+  <div class="tbl"><table>
+    <caption>טבלה 4: דפוסי תורשה ומחלות לדוגמה</caption>
+    <tr><th>דפוס</th><th>מאפיינים</th><th>סיכון לצאצא</th><th>דוגמאות</th></tr>
+    <tr><td>אוטוזומלי שולט</td><td>עותק פגום אחד מספיק כדי לחלות. מופיע בכל דור</td><td>50% מהורה נשא</td><td>הנטינגטון, תסמונת מרפן, היפרכולסטרולמיה משפחתית, BRCA (נטייה)</td></tr>
+    <tr><td>אוטוזומלי נסגן</td><td>צריך שני עותקים פגומים. הורים נשאים בריאים</td><td>25% משני הורים נשאים</td><td>סיסטיק פיברוזיס, טיי-זקס, אנמיה חרמשית, תלסמיה, PKU, SMA</td></tr>
+    <tr><td>תלוי X נסגן</td><td>פוגע בעיקר בזכרים (יש להם X אחד)</td><td>50% מבני אם נשאית</td><td>המופיליה, ניוון שרירים דושן, עיוורון צבעים, חסר G6PD (נפוץ בישראל)</td></tr>
+    <tr><td>תלוי X שולט</td><td>פוגע בשני המינים, לרוב קשה יותר בזכרים</td><td>כל בנות האב החולה</td><td>תסמונת רט, היפופוספטמיה תלוית X</td></tr>
+    <tr><td>מיטוכונדריאלי</td><td>עובר מהאם בלבד</td><td>כל ילדי אם נשאית (בחומרה משתנה)</td><td>LHON, MELAS</td></tr>
+    <tr><td>רב-גורמי</td><td>גנים רבים ביחד עם סביבה</td><td>מוערך בסיכון סטטיסטי</td><td>סוכרת סוג 2, מחלות לב, סכיזופרניה, שסע שפה</td></tr>
+  </table></div>
+
+  <h3>5.2 מקרי בוחן</h3>
+  <h4>אנמיה חרמשית (<bdi>Sickle cell disease</bdi>)</h4>
+  <p>מוטציה נקודתית אחת בגן <bdi>HBB</bdi> גורמת להמוגלובין לשקוע ולעוות את תאי הדם לצורת חרמש. התאים המעוותים חוסמים כלי דם קטנים ונהרסים, ונוצרים משברי כאב, אנמיה, שבץ ופגיעה באיברים. זו המחלה הראשונה שתוארה כ"מחלה מולקולרית" (פאולינג, 1949), והראשונה שקיבלה טיפול מאושר בעריכת CRISPR (2023). בעולם יש כ-8 מיליון חולים.</p>
+  <h4>טיי-זקס</h4>
+  <p>מחלה ניוונית קטלנית של מערכת העצבים, הנגרמת מחסר באנזים הקסוזאמינידאז A. בעבר שכיחות הנשאות בקרב יהודים אשכנזים הייתה כ-1 ל-30. בזכות תוכניות סקר הנשאים שהחלו בשנות ה-70, ובהן הארגון הקהילתי "דור ישרים", כמעט אין היום לידות של חולים בקהילות שבהן נערך הסקר. זו אחת מהצלחות הרפואה המונעת הגדולות.<sup class="ref"><a href="#s18">[18]</a></sup></p>
+  <h4>הנטינגטון</h4>
+  <p>מחלה עצבית ניוונית שבה הרצף <bdi>CAG</bdi> בגן <bdi>HTT</bdi> חוזר על עצמו יותר מ-36–40 פעם. היא מופיעה לרוב בגיל 30–50, כלומר לעיתים קרובות אחרי שהחולה כבר הביא ילדים לעולם. הבדיקה הגנטית מעלה דילמה קשה: האם לרצות לדעת שתחלה במחלה חשוכת מרפא?</p>
+  <h4>סיסטיק פיברוזיס (CF)</h4>
+  <p>פגם בתעלת הכלוריד <bdi>CFTR</bdi> גורם לליחה סמיכה בריאות ובלבלב. בעשור האחרון אושרו תרופות "מתקנות" (מודולטורים של CFTR, כמו השילוב <bdi>Trikafta</bdi>) שמשפרות מאוד את מצבם של רוב החולים. זו דוגמה לרפואה מותאמת לפי סוג המוטציה.</p>
+
+  <h3>5.3 ישראל כמעבדה גנטית</h3>
+  <p>בגלל "אפקט המייסד" ונישואי קרובים בחלק מהקהילות, יש בישראל מחלות גנטיות שנפוצות בקבוצות מסוימות. משרד הבריאות מפעיל <strong>תוכנית לאומית לסקר נשאים</strong> שמוצעת ללא תשלום לזוגות לפני הריון או בתחילתו. התוכנית מותאמת למוצא, וכוללת בין השאר CF, SMA, X שביר וטיי-זקס.<sup class="ref"><a href="#s18">[18]</a></sup></p>
+
+  <div class="box key"><span class="lbl">נקודות מפתח</span>
+    <ul>
+      <li>תורשה שולטת: עותק פגום אחד מספיק. נסגנת: נדרשים שני עותקים. תלוית X: פוגעת בעיקר בזכרים.</li>
+      <li>מחלות נפוצות רבות הן רב-גורמיות ולא "מחלות של גן אחד".</li>
+      <li>סקר נשאים, למשל לטיי-זקס, הוכיח שגנטיקה יכולה למנוע מחלה גם בלי הנדסה גנטית.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== 6 ===================== -->
+<section class="card" id="diagnosis">
+  <div class="ch-num">פרק 6</div>
+  <h2 class="ch">גילוי ואבחון גנטי</h2>
+  <p class="lead">איך מוצאים מוטציה? מהמיקרוסקופ של שנות ה-50 ועד ריצוף גנום שלם בתוך יום.</p>
+
+  <div class="tbl"><table>
+    <caption>טבלה 5: שיטות אבחון גנטי</caption>
+    <tr><th>שיטה</th><th>מה בודקת</th><th>רזולוציה ושימוש</th></tr>
+    <tr><td>קריוטיפ (מ-1956, כשנקבע שלאדם 46 כרומוזומים)</td><td>מספר ומבנה הכרומוזומים, בצביעה ובמיקרוסקופ</td><td>שינויים גדולים: טריזומיות, העתקות</td></tr>
+    <tr><td>FISH</td><td>גשושים פלואורסצנטיים לאזורים ספציפיים</td><td>חסרים קטנים, אבחון מהיר</td></tr>
+    <tr><td>צ'יפ גנטי (CMA)</td><td>חסרים והכפלות בכל הגנום</td><td>בדיקה מקובלת בהריון ובעיכוב התפתחותי</td></tr>
+    <tr><td>PCR וריצוף סנגר</td><td>מוטציה ידועה או גן בודד</td><td>מדויק מאוד, לבדיקה ממוקדת</td></tr>
+    <tr><td>ריצוף דור חדש (NGS): פאנל, אקסום, גנום</td><td>אלפי גנים או הגנום כולו</td><td>מחלות נדירות, סרטן, מחקר</td></tr>
+    <tr><td>NIPT</td><td>DNA עוברי חופשי בדם האם</td><td>סינון לטריזומיות משבוע 10 להריון, ללא סיכון לעובר</td></tr>
+    <tr><td>PGT (אבחון טרום השרשה)</td><td>תא או כמה תאים מעובר בהפריה חוץ-גופית</td><td>בחירת עוברים ללא המוטציה המשפחתית</td></tr>
+    <tr><td>סקר יילודים</td><td>טיפת דם מהעקב של התינוק</td><td>PKU ועשרות מחלות מטבוליות. בישראל נבדקות מחלות רבות לכל יילוד</td></tr>
+  </table></div>
+
+  <h3>6.1 חשיבות האבחון</h3>
+  <ul>
+    <li><strong>טיפול מותאם</strong>: למשל טיפול בסרטן שד לפי BRCA או HER2, וטיפול בסרטן ריאה לפי EGFR.</li>
+    <li><strong>מניעה</strong>: ניתוחים מונעים לנשאיות BRCA, ודיאטה מיוחדת ב-PKU שמונעת פגיעה מוחית.</li>
+    <li><strong>תכנון משפחה</strong>: סקר נשאים, אבחון טרום-לידתי ו-PGT.</li>
+    <li><strong>פרמקוגנטיקה</strong>: התאמת מינון תרופות לפי הגנוטיפ, למשל לנוגדי קרישה.</li>
+  </ul>
+
+  <div class="box warn"><span class="lbl">מגבלות ושאלות</span>
+    <ul>
+      <li><strong>וריאנטים בעלי משמעות לא ידועה</strong> (<bdi>VUS</bdi>): ריצוף מגלה שינויים רבים שלא ברור אם הם מזיקים.</li>
+      <li><strong>ממצאים אקראיים</strong>: בדיקה לבעיה אחת יכולה לגלות סיכון אחר, כמו BRCA.</li>
+      <li><strong>פרטיות</strong>: מידע גנטי חושף מידע גם על בני משפחה. בישראל הוא מוגן ב<strong>חוק מידע גנטי, התשס"א-2000</strong>.<sup class="ref"><a href="#s44">[44]</a></sup></li>
+      <li><strong>בדיקות ישירות לצרכן</strong> (כמו 23andMe): נגישות, אך פרשנות חלקית, ושאלות על השימוש במידע ועל מכירתו. ב-2025 נקלעה 23andMe לפשיטת רגל, וזה עורר דאגה ציבורית לגורל הנתונים הגנטיים של מיליוני לקוחות.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== 7 ===================== -->
+<section class="card" id="ge-tools">
+  <div class="ch-num">פרק 7</div>
+  <h2 class="ch">הנדסה גנטית: הכלים והניסויים המכוננים</h2>
+  <p class="lead">הנדסה גנטית היא שינוי מכוון של החומר הגנטי באמצעים מעבדתיים. היא נולדה בתחילת שנות ה-70, כשמדענים למדו "לגזור ולהדביק" DNA.</p>
+
+  <h3>7.1 ארגז הכלים</h3>
+  <div class="tbl"><table>
+    <caption>טבלה 6: כלי היסוד של ההנדסה הגנטית</caption>
+    <tr><th>כלי</th><th>תפקיד</th><th>מקור / גילוי</th></tr>
+    <tr><td>אנזימי הגבלה ("מספריים מולקולריים")</td><td>חיתוך DNA ברצף ספציפי, לרוב פלינדרום של 4–8 בסיסים. רבים מהם יוצרים "קצוות דביקים"</td><td>מנגנון הגנה של חיידקים מפני נגיפים. ארבר, סמית' ונתנס זכו בנובל ב-1978<sup class="ref"><a href="#s9">[9]</a></sup></td></tr>
+    <tr><td>DNA ליגאז ("דבק")</td><td>חיבור מקטעי DNA</td><td>אנזים תיקון טבעי</td></tr>
+    <tr><td>פלסמיד (וקטור)</td><td>מולקולת DNA מעגלית קטנה שמשתכפלת בחיידק ונושאת את הגן המוחדר</td><td>טבעי בחיידקים, ולרוב נושא עמידות לאנטיביוטיקה</td></tr>
+    <tr><td>סמן ברירה</td><td>מאפשר לזהות את התאים שקלטו את הפלסמיד</td><td>גן עמידות לאנטיביוטיקה, או חלבון זוהר (GFP)</td></tr>
+    <tr><td>רוורס טרנסקריפטאז</td><td>יצירת cDNA מ-mRNA, כלומר גן "נקי" מאינטרונים שחיידק יכול לבטא</td><td>מנגיפי רטרו. טמין ובולטימור זכו בנובל ב-1975</td></tr>
+    <tr><td>וקטורים נגיפיים</td><td>הכנסת גנים לתאי אדם</td><td>נגיפים מנוטרלים: רטרו, לנטי, AAV, אדנו</td></tr>
+    <tr><td>PCR וריצוף</td><td>שכפול ובדיקת התוצאה</td><td>מוליס (1983), סנגר (1977)</td></tr>
+    <tr><td>עורכי גנום</td><td>חיתוך או שינוי ממוקד בתוך הגנום</td><td>ZFN, TALEN, ומ-2012 CRISPR</td></tr>
+  </table></div>
+
+  <h3>7.2 שלבי שיבוט גן (שיבוט מולקולרי)</h3>
+  <div class="flow" role="img" aria-label="תרשים שלבי שיבוט גן בפלסמיד">
+    <div class="step"><b>1. בידוד</b>הגן הרצוי והפלסמיד</div><div class="arr">←</div>
+    <div class="step"><b>2. חיתוך</b>באותו אנזים הגבלה</div><div class="arr">←</div>
+    <div class="step"><b>3. חיבור</b>בעזרת ליגאז, ומתקבל DNA רקומביננטי</div><div class="arr">←</div>
+    <div class="step"><b>4. התמרה</b>הכנסה לחיידקים</div><div class="arr">←</div>
+    <div class="step"><b>5. ברירה</b>גידול על אנטיביוטיקה</div><div class="arr">←</div>
+    <div class="step"><b>6. ריבוי</b>מיליוני עותקים או ייצור חלבון</div>
+  </div>
+  <p class="figcap">תרשים 2: יצירת DNA רקומביננטי ושיבוט גן בחיידק.</p>
+
+  <h3>7.3 הניסויים המכוננים</h3>
+  <div class="timeline">
+    <div class="tl"><span class="yr">1970</span>המילטון סמית' מבודד את אנזים ההגבלה הראשון שחותך ברצף ספציפי (<bdi>HindII</bdi>).</div>
+    <div class="tl"><span class="yr">1972</span><strong>פול ברג</strong> (סטנפורד) יוצר את מולקולת ה-DNA הרקומביננטית הראשונה: חיבור DNA של הנגיף SV40 עם DNA של בקטריופאג' למדא. בגלל חשש שחיידקים עם גן נגיפי מסרטן יתפשטו, ברג בחר בעצמו שלא להכניס את המולקולה לחיידקים (נובל 1980).<sup class="ref"><a href="#s10">[10]</a></sup></div>
+    <div class="tl"><span class="yr">1973</span><strong>סטנלי כהן והרברט בוייר</strong> מחדירים לראשונה פלסמיד רקומביננטי לחיידק <i>E. coli</i>, ומראים שהגן משוכפל ומתבטא. ב-1974 הם מכניסים לחיידק גם גן של צפרדע. זו ההוכחה הראשונה שגן ממין אחד מתפקד במין אחר.<sup class="ref"><a href="#s11">[11]</a></sup></div>
+    <div class="tl"><span class="yr">1974</span>מכתב ברג (מורטוריום): מדענים מובילים קוראים להשהות מרצון ניסויים מסוכנים עד לבחינת הסיכונים.</div>
+    <div class="tl"><span class="yr">1975</span><strong>ועידת אסילומר</strong> (קליפורניה): כ-140 מדענים, עורכי דין ועיתונאים מגבשים כללי בטיחות, ובהם רמות הכלה ביולוגית וחיידקים "מוחלשים" שאינם שורדים מחוץ למעבדה. המקרה נחשב עד היום למודל של רגולציה עצמית של המדע.<sup class="ref"><a href="#s12">[12]</a></sup></div>
+    <div class="tl"><span class="yr">1976</span>בוייר והמשקיע רוברט סוונסון מקימים את <strong>Genentech</strong>, חברת הביוטכנולוגיה הראשונה.</div>
+    <div class="tl"><span class="yr">1977</span>ייצור חלבון אנושי ראשון בחיידק: ההורמון סומטוסטטין.</div>
+    <div class="tl"><span class="yr">1978</span>Genentech ומכון סיטי אוף הופ מייצרים <strong>אינסולין אנושי</strong> בחיידקים.</div>
+    <div class="tl"><span class="yr">1980</span>בית המשפט העליון בארה"ב פוסק (<bdi>Diamond v. Chakrabarty</bdi>) שאפשר לרשום פטנט על חיידק מהונדס. החלטה זו פתחה את הדלת לתעשיית הביוטכנולוגיה.</div>
+    <div class="tl"><span class="yr">1982</span>אישור ה-FDA ל-<strong>Humulin</strong>, התרופה המהונדסת גנטית הראשונה. באותה שנה מתפרסם "עכבר-העל" של פלמיטר וברינסטר, עכבר טרנסגני עם גן להורמון גדילה של חולדה, שגדל לגודל כפול מהרגיל.</div>
+  </div>
+
+  <div class="box note"><span class="lbl">שימו לב למונחים</span>
+    <p>המילה "שיבוט" משמשת בשלוש רמות שונות: <strong>שיבוט גן</strong> (יצירת עותקים רבים של מקטע DNA, הפרק הזה), <strong>שיבוט תאים</strong> (תרבית של תאים זהים), ו<strong>שיבוט אורגניזם</strong> (כמו דולי). כשקוראים "שיבוט" בכתבה, חשוב לבדוק לאיזו רמה הכוונה.</p>
+  </div>
+</section>
+
+<!-- ===================== 8 ===================== -->
+<section class="card" id="ge-medicine">
+  <div class="ch-num">פרק 8</div>
+  <h2 class="ch">ביוטכנולוגיה רפואית: מאינסולין לנוגדנים</h2>
+  <p class="lead">התרומה הגדולה ביותר של ההנדסה הגנטית לרפואה עד היום היא ייצור חלבונים אנושיים כתרופות.</p>
+
+  <h3>8.1 מקרה בוחן: מהפכת האינסולין</h3>
+  <p>עד 1982 הופק אינסולין מלבלבים של פרות וחזירים. כדי לייצר אינסולין לחולה אחד במשך שנה נדרשו עשרות בעלי חיים. האינסולין הזה גרם לעיתים לתגובות חיסוניות כי הוא שונה במעט מהאינסולין האנושי, וההיצע היה תלוי בתעשיית הבשר. האינסולין הרקומביננטי פתר את שלוש הבעיות: הוא זהה לאינסולין האנושי, אפשר לייצר אותו בכמות כמעט בלתי מוגבלת, והוא אחיד ובטוח יותר. היום כמעט כל האינסולין בעולם מיוצר בחיידקים או בשמרים מהונדסים, וחלקו "אנלוגים" שתוכננו להיספג מהר יותר או לאט יותר.<sup class="ref"><a href="#s13">[13]</a></sup></p>
+
+  <h3>8.2 מערכות ייצור</h3>
+  <div class="tbl"><table>
+    <tr><th>מערכת</th><th>יתרון</th><th>מגבלה</th><th>דוגמאות</th></tr>
+    <tr><td>חיידקים (<i>E. coli</i>)</td><td>זול, מהיר, פשוט</td><td>אינם מבצעים שינויים מורכבים בחלבון (גליקוזילציה)</td><td>אינסולין, הורמון גדילה</td></tr>
+    <tr><td>שמרים</td><td>אאוקריוטים, קלים לגידול</td><td>דפוס הסוכרים על החלבון שונה מזה של האדם</td><td>חיסון לצהבת B (1986), אינסולין</td></tr>
+    <tr><td>תאי יונקים (כמו תאי CHO)</td><td>חלבון דומה מאוד לחלבון האנושי</td><td>יקר ואיטי</td><td>נוגדנים חד-שבטיים, EPO, פקטורי קרישה</td></tr>
+    <tr><td>בעלי חיים וצמחים מהונדסים</td><td>ייצור בחלב או בעלים</td><td>רגולציה מורכבת</td><td>ATryn מחלב עיזים (2009)</td></tr>
+  </table></div>
+
+  <h3>8.3 תרופות ביולוגיות בולטות</h3>
+  <ul>
+    <li><strong>הורמון גדילה</strong> (1985): החליף הורמון שהופק מבלוטות יותרת המוח של נפטרים, אחרי שזה גרם להעברת מחלת קרויצפלד-יעקב.</li>
+    <li><strong>חיסון לצהבת B</strong> (1986): חיסון רקומביננטי ראשון, המיוצר בשמרים.</li>
+    <li><strong>אריתרופויטין (EPO)</strong>: לטיפול באנמיה בחולי כליות.</li>
+    <li><strong>פקטור VIII רקומביננטי</strong> להמופיליה: מנע הדבקה ב-HIV ובצהבת, שפגעה בשנות ה-80 בחלק גדול מחולי ההמופיליה שטופלו במוצרי דם.</li>
+    <li><strong>נוגדנים חד-שבטיים</strong>: הרצפטין לסרטן שד, הומירה למחלות אוטואימוניות, ונוגדנים לאימונותרפיה. רבות מהתרופות הנמכרות ביותר בעולם הן תרופות ביולוגיות.</li>
+    <li><strong>חיסוני mRNA</strong> (2020): נשענים על אותה מהפכה. RNA סינתטי מורה לתאים לייצר חלבון של הנגיף. קריקו ווייסמן זכו בנובל ב-2023.</li>
+  </ul>
+
+  <div class="box case"><span class="lbl">קשר ישראלי</span>
+    <p>תעשיית הביוטכנולוגיה הישראלית צמחה גם היא על בסיס זה. דוגמה: הקופקסון לטרשת נפוצה פותח במכון ויצמן. אמנם הוא אינו מוצר רקומביננטי, אבל הוא מבטא את המעבר מהמחקר הבסיסי לתרופה. חברת פרוטליקס פיתחה את <strong>Elelyso</strong> למחלת גושה, החלבון הרקומביננטי הראשון שיוצר בתאי צמח (גזר) ואושר על ידי ה-FDA (2012).</p>
+  </div>
+</section>
+
+<!-- ===================== 9 ===================== -->
+<section class="card" id="gmo">
+  <div class="ch-num">פרק 9</div>
+  <h2 class="ch">אורגניזמים מהונדסים: מחקר, חקלאות וסביבה</h2>
+
+  <h3>9.1 בעלי חיים מהונדסים במחקר</h3>
+  <ul>
+    <li><strong>עכבר טרנסגני</strong>: גן זר נוסף לגנום. הראשונים נוצרו בתחילת שנות ה-80.</li>
+    <li><strong>עכבר נוקאאוט</strong> (<bdi>knockout</bdi>): גן מסוים מושבת במכוון, כדי לבדוק מה תפקידו. מריו קפקי, מרטין אוונס ואוליבר סמית'יס פיתחו את השיטה בשנות ה-80 וזכו בנובל ב-2007.<sup class="ref"><a href="#s14">[14]</a></sup></li>
+    <li><strong>נוק-אין</strong> (<bdi>knock-in</bdi>): החדרת מוטציה אנושית ספציפית כדי ליצור מודל למחלה.</li>
+    <li><strong>אונקומאוס</strong> (1988): עכבר מהונדס לחלות בסרטן, ובעל החיים הראשון שנרשם עליו פטנט.</li>
+    <li><strong>GFP</strong>: חלבון זוהר ממדוזה שמשמש לסימון תאים וחלבונים. שימומורה, צ'אלפי וציאן זכו עליו בנובל ב-2008.</li>
+  </ul>
+  <div class="box warn"><span class="lbl">מגבלה</span><p>עכבר אינו "אדם קטן". טיפולים רבים שהצליחו בעכברים נכשלו בבני אדם. מודלים מהונדסים הם כלי לבדיקת השערות, לא הוכחה.</p></div>
+
+  <h3>9.2 גידולים מהונדסים (GMO) בחקלאות</h3>
+  <div class="tbl"><table>
+    <caption>טבלה 7: אבני דרך בחקלאות מהונדסת</caption>
+    <tr><th>שנה</th><th>מוצר</th><th>תכונה</th><th>מה קרה</th></tr>
+    <tr><td>1994</td><td>עגבניית Flavr Savr</td><td>הבשלה איטית</td><td>המזון המהונדס הראשון שאושר בארה"ב. נכשל מסחרית</td></tr>
+    <tr><td>1996</td><td>תירס וכותנה Bt</td><td>מייצרים חלבון קוטל חרקים מהחיידק <i>Bacillus thuringiensis</i></td><td>ירידה דרמטית בריסוס במקומות רבים. היום יש מזיקים שפיתחו עמידות</td></tr>
+    <tr><td>1996</td><td>סויה Roundup Ready</td><td>עמידות לקוטל העשבים גליפוסט</td><td>אומצה בהיקף עצום. במקביל התפתחו עשבים עמידים</td></tr>
+    <tr><td>1998</td><td>פפאיה עמידה לנגיף (הוואי)</td><td>עמידות לנגיף PRSV</td><td>הצילה את תעשיית הפפאיה בהוואי</td></tr>
+    <tr><td>2000</td><td>אורז זהוב</td><td>מייצר בטא-קרוטן (קדם-ויטמין A)</td><td>נועד להפחית עיוורון ותמותה בילדים. אושר בפיליפינים ב-2021, אך בית משפט שם עצר את הגידול ב-2024. מוקד לוויכוח ציבורי</td></tr>
+    <tr><td>2015</td><td>סלמון AquAdvantage</td><td>גדילה מהירה</td><td>בעל החיים המהונדס הראשון שאושר כמזון בארה"ב. ב-2024 הודיעה החברה על סגירת פעילות הגידול</td></tr>
+    <tr><td>2020</td><td>חיטה HB4 (ארגנטינה)</td><td>עמידות לבצורת</td><td>חיטה מהונדסת ראשונה שאושרה לגידול</td></tr>
+  </table></div>
+  <p>היום מגדלים יבולים מהונדסים בכ-190 מיליון הקטאר ברחבי העולם, בעיקר בארה"ב, בברזיל, בארגנטינה, בהודו ובקנדה.<sup class="ref"><a href="#s20">[20]</a></sup> סקירה מקיפה של האקדמיות הלאומיות למדעים בארה"ב (2016) לא מצאה ראיות לכך שמזון מהונדס שאושר מסוכן לבריאות יותר ממזון רגיל. היא הדגישה שצריך לבחון כל מוצר לגופו, ותיארה השפעות סביבתיות וכלכליות מעורבות.<sup class="ref"><a href="#s19">[19]</a></sup> באיחוד האירופי הרגולציה מחמירה הרבה יותר, וגידול מהונדס כמעט אינו מתקיים בו.</p>
+
+  <h3>9.3 יישומים סביבתיים</h3>
+  <ul>
+    <li><strong>יתושים מהונדסים</strong> (חברת Oxitec): זכרים שצאצאיהם הנקבות אינם שורדים. נוסו בברזיל ובפלורידה להפחתת יתושי <i>Aedes aegypti</i> המעבירים דנגי וזיקה.</li>
+    <li><strong>הנעה גנטית</strong> (<bdi>Gene drive</bdi>): מערכת CRISPR שמבטיחה שגן יעבור ליותר מ-50% מהצאצאים, ולכן מתפשט באוכלוסייה כולה. הטכנולוגיה מפותחת לדיכוי יתושי מלריה. היא מבטיחה מאוד, אך שינוי בלתי הפיך של מין שלם בטבע מעורר חששות כבדים.</li>
+    <li><strong>ביו-רמדיאציה</strong>: חיידקים מהונדסים לפירוק נפט ומזהמים.</li>
+  </ul>
+</section>
+
+<!-- ===================== 10 ===================== -->
+<section class="card" id="gene-therapy">
+  <div class="ch-num">פרק 10</div>
+  <h2 class="ch">טיפול גני: הצלחות, כישלונות ולקחים</h2>
+  <p class="lead">טיפול גני הוא שימוש בחומר גנטי כדי לטפל במחלה: הוספת עותק תקין של גן, השתקת גן מזיק או עריכת הגן עצמו.</p>
+
+  <h3>10.1 גישות</h3>
+  <div class="tbl"><table>
+    <tr><th>גישה</th><th>תיאור</th><th>יתרון</th><th>חיסרון</th></tr>
+    <tr><td><bdi>Ex vivo</bdi> (מחוץ לגוף)</td><td>לוקחים תאים מהמטופל (בדרך כלל תאי גזע מדם), מהנדסים אותם במעבדה ומחזירים</td><td>שליטה ובקרה על התאים לפני החזרתם</td><td>מצריך כימותרפיה להכנת מח העצם. מסובך ויקר</td></tr>
+    <tr><td><bdi>In vivo</bdi> (בתוך הגוף)</td><td>מזריקים וקטור (נגיף AAV או חלקיקי שומן) ישירות לגוף או לאיבר</td><td>טיפול חד-פעמי ופשוט יותר</td><td>קשה לכוון לרקמה הנכונה. תגובות חיסוניות</td></tr>
+  </table></div>
+
+  <h3>10.2 ציר ההצלחות והכישלונות</h3>
+  <div class="timeline">
+    <div class="tl"><span class="yr">1990</span><strong>אשנטי דה סילבה</strong>, בת 4, חולה ב-ADA-SCID (כשל חיסוני קשה), היא המטופלת הראשונה בטיפול גני מאושר. תאי הדם הלבנים שלה הונדסו להכיל גן תקין. היא חיה עד היום, אך המשיכה לקבל גם טיפול תרופתי, כך שקשה לבודד את השפעת הטיפול הגני.</div>
+    <div class="tl"><span class="yr">1999</span><strong>ג'סי גלסינגר</strong>, בן 18, מת ארבעה ימים אחרי שקיבל בניסוי קליני מינון גבוה של וקטור אדנו-וירוס. המוות נגרם מתגובה חיסונית חריפה. החקירה מצאה ליקויים חמורים: אי-דיווח על תופעות לוואי קודמות, הסכמה מדעת חסרה, וניגוד עניינים כספי של החוקר הראשי. התחום כולו נעצר כמעט לעשור.<sup class="ref"><a href="#s21">[21]</a></sup></div>
+    <div class="tl"><span class="yr">2000–2003</span>טיפול גני ב-SCID-X1 ("ילדי הבועה") בצרפת ובבריטניה ריפא את רוב הילדים. אולם אצל חלקם התפתחה לוקמיה, כי הווקטור הרטרו-נגיפי השתלב ליד גן מסרטן (<bdi>LMO2</bdi>). זה היה לקח קשה על הסיכון של שילוב אקראי בגנום, והוביל לפיתוח וקטורים בטוחים יותר.</div>
+    <div class="tl"><span class="yr">2012</span>Glybera, טיפול גני ראשון שאושר במערב (באיחוד האירופי), למחלה מטבולית נדירה. הוא עלה כמיליון דולר, טופל בו מטופל מסחרי אחד בלבד, והוא הוסר מהשוק ב-2017.</div>
+    <div class="tl"><span class="yr">2017</span>אישור <strong>Kymriah</strong>, הטיפול הראשון בתאי CAR-T: תאי T של המטופל מהונדסים לזהות ולתקוף תאי לוקמיה. אמילי וייטהד, הילדה הראשונה שטופלה (2012), נמצאת ברמיסיה יותר מעשור. באותה שנה אושר גם <strong>Luxturna</strong>, טיפול in vivo ראשון בארה"ב, לסוג של עיוורון תורשתי.</div>
+    <div class="tl"><span class="yr">2019</span><strong>Zolgensma</strong> לניוון שרירים שדרתי (SMA) בתינוקות: הזרקה חד-פעמית של AAV עם גן <bdi>SMN1</bdi>. תינוקות שהיו צפויים למות לפני גיל שנתיים התיישבו, ורבים מהם הלכו. המחיר, כ-2.1 מיליון דולר, הפך אותו לתרופה היקרה בעולם באותה עת.</div>
+    <div class="tl"><span class="yr">2022–2023</span>Hemgenix להמופיליה B (כ-3.5 מיליון דולר), Elevidys לדושן (אישור שנוי במחלוקת בגלל נתוני יעילות חלקיים), ובסוף 2023 <strong>Casgevy</strong>, טיפול ה-CRISPR הראשון (ראו פרק 11).</div>
+  </div>
+
+  <div class="box key"><span class="lbl">מה למדנו?</span>
+    <ul>
+      <li>טיפול גני יכול לרפא, אך הדרך ארוכה. נדרשו כ-30 שנה מהניסוי הראשון ועד אישורים שגרתיים.</li>
+      <li>הבעיה העיקרית היא לא הגן אלא <strong>ההובלה</strong> (וקטור, תגובה חיסונית, מקום השילוב בגנום).</li>
+      <li>אתיקה של מחקר (הסכמה מדעת, שקיפות, ניגוד עניינים) היא חלק מהבטיחות.</li>
+      <li>המחירים, מיליוני דולרים לטיפול, מעלים שאלות של צדק ונגישות.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== 11 ===================== -->
+<section class="card" id="crispr">
+  <div class="ch-num">פרק 11</div>
+  <h2 class="ch">CRISPR ועריכת גנום</h2>
+  <p class="lead">אם ההנדסה הגנטית הקלאסית היא "גזור והדבק", CRISPR היא "חפש והחלף": כלי שאפשר לתכנת כדי לשנות כמעט כל רצף בכל גנום.</p>
+
+  <h3>11.1 הגילוי: מחיידקים לכלי עבודה</h3>
+  <ul>
+    <li><strong>1987</strong>: חוקרים יפנים (אישינו ועמיתיו) מבחינים ברצפים חוזרים משונים בגנום של <i>E. coli</i>, ואינם יודעים מה תפקידם.</li>
+    <li><strong>1993–2005, פרנסיסקו מוחיקה</strong> (ספרד): מזהה את הרצפים בחיידקים רבים, טובע את השם CRISPR (יחד עם רוד יאנסן), ומשער שהם חלק ממערכת חיסון של חיידקים. "מרווחים" בין הרצפים החוזרים הם קטעים מנגיפים שתקפו את החיידק בעבר.</li>
+    <li><strong>2007</strong>: מדעני חברת Danisco (ברנגו ועמיתיו) מוכיחים זאת בחיידקי יוגורט: חיידקים שהוסיפו מרווח מנגיף מסוים הפכו עמידים לו.</li>
+    <li><strong>2012, ג'ניפר דאודנה ועמנואל שרפנטייה</strong>: מראות במבחנה שאפשר לתכנת את החלבון Cas9 עם RNA מנחה סינתטי, כך שיחתוך כל רצף DNA רצוי.<sup class="ref"><a href="#s22">[22]</a></sup></li>
+    <li><strong>2013, פנג ג'אנג</strong> (מכון ברוד) <strong>וג'ורג' צ'רץ'</strong> (הרווארד): מראים שהשיטה פועלת בתאי אדם. מכאן התפתח מאבק פטנטים ממושך.<sup class="ref"><a href="#s23">[23]</a></sup></li>
+    <li><strong>2020</strong>: דאודנה ושרפנטייה זוכות בפרס נובל בכימיה, שמונה שנים בלבד אחרי הפרסום.<sup class="ref"><a href="#s24">[24]</a></sup></li>
+  </ul>
+
+  <h3>11.2 איך זה עובד?</h3>
+  <div class="flow" role="img" aria-label="מנגנון CRISPR-Cas9">
+    <div class="step"><b>1. תכנון</b>RNA מנחה (gRNA) של 20 בסיסים, משלים לרצף המטרה</div><div class="arr">←</div>
+    <div class="step"><b>2. חיפוש</b>Cas9 סורק את הגנום ומחפש רצף PAM (NGG)</div><div class="arr">←</div>
+    <div class="step"><b>3. זיהוי</b>ה-gRNA מזדווג לרצף המטרה</div><div class="arr">←</div>
+    <div class="step"><b>4. חיתוך</b>שבר דו-גדילי מדויק</div><div class="arr">←</div>
+    <div class="step"><b>5. תיקון</b>NHEJ משבית את הגן. HDR עם תבנית מתקן או מחליף</div>
+  </div>
+  <p class="figcap">תרשים 3: מנגנון הפעולה של CRISPR-Cas9.</p>
+  <p>ההבדל מהכלים הקודמים (ZFN ו-TALEN) הוא שבהם היה צריך לבנות <strong>חלבון חדש</strong> לכל מטרה, תהליך של חודשים. ב-CRISPR מחליפים רק את <strong>רצף ה-RNA</strong>, תהליך של ימים ובעלות נמוכה. זו הסיבה למהפכה.</p>
+
+  <h3>11.3 הדור הבא: עריכה בלי לשבור את הגדיל</h3>
+  <ul>
+    <li><strong>עריכת בסיס</strong> (<bdi>Base editing</bdi>, דייוויד ליו, 2016): Cas9 "קהה" שאינו חותך, מחובר לאנזים שהופך בסיס אחד לבסיס אחר (C→T או A→G). השיטה מתאימה למוטציות נקודתיות, בלי הסיכון של שבר דו-גדילי.<sup class="ref"><a href="#s25">[25]</a></sup></li>
+    <li><strong>עריכה ראשונית</strong> (<bdi>Prime editing</bdi>, 2019): "מעבד תמלילים" גנטי שיכול לכתוב רצף חדש קצר במקום הרצף הקיים. לפי ההערכה, הוא מסוגל באופן עקרוני לתקן כ-89% מהמוטציות הגורמות למחלות.<sup class="ref"><a href="#s26">[26]</a></sup></li>
+    <li><strong>אפיגנטית</strong>: הפעלה או השתקה של גנים בלי לשנות את הרצף.</li>
+  </ul>
+
+  <h3>11.4 מקרה בוחן: Casgevy, הטיפול הראשון ב-CRISPR</h3>
+  <p>בעובר האנושי מתבטא <strong>המוגלובין עוברי</strong> (HbF), שמוחלף אחרי הלידה בהמוגלובין בוגר. הגן <bdi>BCL11A</bdi> הוא ה"מתג" שמכבה את ההמוגלובין העוברי. הרעיון הוא לשבש בעזרת CRISPR את האנהנסר של <bdi>BCL11A</bdi> בתאי גזע של מח העצם, כך שהגוף יחזור לייצר המוגלובין עוברי, שאינו מושפע מהמוטציה החרמשית.</p>
+  <ul>
+    <li><strong>התהליך</strong>: איסוף תאי גזע מהדם, עריכה במעבדה, כימותרפיה במינון גבוה שמפנה את מח העצם, והחזרת התאים הערוכים. השלבים נמשכים חודשים ומצריכים אשפוז ממושך.</li>
+    <li><strong>תוצאות</strong>: בניסוי הקליני, כ-29 מתוך 30 מטופלים באנמיה חרמשית שהיו ניתנים להערכה לא חוו משברי כאב חמורים במשך שנה לפחות, ורוב מטופלי הבטא-תלסמיה הפסיקו להזדקק לעירויי דם.<sup class="ref"><a href="#s27">[27]</a></sup></li>
+    <li><strong>אישורים</strong>: בריטניה, נובמבר 2023 (הראשונה בעולם). ה-FDA בארה"ב, 8 בדצמבר 2023 לאנמיה חרמשית מגיל 12, וינואר 2024 לבטא-תלסמיה.<sup class="ref"><a href="#s28">[28]</a></sup></li>
+    <li><strong>מגבלות</strong>: מחיר של כ-2.2 מיליון דולר. הכימותרפיה גורמת לעקרות ולסיכונים. רוב החולים בעולם חיים באפריקה ובהודו, שם הטיפול כמעט אינו נגיש.</li>
+  </ul>
+
+  <h3>11.5 מקרה בוחן: "KJ", עריכת בסיס מותאמת אישית (2025)</h3>
+  <p>התינוק <strong>KJ מולדון</strong> מפילדלפיה נולד עם חסר חמור באנזים <bdi>CPS1</bdi>, מחלה מטבולית שגורמת להצטברות אמוניה רעילה ובדרך כלל קטלנית. צוות מבית החולים לילדים בפילדלפיה ומאוניברסיטת פנסילבניה תכנן <strong>עורך בסיס אישי</strong> למוטציה הספציפית שלו, תוך כשישה חודשים. העורך הועבר לכבד בחלקיקי שומן (LNP) בכמה מנות, החל מגיל כשישה חודשים. המקרה, שפורסם ב-2025, הוא הדגמה ראשונה לטיפול עריכה "בהזמנה אישית". הוא עורר תקווה, וגם שאלות על אופן אישור טיפולים לחולה בודד.<sup class="ref"><a href="#s29">[29]</a></sup></p>
+
+  <h3>11.6 סיכונים טכניים בעריכת גנים</h3>
+  <div class="tbl"><table>
+    <tr><th>סיכון</th><th>הסבר</th></tr>
+    <tr><td>חיתוך מחוץ למטרה (<bdi>Off-target</bdi>)</td><td>חיתוך ברצף דומה במקום אחר בגנום, שעלול לשבש גן חשוב</td></tr>
+    <tr><td>שינויים לא רצויים במטרה</td><td>חסרים גדולים, סידורים כרומוזומליים מחדש, או אובדן כרומוזום</td></tr>
+    <tr><td>מוזאיקה</td><td>בעובר: רק חלק מהתאים נערכו, ולכן קשה לדעת מה בדיוק קיבל התינוק</td></tr>
+    <tr><td>תגובה חיסונית</td><td>לחלבון Cas9 (מקורו בחיידקים) או לווקטור</td></tr>
+    <tr><td>השפעות ארוכות טווח</td><td>עדיין אין מעקב של עשרות שנים</td></tr>
+  </table></div>
+
+  <h3>11.7 פרשת התינוקות הערוכים בסין (2018)</h3>
+  <p>בנובמבר 2018 הודיע החוקר הסיני <strong>חה ג'יאנקוי</strong> שנולדו התאומות לולו ונאנה, שאת הגן <bdi>CCR5</bdi> שלהן ערך בשלב העובר, כדי להקנות להן עמידות ל-HIV (האב היה נשא). שנה אחר כך נולד ילד שלישי מעריכה דומה.</p>
+  <ul>
+    <li><strong>הבעיות המדעיות</strong>: לא היה צורך רפואי, כי קיימות שיטות בטוחות למנוע הדבקה מאב נשא. העריכה לא שחזרה את המוטציה הטבעית, נוצרה מוזאיקה, ולא נבדקו היטב שינויים מחוץ למטרה.</li>
+    <li><strong>הבעיות האתיות</strong>: הסכמה מדעת מטעה, הסתרה מהמוסדות, הפרת הסכמות בינלאומיות, ושינוי שעובר בתורשה לדורות הבאים.</li>
+    <li><strong>התוצאה</strong>: גינוי עולמי. חה נידון בדצמבר 2019 לשלוש שנות מאסר. סין החמירה את חקיקתה, וארגון הבריאות העולמי הקים ועדה שפרסמה ב-2021 המלצות לממשל של עריכת גנום.<sup class="ref"><a href="#s30">[30]</a></sup></li>
+  </ul>
+</section>
+
+<!-- ===================== 12 ===================== -->
+<section class="card" id="cloning">
+  <div class="ch-num">פרק 12</div>
+  <h2 class="ch">שיבוט: מושגים והיסטוריה</h2>
+  <p class="lead">שיבוט (<bdi>cloning</bdi>, מיוונית <i>klon</i>, "ענף") הוא יצירת עותק זהה גנטית. בטבע זה קורה כל הזמן: חיידקים מתחלקים, תות שדה מתפשט בשלוחות, ותאומים זהים הם למעשה שיבוט טבעי.</p>
+
+  <h3>12.1 שלושה סוגי שיבוט</h3>
+  <div class="tbl"><table>
+    <tr><th>סוג</th><th>מטרה</th><th>תוצר</th><th>מעמד</th></tr>
+    <tr><td>שיבוט מולקולרי</td><td>עותקים של גן או מקטע DNA</td><td>DNA</td><td>שגרתי בכל מעבדה</td></tr>
+    <tr><td>שיבוט רבייתי</td><td>יצירת אורגניזם שלם זהה</td><td>בעל חיים</td><td>מבוצע בבעלי חיים. אסור בבני אדם כמעט בכל העולם</td></tr>
+    <tr><td>שיבוט טיפולי</td><td>יצירת תאי גזע עובריים מותאמים למטופל</td><td>תאים ורקמות</td><td>מחקרי, ומוגבל או מוסדר בחוק</td></tr>
+  </table></div>
+
+  <h3>12.2 השיטה: העברת גרעין מתא סומטי (SCNT)</h3>
+  <div class="flow" role="img" aria-label="שלבי SCNT">
+    <div class="step"><b>1. תורם</b>לוקחים תא גוף (לדוגמה, תא עור) מהפרט שרוצים לשבט</div><div class="arr">←</div>
+    <div class="step"><b>2. ביצית</b>מוציאים את הגרעין מביצית של נקבה אחרת</div><div class="arr">←</div>
+    <div class="step"><b>3. איחוי</b>מכניסים את גרעין התורם לביצית (או מאחים בזרם חשמלי)</div><div class="arr">←</div>
+    <div class="step"><b>4. הפעלה</b>גירוי חשמלי או כימי מתחיל חלוקה</div><div class="arr">←</div>
+    <div class="step"><b>5. השתלה</b>העובר מושתל באם פונדקאית</div><div class="arr">←</div>
+    <div class="step"><b>6. לידה</b>צאצא זהה גנטית לתורם (פרט ל-DNA מיטוכונדריאלי)</div>
+  </div>
+  <p class="figcap">תרשים 4: שיבוט בהעברת גרעין מתא סומטי.</p>
+  <p>השאלה המדעית העמוקה מאחורי השיטה: האם תא בוגר ומתמחה עדיין מכיל את <strong>כל</strong> המידע הגנטי הדרוש לבניית אורגניזם שלם, או שהוא "איבד" גנים בדרך? השיבוט נתן את התשובה: המידע נשמר, ומה שמשתנה הוא הבקרה.</p>
+
+  <h3>12.3 ההיסטוריה של שיבוט בעלי חיים</h3>
+  <div class="timeline">
+    <div class="tl"><span class="yr">1902</span>הנס שפמן מפצל עובר סלמנדרה בן שני תאים בעזרת שערה של תינוק, ומכל חצי מתפתח עובר שלם. ב-1938 הוא מציע את "הניסוי הפנטסטי": העברת גרעין לביצית. נובל 1935.</div>
+    <div class="tl"><span class="yr">1952</span>רוברט בריגס ותומס קינג משבטים צפרדעים (<i>Rana pipiens</i>) מגרעינים של עוברים מוקדמים. מגרעינים של תאים מאוחרים יותר ההצלחה ירדה מאוד.</div>
+    <div class="tl"><span class="yr">1958–1962</span><strong>ג'ון גורדון</strong> (אוקספורד) משבט צפרדעי <i>Xenopus</i> מגרעינים של תאי מעי של ראשנים, ובכך מוכיח שגרעין של תא ממוין שומר על כל המידע. שיעור ההצלחה היה נמוך מאוד. גורדון זכה בנובל ב-2012, 50 שנה אחרי הניסוי.<sup class="ref"><a href="#s31">[31]</a></sup></div>
+    <div class="tl"><span class="yr">1984</span>סטין וילאדסן משבט כבשה מתאים של עובר מוקדם, השיבוט הראשון של יונק מתא עוברי.</div>
+    <div class="tl"><span class="yr">1996</span><strong>דולי</strong>, היונק הראשון ששובט מתא <strong>בוגר</strong> (פרק 13).</div>
+  </div>
+</section>
+
+<!-- ===================== 13 ===================== -->
+<section class="card" id="dolly">
+  <div class="ch-num">פרק 13</div>
+  <h2 class="ch">דולי והניסויים שאחריה</h2>
+  <p class="lead">הכבשה שהפכה לסלבריטאית מדעית ושינתה את מה שחשבנו שאפשרי.</p>
+
+  <h3>13.1 הניסוי</h3>
+  <p>במכון רוזלין בסקוטלנד ניסו <strong>איאן וילמוט, קית' קמפבל</strong> וצוותם לפתח שיטה ליצירת בעלי חיים מהונדסים שייצרו תרופות בחלב. המטרה המקורית הייתה <strong>חקלאית-רפואית</strong>, לא שיבוט לשמו.</p>
+  <ul>
+    <li><strong>התורמת</strong>: תא מבלוטת החלב של כבשה מגזע פין דורסט בת 6 שנים, שכבר לא הייתה בחיים. התאים נלקחו מתרבית קפואה.</li>
+    <li><strong>החידוש</strong>: קמפבל "הרעיב" את התאים (הפחית את הנוטריינטים בתרבית) כדי להכניס אותם לשלב מנוחה (<bdi>G0</bdi>). כך הגרעין "התאים" יותר למחזור התא של הביצית.</li>
+    <li><strong>המספרים</strong>: מ-<strong>277</strong> ביציות שאוחו עם תאי בלוטת חלב התפתחו 29 עוברים שהושתלו ב-13 פונדקאיות. מכל אלה נולדה <strong>טלה אחת</strong>, ב-5 ביולי 1996.<sup class="ref"><a href="#s32">[32]</a></sup></li>
+    <li><strong>השם</strong>: על שם הזמרת דולי פרטון, בבדיחה על כך שהתא נלקח מבלוטת חלב.</li>
+    <li><strong>ההכרזה</strong>: בפברואר 1997, במאמר ב-<i>Nature</i>. המאמר עורר סערה עולמית, ונשיא ארה"ב ביל קלינטון אסר מיד מימון פדרלי לשיבוט בני אדם.</li>
+  </ul>
+
+  <h3>13.2 חייה של דולי</h3>
+  <p>דולי ילדה שישה טלאים בהריון רגיל, וכך הוכח שבעל חיים משובט יכול להתרבות. ב-2003, בגיל שש וחצי, היא הומתה בגלל מחלת ריאות נגיפית (שפגעה גם בכבשים אחרות בדיר) ודלקת מפרקים. כבשים חיות בדרך כלל 10–12 שנים, ולכן נשאלה השאלה אם הזדקנה מוקדם. בשל טלומרים קצרים שנמצאו בה, הועלתה ההשערה שהיא "נולדה בגיל שש".</p>
+  <p>מחקר מ-2016 בדק 13 כבשים משובטות, ובהן ארבע "אחיות גנטיות" של דולי ששובטו מאותה שורת תאים. הוא מצא שהן הזדקנו באופן תקין בגיל 7–9, בלי עדות להזדקנות מואצת.<sup class="ref"><a href="#s33">[33]</a></sup> המסקנה: מחלותיה של דולי לא הוכחו כתוצאה מהשיבוט. גופה המשומר מוצג במוזיאון הלאומי של סקוטלנד באדינבורו.</p>
+
+  <h3>13.3 אחרי דולי: ציר שיבוטים</h3>
+  <div class="tbl"><table>
+    <caption>טבלה 8: בעלי חיים משובטים בולטים</caption>
+    <tr><th>שנה</th><th>בעל חיים</th><th>מה מיוחד</th></tr>
+    <tr><td>1997</td><td>פולי (כבשה)</td><td>שובטה והונדסה: נשאה גן אנושי לפקטור IX (קרישה). המטרה המקורית של מכון רוזלין</td></tr>
+    <tr><td>1998</td><td>קומולינה (עכבר)</td><td>העכבר המשובט הראשון (וואקאיאמה, הוואי). הוכיח שהשיטה ניתנת לשחזור ופיתח טכניקת הזרקה</td></tr>
+    <tr><td>1998</td><td>שמונה עגלים (יפן)</td><td>שיבוט בקר, עם שיעור הצלחה גבוה יחסית</td></tr>
+    <tr><td>2001</td><td>CC (חתולה)</td><td>"Copy Cat". צבעה ודגם פרוותה היו שונים מאלה של התורמת, בגלל השתקה אקראית של כרומוזום X. הוכחה לכך ששיבוט אינו "צילום"</td></tr>
+    <tr><td>2003</td><td>בוקרדו (יעל פירנאי)</td><td>"החייאה" הראשונה של מין שנכחד, מתאים שהוקפאו. הגורה מתה כמה דקות אחרי הלידה ממום בריאות</td></tr>
+    <tr><td>2003</td><td>פרומתאה (סוסה)</td><td>הסוס המשובט הראשון. נשאה ההריון הייתה האם-התורמת עצמה</td></tr>
+    <tr><td>2005</td><td>סנופי (כלב)</td><td>הכלב המשובט הראשון (קוריאה). נדרשו יותר מ-1,000 עוברים ו-123 פונדקאיות</td></tr>
+    <tr><td>2009</td><td>אינג'אז (גמלה, דובאי)</td><td>שיבוט הגמל הראשון. היום משבטים גמלים לתחרויות יופי ומירוצים</td></tr>
+    <tr><td>2018</td><td>ג'ונג ג'ונג וחואה חואה (קופי מקוק)</td><td>הפרימטים הראשונים ששובטו ב-SCNT, מתאים עובריים. מעשרות עוברים שהושתלו נולדו שני גורים בריאים בלבד<sup class="ref"><a href="#s34">[34]</a></sup></td></tr>
+    <tr><td>2020</td><td>קורט (סוס פרזבלסקי)</td><td>שימור מין בסכנת הכחדה, מתאים שהוקפאו ב-1980</td></tr>
+    <tr><td>2020</td><td>אליזבת אן (חמוס שחור-רגל)</td><td>שיבוט ראשון של מין בסכנת הכחדה בארה"ב, מתאים בני 30 שנה</td></tr>
+  </table></div>
+
+  <div class="box warn"><span class="lbl">שערוריית הווּאנג (2004–2006)</span>
+    <p>החוקר הקוריאני <strong>הוואנג וו-סוק</strong> פרסם ב-<i>Science</i> שיצר לראשונה תאי גזע עובריים אנושיים בשיבוט, וב-2005 טען שיצר כאלה מותאמים אישית לחולים. התברר שהנתונים זויפו, ושביציות הושגו מחוקרות במעבדה תחת לחץ ובתשלום, בניגוד לכללי האתיקה. המאמרים נמשכו והוואנג הורשע. (הכלב סנופי, לעומת זאת, היה שיבוט אמיתי.) הלקח: חשיבות השחזור, הביקורת והשקיפות במדע.<sup class="ref"><a href="#s35">[35]</a></sup></p>
+  </div>
+</section>
+
+<!-- ===================== 14 ===================== -->
+<section class="card" id="cloning-success">
+  <div class="ch-num">פרק 14</div>
+  <h2 class="ch">רמת ההצלחה של שיבוט וגורמי הכשל</h2>
+  <p class="lead">גם 30 שנה אחרי דולי, שיבוט נשאר תהליך לא יעיל.</p>
+
+  <h3>14.1 מספרים</h3>
+  <div class="tbl"><table>
+    <caption>טבלה 9: שיעורי הצלחה משוערים של SCNT (צאצא חי מתוך עוברים שהושתלו). הערכים משתנים בין מעבדות ומחקרים</caption>
+    <tr><th>מין</th><th>שיעור הצלחה משוער</th><th>הערות</th></tr>
+    <tr><td>כבשה (דולי, 1996)</td><td>1 מ-277 ביציות מאוחות (כ-0.4%). 1 מ-29 עוברים מושתלים (כ-3.4%)</td><td>הניסוי המקורי</td></tr>
+    <tr><td>עכבר</td><td>כ-1%–3% בשיטות מוקדמות. יותר עם תוספים אפיגנטיים</td><td>שיפור משמעותי עם מעכבי HDAC</td></tr>
+    <tr><td>בקר</td><td>כ-5%–20%</td><td>המין ה"קל" יחסית. שיבוט מסחרי לגידול</td></tr>
+    <tr><td>כלב</td><td>כ-1%–2% מהעוברים שהושתלו בשנים הראשונות. השתפר מאז</td><td>שיבוט מסחרי של חיות מחמד</td></tr>
+    <tr><td>קוף מקוק (2018)</td><td>2 גורים בריאים מכ-79 עוברים שהושתלו (כ-2.5%), מתאים עובריים. מתאים בוגרים: שני גורים שמתו מיד</td><td>נדרשה "תוספת" אפיגנטית (Kdm4d ו-TSA)</td></tr>
+  </table></div>
+  <p>בסקירות מקובל לומר שבממוצע רק <strong>1%–5%</strong> מהעוברים המשובטים שמושתלים מגיעים ללידה חיה, לעומת כ-30%–60% בעוברים מהפריה רגילה (הנתון תלוי מאוד במין).<sup class="ref"><a href="#s36">[36]</a></sup></p>
+
+  <h3>14.2 למה שיבוט נכשל?</h3>
+  <ul>
+    <li><strong>תכנות מחדש אפיגנטי לא מלא</strong>: זו הבעיה המרכזית. גרעין של תא בוגר "זוכר" את זהותו (תא עור, לדוגמה) בסימוני מתילציה ובמבנה הכרומטין. הביצית צריכה למחוק את הזיכרון הזה בתוך שעות, ובדרך כלל היא לא מצליחה עד הסוף. גנים חיוניים להתפתחות העובר אינם מופעלים כמו שצריך.</li>
+    <li><strong>טביעה גנומית</strong> (<bdi>imprinting</bdi>): גנים מסוימים אמורים להתבטא רק מהעותק של האב או רק מהעותק של האם. בשיבוט הסימונים האלה משתבשים לעיתים.</li>
+    <li><strong>בעיות בשליה</strong>: שליה מוגדלת ולא תקינה היא ממצא נפוץ בהריונות משובטים.</li>
+    <li><strong>"תסמונת הצאצא הגדול"</strong> (<bdi>LOS</bdi>): בבקר ובכבשים, עוברים משובטים גדולים מהרגיל, ויש בהם מומים בלב, בריאות ובכבד.</li>
+    <li><strong>נזק טכני</strong>: הוצאת הגרעין והעברתו פוגעות בביצית.</li>
+    <li><strong>הפלות מאוחרות ותמותה אחרי לידה</strong>: גם אחרי השרשה, הפלות רבות ומקרי מוות של צאצאים בימים הראשונים.</li>
+  </ul>
+
+  <h3>14.3 מדוע המשובט אינו "עותק מושלם"?</h3>
+  <ul>
+    <li><strong>DNA מיטוכונדריאלי</strong>: מגיע מהביצית התורמת, לא מהתורם.</li>
+    <li><strong>אפיגנטיקה</strong>: בקרה שונה של ביטוי גנים.</li>
+    <li><strong>סביבה רחמית ואחרי הלידה</strong>: תזונה, מחלות, למידה.</li>
+    <li><strong>אקראיות התפתחותית</strong>: כמו אצל CC החתולה, וכמו אצל תאומים זהים, שגם הם אינם זהים לגמרי (טביעות אצבע שונות, למשל).</li>
+    <li><strong>הבדל בגיל</strong>: המשובט צעיר בעשרות שנים מהמקור.</li>
+  </ul>
+  <div class="box key"><span class="lbl">שורה תחתונה</span>
+    <p>שיבוט משכפל <strong>גנום</strong>, לא <strong>אדם</strong> או <strong>אישיות</strong>. כלב משובט של כלב אהוב יהיה דומה לו בחלק מהתכונות, אבל הוא פרט חדש עם חוויות משלו.</p>
+  </div>
+</section>
+
+<!-- ===================== 15 ===================== -->
+<section class="card" id="therapeutic">
+  <div class="ch-num">פרק 15</div>
+  <h2 class="ch">שיבוט טיפולי, תאי גזע ו-iPSC</h2>
+
+  <h3>15.1 החזון של שיבוט טיפולי</h3>
+  <p>הרעיון: לוקחים תא עור מחולה, מבצעים SCNT, מגדלים את העובר במעבדה (בלי השתלה ברחם) עד שלב הבלסטוציסט (כ-5 ימים), ומפיקים ממנו <strong>תאי גזע עובריים</strong> הזהים גנטית לחולה. מהתאים האלה אפשר לגדל תאי לב, עצב או לבלב שלא יידחו על ידי מערכת החיסון.</p>
+  <ul>
+    <li>ב-2013 הצליח <strong>שוקרת מיטליפוב</strong> (אורגון) ליצור לראשונה תאי גזע עובריים אנושיים ב-SCNT.<sup class="ref"><a href="#s37">[37]</a></sup></li>
+    <li><strong>הבעיה האתית</strong>: נדרשות ביציות אנושיות רבות (תרומה כרוכה בטיפול הורמונלי ובסיכון לתורמת), ובתהליך נוצר עובר אנושי ונהרס.</li>
+  </ul>
+
+  <h3>15.2 המהפכה של יאמנקה: iPSC</h3>
+  <p>ב-2006 הראה <strong>שיניה יאמנקה</strong> (קיוטו) שאפשר "להחזיר לאחור" תא עור בוגר של עכבר למצב דמוי עוברי, בעזרת הכנסת <strong>ארבעה גנים</strong> בלבד (<bdi>Oct4, Sox2, Klf4, c-Myc</bdi>). התאים נקראים <strong>תאי גזע פלוריפוטנטיים מושרים</strong> (iPSC). ב-2007 עשה זאת גם בתאי אדם.<sup class="ref"><a href="#s38">[38]</a></sup> ב-2012 חלק את פרס נובל עם גורדון: שניהם הראו, כל אחד בדרכו, שאפשר לתכנת מחדש תא ממוין.</p>
+  <div class="tbl"><table>
+    <tr><th></th><th>שיבוט טיפולי (SCNT)</th><th>iPSC</th></tr>
+    <tr><td>צורך בביצית</td><td>כן</td><td>לא</td></tr>
+    <tr><td>יצירת עובר</td><td>כן</td><td>לא</td></tr>
+    <tr><td>התאמה גנטית לחולה</td><td>כן (פרט למיטוכונדריה)</td><td>כן, מלאה</td></tr>
+    <tr><td>סיכונים</td><td>יעילות נמוכה</td><td>זיכרון אפיגנטי שאריתי, סיכון גידולי (בעיקר עם c-Myc)</td></tr>
+    <tr><td>מעמד היום</td><td>כמעט נזנח</td><td>תחום מחקר מוביל. ניסויים קליניים במחלות עיניים, פרקינסון ולב</td></tr>
+  </table></div>
+  <p>iPSC עקפו במידה רבה את הצורך בשיבוט טיפולי והפחיתו חלק מהוויכוח האתי. בשנים האחרונות החלו ניסויים קליניים ראשונים בהשתלת תאים שמקורם ב-iPSC, למשל תאי עצב מייצרי דופמין בחולי פרקינסון ביפן.</p>
+
+  <h3>15.3 מודלים עובריים ותאי גזע: גבול חדש</h3>
+  <p>ב-2022–2023 יצרו מעבדות, ובהן מעבדתו של פרופ' <strong>יעקב חנא</strong> במכון ויצמן, "מודלים עובריים סינתטיים" מתאי גזע של עכבר ושל אדם, בלי ביצית, בלי זרע ובלי רחם.<sup class="ref"><a href="#s39">[39]</a></sup> המחקר פותח צוהר לשלבים מוקדמים של ההתפתחות, אך מעורר שאלות חדשות: מהו עובר, ומה מעמדו המוסרי?</p>
+</section>
+
+<!-- ===================== 16 ===================== -->
+<section class="card" id="pros-cons">
+  <div class="ch-num">פרק 16</div>
+  <h2 class="ch">שימושים, יתרונות וחסרונות</h2>
+
+  <h3>16.1 הנדסה גנטית</h3>
+  <div class="tbl"><table>
+    <caption>טבלה 10: הנדסה גנטית, שימושים, יתרונות וחסרונות</caption>
+    <tr><th>תחום</th><th>שימושים</th><th>יתרונות</th><th>חסרונות וסיכונים</th></tr>
+    <tr><td>רפואה</td><td>תרופות ביולוגיות, חיסונים, טיפול גני, CAR-T, CRISPR</td><td>ריפוי מחלות שלא היה להן מרפא. ייצור בטוח וזמין של חלבונים</td><td>מחיר גבוה מאוד. תופעות לוואי ארוכות טווח לא ידועות. חיתוך מחוץ למטרה</td></tr>
+    <tr><td>מחקר</td><td>עכברי נוקאאוט, מודלים למחלות, סריקות CRISPR</td><td>הבנת תפקודי גנים ומחלות</td><td>שימוש בבעלי חיים. הכללה מוגבלת לבני אדם</td></tr>
+    <tr><td>חקלאות</td><td>עמידות למזיקים ולבצורת, ערך תזונתי</td><td>הפחתת ריסוס, יבול גבוה, מזון מועשר</td><td>עמידות של מזיקים ועשבים. ריכוזיות של חברות זרעים. זרימת גנים לצמחי בר</td></tr>
+    <tr><td>סביבה ותעשייה</td><td>ביו-דלק, אנזימים לכביסה, פירוק מזהמים, הנעה גנטית</td><td>תהליכים ירוקים. דיכוי מחלות כמו מלריה</td><td>שחרור בלתי הפיך לטבע. השפעה על מערכות אקולוגיות</td></tr>
+    <tr><td>פורנזיקה וזיהוי</td><td>פרופיל DNA, גנאלוגיה גנטית</td><td>פענוח פשעים, זיהוי חללים ונעדרים</td><td>פרטיות. מאגרי מידע</td></tr>
+  </table></div>
+
+  <h3>16.2 שיבוט</h3>
+  <div class="tbl"><table>
+    <caption>טבלה 11: שיבוט, שימושים, יתרונות וחסרונות</caption>
+    <tr><th>שימוש</th><th>יתרון</th><th>חיסרון</th></tr>
+    <tr><td>שיבוט בקר וחיות משק מעולות</td><td>שמירה על תכונות רצויות (חלב, בשר)</td><td>הפחתת המגוון הגנטי וחשיפה למגפות. יעילות נמוכה</td></tr>
+    <tr><td>"חוות תרופות" (בעלי חיים מהונדסים ומשובטים)</td><td>ייצור חלבונים בחלב</td><td>רווחת בעלי חיים. עלות</td></tr>
+    <tr><td>שימור מינים בסכנת הכחדה</td><td>החזרת מגוון גנטי מתאים קפואים</td><td>אינו פותר אובדן בתי גידול. מספרים קטנים</td></tr>
+    <tr><td>"החייאת" מינים שנכחדו</td><td>מחקר. סמלי לשימור</td><td>לרוב יוצר "גרסה" מהונדסת, כמו "זאב העידן" של Colossal (2025), ולא את המין המקורי. מסיט משאבים</td></tr>
+    <tr><td>שיבוט חיות מחמד (כ-50,000 דולר לכלב)</td><td>נחמה לבעלים</td><td>אינו מחזיר את החיה האהובה. סבל לפונדקאיות. תמותה גבוהה</td></tr>
+    <tr><td>חיות ספורט (סוסי פולו, גמלים)</td><td>שכפול גנטיקה של אלופים</td><td>מסחור בעלי חיים</td></tr>
+    <tr><td>מחקר (פרימטים משובטים זהים)</td><td>פחות שונות גנטית, ולכן צורך בפחות חיות לניסוי</td><td>שאלות כבדות של רווחת קופים</td></tr>
+    <tr><td>שיבוט טיפולי</td><td>תאים מותאמים לחולה</td><td>יצירה והרס של עוברים. הוחלף ברובו ב-iPSC</td></tr>
+  </table></div>
+
+  <div class="box note"><span class="lbl">האם בשר ממשובטים מגיע לצלחת?</span>
+    <p>ה-FDA קבע ב-2008 שבשר וחלב מבעלי חיים משובטים בטוחים לאכילה כמו כל בשר וחלב אחר. בפועל משבטים בעיקר בעלי חיים לרבייה, והצאצאים שלהם (בהרבעה רגילה) הם שמגיעים למזון. באיחוד האירופי המצב שנוי במחלוקת ומוגבל.</p>
+  </div>
+</section>
+
+<!-- ===================== 17 ===================== -->
+<section class="card" id="ethics">
+  <div class="ch-num">פרק 17</div>
+  <h2 class="ch">אתיקה</h2>
+  <p class="lead">השאלה איננה רק "האם אפשר?" אלא "האם צריך?", "למי?" ו"מי מחליט?".</p>
+
+  <h3>17.1 ארבעת עקרונות האתיקה הרפואית</h3>
+  <div class="tbl"><table>
+    <tr><th>עיקרון</th><th>משמעות</th><th>שאלה לדוגמה בגנטיקה</th></tr>
+    <tr><td>אוטונומיה</td><td>זכות האדם להחליט על גופו, הסכמה מדעת</td><td>האם עובר ערוך יכול "להסכים"? האם יש זכות שלא לדעת (הנטינגטון)?</td></tr>
+    <tr><td>היטיב (<bdi>beneficence</bdi>)</td><td>חובה לפעול לטובת המטופל</td><td>האם ריפוי מחלה קשה מצדיק סיכון?</td></tr>
+    <tr><td>אל תזיק (<bdi>non-maleficence</bdi>)</td><td>הימנעות מנזק</td><td>סיכוני חיתוך מחוץ למטרה. ג'סי גלסינגר</td></tr>
+    <tr><td>צדק</td><td>חלוקה הוגנת של משאבים וסיכונים</td><td>טיפול של 2 מיליון דולר, ומי יקבל אותו?</td></tr>
+  </table></div>
+
+  <h3>17.2 עריכה סומטית לעומת עריכת קו הנבט</h3>
+  <p>יש היום הסכמה רחבה ש<strong>עריכה סומטית</strong> לטיפול במחלות קשות לגיטימית, בכפוף לרגולציה רגילה של ניסויים קליניים. <strong>עריכה תורשתית</strong> (בעוברים, בביציות ובזרע) היא סיפור אחר:</p>
+  <ul>
+    <li><strong>טיעונים בעד (בעתיד)</strong>: מניעת מחלה קשה ממשפחה לדורות. מקרים נדירים שבהם PGT אינו פותר את הבעיה, למשל כששני ההורים חולים במחלה נסגנת.</li>
+    <li><strong>טיעונים נגד</strong>: אין הסכמה של הדורות הבאים. השינוי בלתי הפיך ומתפשט באוכלוסייה. הסיכון לא ידוע. כמעט תמיד יש חלופה (PGT). החשש מ"מדרון חלקלק" לעבר השבחה.</li>
+  </ul>
+  <p>הוועידות הבינלאומיות לעריכת גנום האדם (2015, 2018, 2023) קבעו שעריכה תורשתית "אינה מקובלת בשלב זה".<sup class="ref"><a href="#s40">[40]</a></sup></p>
+
+  <h3>17.3 טיפול לעומת השבחה</h3>
+  <p>היכן עובר הגבול? תיקון מוטציה של טיי-זקס נראה כ"טיפול" ברור. אבל מה לגבי הפחתת סיכון לאלצהיימר, הגברת מסת שריר, העלאת גובה, או אינטליגנציה (שהיא תכונה רב-גנית מורכבת שאין דרך מעשית "לערוך")? החשש הוא מחברה של "תינוקות מעוצבים" (<bdi>designer babies</bdi>), שבה העשירים קונים יתרונות ביולוגיים לילדיהם והפער החברתי הופך גנטי.</p>
+
+  <h3>17.4 צל האאוגניקה</h3>
+  <p>המונח "אאוגניקה" (השבחת הגזע) נטבע ב-1883 על ידי פרנסיס גלטון. בתחילת המאה ה-20 התנועה זכתה לאהדה רחבה בקרב מדענים:</p>
+  <ul>
+    <li>בארה"ב עוקרו בכפייה יותר מ-60,000 בני אדם בחסות חוקי מדינה. בית המשפט העליון אישר זאת בפסק הדין <bdi>Buck v. Bell</bdi> (1927).</li>
+    <li>בגרמניה הנאצית עוקרו כ-400,000 בני אדם, ותוכנית "T4" רצחה עשרות אלפי אנשים עם מוגבלויות. זו הייתה הקדמה לשואה.</li>
+  </ul>
+  <p>הלקח: גנטיקה היא מדע, אבל השימוש בה תלוי בערכים. ההבדל בין סקר נשאים וולונטרי לבין אאוגניקה הוא <strong>הבחירה החופשית של הפרט</strong> לעומת <strong>כפייה של המדינה</strong>. עם זאת, יש מבקרים, בעיקר מקרב קהילות של אנשים עם מוגבלויות, שטוענים שגם לחץ חברתי "רך" לבחור עוברים "תקינים" מבטא שיפוטיות כלפי חיים עם מוגבלות.<sup class="ref"><a href="#s41">[41]</a></sup></p>
+
+  <h3>17.5 שיבוט אדם</h3>
+  <p>כמעט כל המדינות והארגונים הבינלאומיים אוסרים שיבוט רבייתי של בני אדם. הנימוקים:</p>
+  <ul>
+    <li><strong>בטיחות</strong>: שיעורי הכישלון, ההפלות והמומים בבעלי חיים הופכים ניסוי באדם לבלתי מוסרי.</li>
+    <li><strong>זהות ואוטונומיה</strong>: המשובט עלול לחיות "בצל" המקור, עם ציפיות שיהיה כמוהו (הפילוסוף הנס יונאס דיבר על "הזכות לעתיד פתוח").</li>
+    <li><strong>כבוד האדם</strong>: הפיכת אדם ל"מוצר" מתוכנן ופגיעה בייחודיות.</li>
+    <li><strong>יחסי משפחה</strong>: משובט של אישה הוא מבחינה גנטית "תאומה מאוחרת" שלה. מה היחס ביניהן?</li>
+  </ul>
+  <p><strong>טיעונים נגדיים</strong> (מיעוט): חופש רבייה, למשל לזוגות שאינם יכולים להביא ילדים בדרך אחרת. בנוסף, תאומים זהים קיימים בטבע ואיש אינו פוגע בכבודם.</p>
+  <p>ב-2002 טענה כת הרָאֶלִים (חברת Clonaid) שנולדה התינוקת המשובטת "איב". הטענה מעולם לא אומתה, ונחשבת למתיחה.</p>
+
+  <h3>17.6 נושאים אתיים נוספים</h3>
+  <ul>
+    <li><strong>רווחת בעלי חיים</strong>: הריונות כושלים רבים, פונדקאיות, מומים, שיבוט חיות מחמד כתעשייה.</li>
+    <li><strong>פטנטים על חיים</strong>: ב-2013 קבע בית המשפט העליון בארה"ב (<bdi>AMP v. Myriad</bdi>) שאי אפשר לרשום פטנט על גן אנושי כפי שהוא בטבע (BRCA1/2), אבל אפשר על cDNA מלאכותי. פסק הדין הוזיל מאוד את בדיקות BRCA.</li>
+    <li><strong>צדק עולמי</strong>: רוב חולי האנמיה החרמשית באפריקה, והטיפולים פותחו בצפון העולם ונמכרים במחירים שאינם נגישים שם.</li>
+    <li><strong>הסכמה מדעת וגיוון</strong>: פרשת הנרייטה לאקס, שתאי הסרטן שלה (HeLa) נלקחו ב-1951 ללא ידיעתה והפכו לבסיס של מחקר עולמי.</li>
+    <li><strong>אפליה גנטית</strong>: בביטוח ובתעסוקה. בישראל אסורה אפליה כזאת בחוק מידע גנטי.</li>
+    <li><strong>שימוש כפול</strong>: אותם כלים יכולים לשמש לפיתוח נשק ביולוגי.</li>
+    <li><strong>מזון ודת</strong>: שאלות של כשרות וטבעיות במזון מהונדס.</li>
+  </ul>
+
+  <h3>17.7 נקודות מבט דתיות ותרבותיות (בקצרה)</h3>
+  <p>ביהדות, הגישה הרווחת בפסיקה ההלכתית העכשווית מעודדת ריפוי ("ורפא ירפא"), ולכן תומכת במחקר תאי גזע עובריים בשלבים מוקדמים (לפני 40 יום, ובמיוחד מחוץ לרחם) ובטיפולים גנטיים. לגבי שיבוט אדם יש מחלוקת והסתייגות רבה. הכנסייה הקתולית מתנגדת להרס עוברים ולשיבוט בכל צורה. באסלאם, רוב הפוסקים אוסרים שיבוט אדם ומתירים מחקר טיפולי מסוים. ההבדלים משפיעים על חקיקה: לישראל, למשל, יש מדיניות ליברלית יחסית במחקר תאי גזע.<sup class="ref"><a href="#s42">[42]</a></sup></p>
+
+  <div class="box case"><span class="lbl">דילמות לדיון בכיתה</span>
+    <ol>
+      <li>זוג ששני בני הזוג חולים בחירשות גנטית רוצה לבחור עובר חירש, כדי שהילד יהיה חלק מהתרבות שלהם. האם זה לגיטימי?</li>
+      <li>האם מדינה צריכה לממן טיפול גני של 2 מיליון דולר לילד אחד, או להשקיע את הכסף בשירותי בריאות לאלפי אנשים?</li>
+      <li>אם בעתיד עריכת עוברים תהיה בטוחה לחלוטין, האם יהיה מוסרי <strong>לא</strong> למנוע מחלה קשה?</li>
+      <li>האם "להחזיר לחיים" ממותה מוצדק, כשמינים רבים נכחדים היום מסיבות שאפשר למנוע?</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ===================== 18 ===================== -->
+<section class="card" id="regulation">
+  <div class="ch-num">פרק 18</div>
+  <h2 class="ch">רגולציה וחקיקה (כולל ישראל)</h2>
+
+  <div class="tbl"><table>
+    <caption>טבלה 12: מסגרות חוקיות ואתיות מרכזיות</caption>
+    <tr><th>שנה</th><th>מסמך / חוק</th><th>עיקרו</th></tr>
+    <tr><td>1975</td><td>ועידת אסילומר</td><td>כללי בטיחות ל-DNA רקומביננטי</td></tr>
+    <tr><td>1997</td><td>אמנת אוביידו (מועצת אירופה)</td><td>סעיף 13 אוסר שינוי בגנום שיעבור לצאצאים. פרוטוקול נוסף (1998) אוסר שיבוט אדם</td></tr>
+    <tr><td>1997</td><td>הצהרת אונסק"ו על הגנום האנושי וזכויות האדם</td><td>הגנום כ"מורשת האנושות". שיבוט רבייתי סותר את כבוד האדם</td></tr>
+    <tr><td>1999</td><td><strong>ישראל: חוק איסור התערבות גנטית (שיבוט אדם ושינוי גנטי בתאי רבייה), התשנ"ט-1999</strong></td><td>אוסר שיבוט רבייתי של אדם ושימוש בתאי רבייה שעברו שינוי גנטי ליצירת הריון. החוק נחקק כהוראת שעה והוארך מעת לעת. מחקר בתאים מוסדר ומפוקח<sup class="ref"><a href="#s43">[43]</a></sup></td></tr>
+    <tr><td>2000</td><td><strong>ישראל: חוק מידע גנטי, התשס"א-2000</strong></td><td>הסכמה מדעת לבדיקה, סודיות, ואיסור אפליה בביטוח ובעבודה<sup class="ref"><a href="#s44">[44]</a></sup></td></tr>
+    <tr><td>2005</td><td>הצהרת האו"ם על שיבוט אדם</td><td>קריאה (לא מחייבת) לאסור כל צורות שיבוט אדם</td></tr>
+    <tr><td>2008</td><td>GINA (ארה"ב)</td><td>איסור אפליה גנטית בביטוח בריאות ובתעסוקה</td></tr>
+    <tr><td>2015</td><td>בריטניה מתירה תרומת מיטוכונדריה ("תינוק משלושה הורים")</td><td>המדינה הראשונה שהתירה התערבות תורשתית מוגבלת. ב-2025 דווח על לידת שמונה תינוקות בשיטה<sup class="ref"><a href="#s45">[45]</a></sup></td></tr>
+    <tr><td>2017</td><td>דו"ח האקדמיות האמריקאיות (NASEM)</td><td>תמיכה בעריכה סומטית. עריכה תורשתית רק בתנאים מחמירים מאוד</td></tr>
+    <tr><td>2021</td><td>ארגון הבריאות העולמי (WHO)</td><td>מסגרת ממשל והמלצות, ובהן רישום עולמי של ניסויי עריכה ומנגנון לדיווח על הפרות<sup class="ref"><a href="#s30">[30]</a></sup></td></tr>
+    <tr><td>2023</td><td>הוועידה הבינלאומית השלישית (לונדון)</td><td>עריכה תורשתית "עדיין לא מקובלת". קריאה לנגישות עולמית לטיפולים</td></tr>
+  </table></div>
+
+  <h3>18.1 גישות שונות לגידולים ערוכים</h3>
+  <p>מדינות רבות (ארה"ב, ארגנטינה, יפן, ישראל, ובשנים האחרונות גם אנגליה) מבחינות בין צמחים <strong>טרנסגניים</strong>, שהוכנס בהם גן זר, לבין צמחים <strong>ערוכי גנום</strong> בלי DNA זר, שבהם השינוי דומה למה שיכול להיווצר בהשבחה רגילה. את האחרונים הן מסדירות בצורה מקלה יותר. האיחוד האירופי דן בשנים האחרונות בהקלה דומה.<sup class="ref"><a href="#s46">[46]</a></sup></p>
+</section>
+
+<!-- ===================== 19 ===================== -->
+<section class="card" id="future">
+  <div class="ch-num">פרק 19</div>
+  <h2 class="ch">לאן התחום הולך?</h2>
+  <ul>
+    <li><strong>עריכה בתוך הגוף</strong> (<bdi>in vivo</bdi>): הזרקה אחת של עורך גנים לכבד כדי להוריד כולסטרול לצמיתות (הגן <bdi>PCSK9</bdi>), או לטפל בעמילואידוזיס (הגן <bdi>TTR</bdi>). ניסויים כאלה כבר מתקיימים.</li>
+    <li><strong>טיפולים "בהזמנה אישית"</strong> לחולים במחלות נדירות במיוחד, בעקבות המקרה של KJ, ופיתוח מסלולי אישור מהירים לפלטפורמות.</li>
+    <li><strong>הוזלה ונגישות</strong>: עריכה בתוך הגוף שאינה מצריכה כימותרפיה עשויה להוזיל מאוד את הטיפולים.</li>
+    <li><strong>השתלות מבעלי חיים</strong> (<bdi>xenotransplantation</bdi>): חזירים שהונדסו בעשרות עריכות CRISPR כדי שאיבריהם לא יידחו. ב-2022–2025 בוצעו השתלות ראשונות של לב וכליות מחזירים בבני אדם, וחלק מהמושתלים חיו חודשים.</li>
+    <li><strong>אבחון מוקדם</strong>: ריצוף גנום לכל יילוד נבחן במחקרים בכמה מדינות.</li>
+    <li><strong>בינה מלאכותית</strong>: AlphaFold (נובל בכימיה 2024) חוזה מבנה חלבונים, ומודלים חדשים מתכננים עורכי גנים וחלבונים חדשים.</li>
+    <li><strong>"החייאת" מינים</strong>: חברות כמו Colossal מנסות ליצור בעלי חיים עם תכונות של ממותה, של "זאב העידן" ושל הדודו, בשילוב עריכה ושיבוט.</li>
+  </ul>
+  <div class="box key"><span class="lbl">סיכום החוברת</span>
+    <p>הגנטיקה עברה כברת דרך מרשימה: ממנדל שספר אפונים, דרך הסליל הכפול והאינסולין המהונדס, אל דולי הכבשה ו-CRISPR. היום כבר אפשר לרפא מחלות שנחשבו חשוכות מרפא. אבל ההיסטוריה מלמדת שכל קפיצה טכנולוגית לוותה גם בכישלונות (גלסינגר), בהונאות (הוואנג), בחציית קווים (חה ג'יאנקוי), ובעבר הרחוק יותר בשימוש מפלצתי (אאוגניקה). העתיד של התחום תלוי לא רק במדענים, אלא גם בציבור מיודע שיודע לשאול את השאלות הנכונות. בשביל זה נכתבה החוברת הזאת.</p>
+  </div>
+</section>
+
+<!-- ===================== APPENDIX A ===================== -->
+<section class="card" id="timeline">
+  <div class="ch-num">נספח א'</div>
+  <h2 class="ch">ציר זמן מרוכז</h2>
+  <div class="timeline">
+    <div class="era">יסודות התורשה</div>
+    <div class="tl"><span class="yr">1866</span>מנדל מפרסם את חוקי התורשה</div>
+    <div class="tl"><span class="yr">1869</span>מישר מבודד "נוקלאין" (DNA)</div>
+    <div class="tl"><span class="yr">1900</span>גילוי מחדש של עבודת מנדל</div>
+    <div class="tl"><span class="yr">1910</span>מורגן: גנים על כרומוזומים (זבובי פירות)</div>
+    <div class="tl"><span class="yr">1927</span>מולר: קרינה גורמת למוטציות</div>
+    <div class="tl"><span class="yr">1928</span>גריפית: הגורם המתמיר</div>
+    <div class="era">עידן ה-DNA</div>
+    <div class="tl"><span class="yr">1944</span>אייברי, מקלאוד ומקארטי: DNA הוא החומר התורשתי</div>
+    <div class="tl"><span class="yr">1952</span>הרשי וצ'ייס. בריגס וקינג משבטים צפרדעים</div>
+    <div class="tl"><span class="yr">1953</span>מבנה הסליל הכפול: פרנקלין, ווטסון וקריק</div>
+    <div class="tl"><span class="yr">1958</span>מזלסון וסטאל: שכפול חצי-שמרני</div>
+    <div class="tl"><span class="yr">1962</span>גורדון: שיבוט צפרדעים מתא ממוין</div>
+    <div class="tl"><span class="yr">1966</span>פענוח הקוד הגנטי</div>
+    <div class="era">עידן ההנדסה הגנטית</div>
+    <div class="tl"><span class="yr">1970</span>אנזים הגבלה ספציפי ראשון</div>
+    <div class="tl"><span class="yr">1972</span>ברג: DNA רקומביננטי ראשון</div>
+    <div class="tl"><span class="yr">1973</span>כהן ובוייר: הנדסה גנטית בחיידק</div>
+    <div class="tl"><span class="yr">1975</span>ועידת אסילומר</div>
+    <div class="tl"><span class="yr">1977</span>ריצוף סנגר</div>
+    <div class="tl"><span class="yr">1982</span>אינסולין רקומביננטי (Humulin). עכבר טרנסגני</div>
+    <div class="tl"><span class="yr">1983</span>PCR</div>
+    <div class="tl"><span class="yr">1989</span>עכבר נוקאאוט</div>
+    <div class="tl"><span class="yr">1990</span>טיפול גני ראשון (אשנטי דה סילבה). תחילת פרויקט הגנום</div>
+    <div class="tl"><span class="yr">1994</span>עגבנייה מהונדסת ראשונה</div>
+    <div class="tl"><span class="yr">1996</span>לידת דולי</div>
+    <div class="tl"><span class="yr">1999</span>מות ג'סי גלסינגר. חוק איסור התערבות גנטית בישראל</div>
+    <div class="era">עידן הגנומיקה ו-CRISPR</div>
+    <div class="tl"><span class="yr">2003</span>השלמת פרויקט הגנום האנושי</div>
+    <div class="tl"><span class="yr">2005</span>סנופי הכלב. חשיפת הונאת הוואנג</div>
+    <div class="tl"><span class="yr">2006</span>יאמנקה: iPSC</div>
+    <div class="tl"><span class="yr">2012</span>דאודנה ושרפנטייה: CRISPR-Cas9 ניתן לתכנות</div>
+    <div class="tl"><span class="yr">2013</span>CRISPR בתאי אדם. SCNT בתאי אדם. פסק דין Myriad</div>
+    <div class="tl"><span class="yr">2016</span>עריכת בסיס</div>
+    <div class="tl"><span class="yr">2017</span>CAR-T ו-Luxturna מאושרים</div>
+    <div class="tl"><span class="yr">2018</span>שיבוט קופים (ג'ונג ג'ונג וחואה חואה). התינוקות הערוכים בסין</div>
+    <div class="tl"><span class="yr">2019</span>עריכה ראשונית (Prime editing). Zolgensma</div>
+    <div class="tl"><span class="yr">2020</span>נובל ל-CRISPR. שיבוט מינים בסכנת הכחדה</div>
+    <div class="tl"><span class="yr">2021</span>המלצות WHO לעריכת גנום</div>
+    <div class="tl"><span class="yr">2022</span>גנום אנושי שלם (T2T). השתלת לב מחזיר מהונדס</div>
+    <div class="tl"><span class="yr">2023</span>Casgevy, טיפול CRISPR ראשון מאושר</div>
+    <div class="tl"><span class="yr">2025</span>KJ: עריכת בסיס מותאמת אישית. לידות מתרומת מיטוכונדריה בבריטניה</div>
+  </div>
+</section>
+
+<!-- ===================== APPENDIX B ===================== -->
+<section class="card" id="glossary">
+  <div class="ch-num">נספח ב'</div>
+  <h2 class="ch">מילון מושגים</h2>
+  <dl class="gloss">
+    <dt>אלל</dt><dd>גרסה של גן. לכל אדם שני אללים לכל גן אוטוזומלי</dd>
+    <dt>אנזים הגבלה</dt><dd>אנזים חיידקי שחותך DNA ברצף ספציפי</dd>
+    <dt>אפיגנטיקה</dt><dd>שינויים בביטוי גנים שאינם כרוכים בשינוי הרצף (מתילציה, היסטונים)</dd>
+    <dt>בלסטוציסט</dt><dd>עובר בן כ-5 ימים: כדור של כ-100–200 תאים, שממנו מופקים תאי גזע עובריים</dd>
+    <dt>גן</dt><dd>מקטע DNA שמקודד לתוצר תפקודי</dd>
+    <dt>גנום</dt><dd>כלל החומר הגנטי של אורגניזם</dd>
+    <dt>DNA רקומביננטי</dt><dd>DNA שנוצר בחיבור מקטעים ממקורות שונים</dd>
+    <dt>וקטור</dt><dd>"רכב" להעברת DNA לתא: פלסמיד או נגיף מנוטרל</dd>
+    <dt>טרנסגני</dt><dd>אורגניזם שהוכנס לגנום שלו גן ממין אחר</dd>
+    <dt>מוזאיקה</dt><dd>מצב שבו לתאים שונים באותו פרט יש הרכב גנטי שונה</dd>
+    <dt>מוטציה</dt><dd>שינוי ברצף ה-DNA</dd>
+    <dt>נוקאאוט</dt><dd>השבתה מכוונת של גן</dd>
+    <dt>נשא</dt><dd>אדם בריא שיש לו עותק אחד של אלל למחלה נסגנת</dd>
+    <dt>סומטי</dt><dd>תא גוף שאינו תא רבייה. שינוי בו אינו עובר בתורשה</dd>
+    <dt>פלסמיד</dt><dd>DNA מעגלי קטן בחיידקים, המשמש כווקטור</dd>
+    <dt>פלוריפוטנטי</dt><dd>תא שמסוגל להתמיין לכל סוגי התאים בגוף</dd>
+    <dt>קו נבט</dt><dd>תאי הרבייה ותאי העובר המוקדם. שינוי בהם עובר לדורות הבאים</dd>
+    <dt>קודון</dt><dd>שלישיית בסיסים שמקודדת לחומצת אמינו או לעצירה</dd>
+    <dt>שיבוט</dt><dd>יצירת עותק זהה גנטית של DNA, של תא או של אורגניזם</dd>
+    <dt>CRISPR-Cas9</dt><dd>מערכת עריכת גנום שמקורה במערכת החיסון של חיידקים</dd>
+    <dt>gRNA</dt><dd>RNA מנחה שמכוון את Cas9 לרצף המטרה</dd>
+    <dt>HDR / NHEJ</dt><dd>מנגנוני תיקון של שבר דו-גדילי: מדויק (עם תבנית) ולא מדויק</dd>
+    <dt>iPSC</dt><dd>תאי גזע פלוריפוטנטיים מושרים מתאים בוגרים</dd>
+    <dt>Off-target</dt><dd>שינוי לא מכוון במקום אחר בגנום</dd>
+    <dt>PCR</dt><dd>תגובת שרשרת של פולימראז: שכפול מקטע DNA במבחנה</dd>
+    <dt>PGT</dt><dd>בדיקה גנטית טרום השרשה של עוברים בהפריה חוץ-גופית</dd>
+    <dt>SCNT</dt><dd>העברת גרעין מתא סומטי, שיטת השיבוט של דולי</dd>
+  </dl>
+</section>
+
+<!-- ===================== APPENDIX C ===================== -->
+<section class="card q" id="questions">
+  <div class="ch-num">נספח ג'</div>
+  <h2 class="ch">שאלות לחזרה ולדיון</h2>
+  <h3>הבנה וידע</h3>
+  <ol>
+    <li>הסבירו מדוע הקוד הגנטי האוניברסלי הוא תנאי הכרחי לייצור אינסולין בחיידקים.</li>
+    <li>תארו את ניסוי הרשי-צ'ייס. מדוע סומן החלבון בגופרית וה-DNA בזרחן?</li>
+    <li>מה ההבדל בין מוטציה שגויה (<bdi>missense</bdi>) למוטציית תזוזת מסגרת? איזו מהן צפויה בדרך כלל להיות חמורה יותר, ומדוע?</li>
+    <li>הסבירו את השלבים ביצירת DNA רקומביננטי. מה תפקידו של סמן הברירה?</li>
+    <li>השוו בין CRISPR-Cas9 לעריכת בסיס: מה היתרון של עריכת בסיס?</li>
+    <li>מדוע שיעור ההצלחה של שיבוט נמוך כל כך? ציינו שלוש סיבות.</li>
+    <li>הסבירו מדוע CC החתולה שונה בצבעה מהתורמת שלה.</li>
+    <li>מה ההבדל בין שיבוט טיפולי ל-iPSC, ומדוע iPSC הפחיתו את הוויכוח האתי?</li>
+  </ol>
+  <h3>חשיבה ביקורתית</h3>
+  <ol>
+    <li>ועידת אסילומר (1975) וועידות עריכת הגנום (2015–2023): מה דומה ומה שונה בתגובת הקהילה המדעית לטכנולוגיה חדשה?</li>
+    <li>נתחו את פרשת ג'סי גלסינגר ואת פרשת חה ג'יאנקוי לפי ארבעת עקרונות האתיקה הרפואית.</li>
+    <li>"טיי-זקס הוכחה שאפשר למנוע מחלה גנטית בלי הנדסה גנטית". הסבירו את הטענה, ודונו בשאלה אם היא רלוונטית לוויכוח על עריכת עוברים.</li>
+    <li>מחיר Casgevy הוא כ-2.2 מיליון דולר. הציעו שני מודלים שיגדילו את הנגישות לטיפול, וציינו את החסרונות של כל אחד.</li>
+  </ol>
+  <h3>משימת חקר מסכמת</h3>
+  <p>בחרו אחד מהנושאים: (א) טיפול גני למחלה מסוימת, (ב) שיבוט לשימור מין בסכנת הכחדה, (ג) גידול מהונדס בחקלאות. כתבו עבודה של 3–5 עמודים הכוללת: רקע מדעי, היסטוריה, רמת ההצלחה לפי מחקרים, יתרונות וחסרונות, ושאלה אתית מרכזית. השתמשו ב-4 מקורות אמינים לפחות, וציינו לגבי כל מקור מי פרסם אותו, מתי, ומה סוג הראיה (מאמר מחקר, סקירה, אתר ממשלתי, כתבה).</p>
+</section>
+
+<!-- ===================== SOURCES ===================== -->
+<section class="card" id="sources">
+  <div class="ch-num">מקורות</div>
+  <h2 class="ch">מקורות מידע</h2>
+  <p class="lead">המקורות מחולקים לפי נושא. רובם מאמרי מחקר מקוריים, אתרי מוסדות מדעיים ממשלתיים ופרסומי ועדת פרס נובל. קישורי DOI מובילים ישירות למאמר המקורי.</p>
+  <h3>יסודות והיסטוריה של הגנטיקה</h3>
+  <ol class="refs">
+    <li id="s1">National Human Genome Research Institute (NHGRI). <i>The Human Genome Project</i> &amp; <i>Talking Glossary of Genomic Terms</i>. <a href="https://www.genome.gov/human-genome-project">genome.gov/human-genome-project</a> <span class="src-type">[אתר מוסדי]</span></li>
+    <li id="s2">Mendel, G. (1866). Versuche über Pflanzen-Hybriden. <i>Verhandlungen des naturforschenden Vereines in Brünn</i>, 4, 3–47. תרגום אנגלי: <a href="http://www.esp.org/foundations/genetics/classical/gm-65.pdf">esp.org</a> <span class="src-type">[מקור ראשוני]</span></li>
+    <li id="s3">The Nobel Prize in Physiology or Medicine 1933 – Thomas Hunt Morgan. <a href="https://www.nobelprize.org/prizes/medicine/1933/summary/">nobelprize.org</a></li>
+    <li id="s4">Avery, O.T., MacLeod, C.M., McCarty, M. (1944). Studies on the chemical nature of the substance inducing transformation of pneumococcal types. <i>J Exp Med</i> 79:137–158. <a href="https://doi.org/10.1084/jem.79.2.137">doi:10.1084/jem.79.2.137</a></li>
+    <li id="s5">Hershey, A.D., Chase, M. (1952). Independent functions of viral protein and nucleic acid in growth of bacteriophage. <i>J Gen Physiol</i> 36:39–56. <a href="https://doi.org/10.1085/jgp.36.1.39">doi:10.1085/jgp.36.1.39</a></li>
+    <li id="s6">Watson, J.D., Crick, F.H.C. (1953). Molecular structure of nucleic acids. <i>Nature</i> 171:737–738. <a href="https://doi.org/10.1038/171737a0">doi:10.1038/171737a0</a>; Franklin, R., Gosling, R.G. (1953). <i>Nature</i> 171:740–741. <a href="https://doi.org/10.1038/171740a0">doi:10.1038/171740a0</a></li>
+    <li id="s7">Meselson, M., Stahl, F.W. (1958). The replication of DNA in <i>Escherichia coli</i>. <i>PNAS</i> 44:671–682. <a href="https://doi.org/10.1073/pnas.44.7.671">doi:10.1073/pnas.44.7.671</a></li>
+    <li id="s8">Nurk, S. et al. (2022). The complete sequence of a human genome. <i>Science</i> 376:44–53. <a href="https://doi.org/10.1126/science.abj6987">doi:10.1126/science.abj6987</a></li>
+  </ol>
+  <h3>הנדסה גנטית וביוטכנולוגיה</h3>
+  <ol class="refs" start="9">
+    <li id="s9">The Nobel Prize in Physiology or Medicine 1978 – Arber, Nathans, Smith (Restriction enzymes). <a href="https://www.nobelprize.org/prizes/medicine/1978/summary/">nobelprize.org</a></li>
+    <li id="s10">Jackson, D.A., Symons, R.H., Berg, P. (1972). Biochemical method for inserting new genetic information into DNA of Simian Virus 40. <i>PNAS</i> 69:2904–2909. <a href="https://doi.org/10.1073/pnas.69.10.2904">doi:10.1073/pnas.69.10.2904</a></li>
+    <li id="s11">Cohen, S.N., Chang, A.C.Y., Boyer, H.W., Helling, R.B. (1973). Construction of biologically functional bacterial plasmids in vitro. <i>PNAS</i> 70:3240–3244. <a href="https://doi.org/10.1073/pnas.70.11.3240">doi:10.1073/pnas.70.11.3240</a></li>
+    <li id="s12">Berg, P. et al. (1975). Summary statement of the Asilomar conference on recombinant DNA molecules. <i>PNAS</i> 72:1981–1984. <a href="https://doi.org/10.1073/pnas.72.6.1981">doi:10.1073/pnas.72.6.1981</a></li>
+    <li id="s13">Johnson, I.S. (1983). Human insulin from recombinant DNA technology. <i>Science</i> 219:632–637. <a href="https://doi.org/10.1126/science.6337396">doi:10.1126/science.6337396</a></li>
+    <li id="s14">The Nobel Prize in Physiology or Medicine 2007 – Capecchi, Evans, Smithies (Gene targeting in mice). <a href="https://www.nobelprize.org/prizes/medicine/2007/summary/">nobelprize.org</a></li>
+    <li id="s15">The Nobel Prize in Chemistry 1993 – Kary B. Mullis (PCR) &amp; Michael Smith. <a href="https://www.nobelprize.org/prizes/chemistry/1993/summary/">nobelprize.org</a></li>
+  </ol>
+  <h3>מוטציות, מחלות ואבחון</h3>
+  <ol class="refs" start="16">
+    <li id="s16">Jónsson, H. et al. (2017). Parental influence on human germline de novo mutations in 1,548 trios from Iceland. <i>Nature</i> 549:519–522. <a href="https://doi.org/10.1038/nature24018">doi:10.1038/nature24018</a></li>
+    <li id="s17">Nguengang Wakap, S. et al. (2020). Estimating cumulative point prevalence of rare diseases. <i>Eur J Hum Genet</i> 28:165–173. <a href="https://doi.org/10.1038/s41431-019-0508-0">doi:10.1038/s41431-019-0508-0</a></li>
+    <li id="s18">משרד הבריאות. <i>בדיקות סקר גנטיות לאיתור נשאים</i>. <a href="https://www.gov.il/he/departments/guides/genetic-tests">gov.il</a>; Kaback, M.M. (2000). Population-based genetic screening for reproductive counseling: the Tay-Sachs disease model. <i>Eur J Pediatr</i> 159:S192–S195. <a href="https://doi.org/10.1007/PL00014401">doi:10.1007/PL00014401</a></li>
+  </ol>
+  <h3>אורגניזמים מהונדסים וטיפול גני</h3>
+  <ol class="refs" start="19">
+    <li id="s19">National Academies of Sciences, Engineering, and Medicine (2016). <i>Genetically Engineered Crops: Experiences and Prospects</i>. <a href="https://doi.org/10.17226/23395">doi:10.17226/23395</a> <span class="src-type">[דו"ח מדעי]</span></li>
+    <li id="s20">ISAAA. <i>GM Crops Global Status</i> (נתוני שטחי גידול). <a href="https://www.isaaa.org">isaaa.org</a> <span class="src-type">[ארגון תעשייתי-מחקרי, יש לקרוא בביקורתיות]</span></li>
+    <li id="s21">Wilson, J.M. (2009). Lessons learned from the gene therapy trial for ornithine transcarbamylase deficiency. <i>Mol Genet Metab</i> 96:151–157. <a href="https://doi.org/10.1016/j.ymgme.2008.12.016">doi:10.1016/j.ymgme.2008.12.016</a></li>
+  </ol>
+  <h3>CRISPR ועריכת גנום</h3>
+  <ol class="refs" start="22">
+    <li id="s22">Jinek, M., Chylinski, K., Fonfara, I., Hauer, M., Doudna, J.A., Charpentier, E. (2012). A programmable dual-RNA–guided DNA endonuclease in adaptive bacterial immunity. <i>Science</i> 337:816–821. <a href="https://doi.org/10.1126/science.1225829">doi:10.1126/science.1225829</a></li>
+    <li id="s23">Cong, L. et al. (2013). Multiplex genome engineering using CRISPR/Cas systems. <i>Science</i> 339:819–823. <a href="https://doi.org/10.1126/science.1231143">doi:10.1126/science.1231143</a></li>
+    <li id="s24">The Nobel Prize in Chemistry 2020 – Charpentier &amp; Doudna. <a href="https://www.nobelprize.org/prizes/chemistry/2020/summary/">nobelprize.org</a></li>
+    <li id="s25">Komor, A.C. et al. (2016). Programmable editing of a target base in genomic DNA without double-stranded DNA cleavage. <i>Nature</i> 533:420–424. <a href="https://doi.org/10.1038/nature17946">doi:10.1038/nature17946</a></li>
+    <li id="s26">Anzalone, A.V. et al. (2019). Search-and-replace genome editing without double-strand breaks or donor DNA. <i>Nature</i> 576:149–157. <a href="https://doi.org/10.1038/s41586-019-1711-4">doi:10.1038/s41586-019-1711-4</a></li>
+    <li id="s27">Frangoul, H. et al. (2024). Exagamglogene autotemcel for severe sickle cell disease. <i>NEJM</i> 390:1649–1662. <a href="https://doi.org/10.1056/NEJMoa2309676">doi:10.1056/NEJMoa2309676</a></li>
+    <li id="s28">U.S. FDA (8 Dec 2023). <i>FDA Approves First Gene Therapies to Treat Patients with Sickle Cell Disease</i>. <a href="https://www.fda.gov/news-events/press-announcements/fda-approves-first-gene-therapies-treat-patients-sickle-cell-disease">fda.gov</a> <span class="src-type">[רגולטור]</span></li>
+    <li id="s29">Musunuru, K. et al. (2025). Patient-specific in vivo gene editing to treat a rare genetic disease. <i>NEJM</i> 392:2235–2243. <a href="https://doi.org/10.1056/NEJMoa2504747">doi:10.1056/NEJMoa2504747</a></li>
+    <li id="s30">World Health Organization (2021). <i>Human genome editing: a framework for governance</i> &amp; <i>Recommendations</i>. <a href="https://www.who.int/publications/i/item/9789240030060">who.int</a> <span class="src-type">[ארגון בינלאומי]</span></li>
+  </ol>
+  <h3>שיבוט ותאי גזע</h3>
+  <ol class="refs" start="31">
+    <li id="s31">Gurdon, J.B. (1962). The developmental capacity of nuclei taken from intestinal epithelium cells of feeding tadpoles. <i>J Embryol Exp Morphol</i> 10:622–640; The Nobel Prize in Physiology or Medicine 2012. <a href="https://www.nobelprize.org/prizes/medicine/2012/summary/">nobelprize.org</a></li>
+    <li id="s32">Wilmut, I., Schnieke, A.E., McWhir, J., Kind, A.J., Campbell, K.H.S. (1997). Viable offspring derived from fetal and adult mammalian cells. <i>Nature</i> 385:810–813. <a href="https://doi.org/10.1038/385810a0">doi:10.1038/385810a0</a>; The Roslin Institute – Dolly the Sheep. <a href="https://www.ed.ac.uk/roslin/about/dolly">ed.ac.uk/roslin</a></li>
+    <li id="s33">Sinclair, K.D. et al. (2016). Healthy ageing of cloned sheep. <i>Nature Communications</i> 7:12359. <a href="https://doi.org/10.1038/ncomms12359">doi:10.1038/ncomms12359</a></li>
+    <li id="s34">Liu, Z. et al. (2018). Cloning of macaque monkeys by somatic cell nuclear transfer. <i>Cell</i> 172:881–887. <a href="https://doi.org/10.1016/j.cell.2018.01.020">doi:10.1016/j.cell.2018.01.020</a></li>
+    <li id="s35">Cyranoski, D. (2006). Verdict: Hwang's human stem cells were all fakes. <i>Nature</i> 439:122–123. <a href="https://doi.org/10.1038/439122a">doi:10.1038/439122a</a></li>
+    <li id="s36">Matoba, S., Zhang, Y. (2018). Somatic cell nuclear transfer reprogramming: mechanisms and applications. <i>Cell Stem Cell</i> 23:471–485. <a href="https://doi.org/10.1016/j.stem.2018.06.018">doi:10.1016/j.stem.2018.06.018</a> <span class="src-type">[סקירה]</span></li>
+    <li id="s37">Tachibana, M. et al. (2013). Human embryonic stem cells derived by somatic cell nuclear transfer. <i>Cell</i> 153:1228–1238. <a href="https://doi.org/10.1016/j.cell.2013.05.006">doi:10.1016/j.cell.2013.05.006</a></li>
+    <li id="s38">Takahashi, K., Yamanaka, S. (2006). Induction of pluripotent stem cells from mouse embryonic and adult fibroblast cultures by defined factors. <i>Cell</i> 126:663–676. <a href="https://doi.org/10.1016/j.cell.2006.07.024">doi:10.1016/j.cell.2006.07.024</a></li>
+    <li id="s39">Oldak, B. et al. (2023). Complete human day 14 post-implantation embryo models from naive ES cells. <i>Nature</i> 622:562–573. <a href="https://doi.org/10.1038/s41586-023-06604-5">doi:10.1038/s41586-023-06604-5</a> <span class="src-type">[מכון ויצמן]</span></li>
+  </ol>
+  <h3>אתיקה, רגולציה וחקיקה</h3>
+  <ol class="refs" start="40">
+    <li id="s40">National Academies (2017). <i>Human Genome Editing: Science, Ethics, and Governance</i>. <a href="https://doi.org/10.17226/24623">doi:10.17226/24623</a>; Statement of the Organising Committee, Third International Summit on Human Genome Editing (London, 2023). <a href="https://royalsociety.org/news-resources/projects/human-genome-editing-summit/">royalsociety.org</a></li>
+    <li id="s41">United States Holocaust Memorial Museum. <i>Eugenics</i> &amp; <i>Nazi Persecution of the Disabled</i>. <a href="https://encyclopedia.ushmm.org/content/en/article/eugenics">encyclopedia.ushmm.org</a></li>
+    <li id="s42">Nuffield Council on Bioethics (2018). <i>Genome editing and human reproduction: social and ethical issues</i>. <a href="https://www.nuffieldbioethics.org/publication/genome-editing-and-human-reproduction-social-and-ethical-issues/">nuffieldbioethics.org</a>; Beauchamp, T.L., Childress, J.F. <i>Principles of Biomedical Ethics</i> (8th ed., Oxford UP, 2019). <span class="src-type">[ספר יסוד]</span></li>
+    <li id="s43">חוק איסור התערבות גנטית (שיבוט אדם ושינוי גנטי בתאי רבייה), התשנ"ט-1999. <a href="https://www.nevo.co.il/law_html/law00/71922.htm">נבו – מאגר החקיקה</a>; ובאתר הכנסת: <a href="https://main.knesset.gov.il/">knesset.gov.il</a></li>
+    <li id="s44">חוק מידע גנטי, התשס"א-2000. <a href="https://www.nevo.co.il/law_html/law00/72047.htm">נבו – מאגר החקיקה</a></li>
+    <li id="s45">Human Fertilisation and Embryology Authority (HFEA). <i>Mitochondrial donation treatment</i>. <a href="https://www.hfea.gov.uk/treatments/embryo-testing-and-treatments-for-disease/mitochondrial-donation-treatment/">hfea.gov.uk</a></li>
+    <li id="s46">European Commission. <i>New genomic techniques</i> (proposal and legislative process). <a href="https://food.ec.europa.eu/plants/genetically-modified-organisms/new-techniques-biotechnology_en">food.ec.europa.eu</a></li>
+    <li id="s47">Council of Europe (1997). <i>Convention on Human Rights and Biomedicine (Oviedo Convention)</i>, ETS No. 164. <a href="https://www.coe.int/en/web/conventions/full-list?module=treaty-detail&amp;treatynum=164">coe.int</a></li>
+    <li id="s48">UNESCO (1997). <i>Universal Declaration on the Human Genome and Human Rights</i>. <a href="https://www.unesco.org/en/legal-affairs/universal-declaration-human-genome-and-human-rights">unesco.org</a></li>
+  </ol>
+  <h3>מקורות מומלצים בעברית ולהעמקה</h3>
+  <ol class="refs" start="49">
+    <li id="s49">מכון דוידסון לחינוך מדעי, מכון ויצמן למדע. כתבות על גנטיקה, CRISPR ושיבוט. <a href="https://davidson.weizmann.ac.il/">davidson.weizmann.ac.il</a> <span class="src-type">[עברית]</span></li>
+    <li id="s50">Mukherjee, S. (2016). <i>The Gene: An Intimate History</i>. Scribner. בעברית: <i>הגן: היסטוריה אינטימית</i> (הוצאת מטר); Isaacson, W. (2021). <i>The Code Breaker</i>. Simon &amp; Schuster. <span class="src-type">[ספרי עיון]</span></li>
+  </ol>
+  <div class="box note"><span class="lbl">הערה על השימוש במקורות</span>
+    <p>הנתונים בחוברת נבדקו מול המקורות שלעיל ונכונים לאוקטובר 2026. בתחום שמתפתח מהר כל כך (במיוחד אישורי תרופות ומחירים), כדאי לבדוק עדכונים באתרי הרגולטורים (FDA, EMA, משרד הבריאות) לפני ציטוט בעבודה.</p>
+  </div>
+</section>
+
+</main>
+</div>
+
+<footer>חוברת עומק: גנטיקה, הנדסה גנטית ושיבוט • אוקטובר 2026 • לשימוש חינוכי • <a href="index.html">חזרה לאתר DNA Explorer</a> • <a href="booklet.pdf" download>הורדה כ-PDF</a></footer>
+<button class="topbtn" type="button" onclick="window.scrollTo({top:0})" aria-label="חזרה למעלה">↑</button>
+
+<script>
+(function(){
+  var root=document.documentElement, btn=document.getElementById('themebtn');
+  try{var t=localStorage.getItem('gen-theme'); if(t) root.setAttribute('data-theme',t);}catch(e){}
+  btn.addEventListener('click',function(){
+    var cur=root.getAttribute('data-theme') || (matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+    var next=cur==='dark'?'light':'dark'; root.setAttribute('data-theme',next);
+    try{localStorage.setItem('gen-theme',next);}catch(e){}
+  });
+  var links=[].slice.call(document.querySelectorAll('nav.toc a'));
+  var map={}; links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(e.isIntersecting){links.forEach(function(l){l.classList.remove('active')}); var a=map[e.target.id]; if(a) a.classList.add('active');}
+    });},{rootMargin:'-20% 0px -70% 0px'});
+    document.querySelectorAll('main section[id]').forEach(function(s){io.observe(s)});
+  }
+})();
+</script>
+</body>
+</html>

@@ -49,6 +49,8 @@ tailwind.config = {
   .tbl-wrap{overflow-x:auto}
   .tab-btn{flex:none;display:flex;align-items:center;gap:.45rem;padding:.55rem .9rem;border-radius:.7rem;font-weight:600;font-size:.92rem;color:#334155;background:#f1f5f9;border:1px solid transparent;transition:all .15s;white-space:nowrap}
   .tab-btn:hover{background:#e2e8f0}
+  .booklet-link{flex:none;display:flex;align-items:center;gap:.35rem;padding:.55rem .9rem;border-radius:.7rem;font-weight:700;font-size:.92rem;color:#fff;background:var(--green);white-space:nowrap;text-decoration:none;transition:background .15s}
+  .booklet-link:hover{background:#0a7a54}
   .tab-btn .tnum{width:1.45rem;height:1.45rem;border-radius:999px;display:inline-grid;place-items:center;background:#cbd5e1;color:#fff;font-size:.78rem}
   .tab-btn[aria-selected="true"]{background:var(--navy);color:#fff;box-shadow:0 4px 12px rgba(11,58,110,.25)}
   .tab-btn[aria-selected="true"] .tnum{background:var(--green)}
@@ -154,8 +156,8 @@ tailwind.config = {
       <div id="globalScore" dir="ltr" class="font-extrabold text-sci text-lg leading-tight">0 / 60</div>
     </div>
   </div>
-  <nav class="max-w-6xl mx-auto px-3 pb-2.5">
-    <div role="tablist" aria-label="יחידות לימוד" class="flex gap-2 overflow-x-auto no-scrollbar" id="tabList">
+  <nav class="max-w-6xl mx-auto px-3 pb-2.5 flex items-center gap-2">
+    <div role="tablist" aria-label="יחידות לימוד" class="flex-1 min-w-0 flex gap-2 overflow-x-auto no-scrollbar" id="tabList">
       <button class="tab-btn" role="tab" data-tab="dna" aria-selected="true"><span class="tnum">1</span>מבנה ושכפול DNA</button>
       <button class="tab-btn" role="tab" data-tab="rna" aria-selected="false"><span class="tnum">2</span>שעתוק ו-RNA</button>
       <button class="tab-btn" role="tab" data-tab="protein" aria-selected="false"><span class="tnum">3</span>תרגום לחלבונים</button>
@@ -163,6 +165,7 @@ tailwind.config = {
       <button class="tab-btn" role="tab" data-tab="cloning" aria-selected="false"><span class="tnum">5</span>שיבוט והכבשה דולי</button>
       <button class="tab-btn" role="tab" data-tab="crispr" aria-selected="false"><span class="tnum">6</span>הנדסה גנטית ואתיקה</button>
     </div>
+    <a href="booklet.html" class="booklet-link" title="חוברת עומק: גנטיקה, הנדסה גנטית ושיבוט">📘 חוברת עומק</a>
   </nav>
 </header>
 
@@ -1206,7 +1209,7 @@ tailwind.config = {
 
 <footer class="border-t border-slate-200 bg-white mt-8">
   <div class="max-w-6xl mx-auto px-4 py-5 text-sm text-slate-500 leading-relaxed">
-    אתר לימודי בגנטיקה למגמת מדעי הרפואה · כל האיורים נוצרו כקוד SVG מוטמע · התוכן מיועד ללמידה ואינו מהווה ייעוץ רפואי.
+    אתר לימודי בגנטיקה למגמת מדעי הרפואה · כל האיורים נוצרו כקוד SVG מוטמע · התוכן מיועד ללמידה ואינו מהווה ייעוץ רפואי.<br><a href="booklet.html" class="font-bold text-navy underline">חוברת עומק: גנטיקה, הנדסה גנטית ושיבוט</a> · <a href="booklet.pdf" download class="text-navy underline">הורדה כ-PDF</a>
   </div>
 </footer>
 
